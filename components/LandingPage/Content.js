@@ -8,52 +8,38 @@ const Content = ({text}) => {
 
   const [ data, setData] = useState(null);
 
+
+  const [isMounted, setIsMounted] = useState(false); // Track mounting state
+
   function catSearch(){
     location.href = '/searchCat'
   }
 
-  /*
-  async function getAPI(){
-    const url = 'https://cat-fact.herokuapp.com';
-    const options = {
-      method: 'GET',
-      headers: {
-        'x-rapidapi-key': '52ac2fbb50mshfbad3182a76b861p11d3c2jsnee523910cfd8',
-        'x-rapidapi-host': 'random-cat-fact.p.rapidapi.com'
-      }
-    };
-
-    try {
-      const response = await fetch(url, options);
-      const result = await response.text();
-      console.log(result);
-    } catch (error) {
-      console.error(error);
-    }
-  } */
 
   
   useEffect(()=> {
     const fetchCatData = async () => {
-      const res = await fetch('https://cat-fact.herokuapp.com/facts');
-      const factData = await res.json();
-      setData(factData);
+      try {
+        // Fetch data from the /facts endpoint
+        const res = await fetch('https://cat-fact.herokuapp.com/facts');
+        const factData = await res.json();
+
+        const randomFact = factData[Math.floor(Math.random() * factData.length)]
+
+        // Handle the response and set the data
+        setData(randomFact);
+      } catch (error) {
+        console.error('Error fetching cat facts:', error);
+      }
     };
   
     fetchCatData();
+    setIsMounted(true);
 
-  }, [user]) 
+  }, []) 
 
 
-  /*
-                {data.map(fact => (
-                  <p>fact.</p>
-                ))}
-                  */
-
-  // function await getCatFactsAPI(){
-    
-  // }
+  
 
 
   return (
@@ -72,9 +58,14 @@ const Content = ({text}) => {
               <Info>Info</Info>
             <Subheading>Fun Cat Facts</Subheading>
               <Info>
-                API 
+                {data && isMounted ? (
+                  <div>
+                    <p>{data.text}</p>
+                  </div>
+                ) : (
+                  <p>Loading Cat Facts...</p>
+                )}
                 
-
               </Info>
             <Subheading>Basics of Taking Care of a Cat</Subheading>
               <Info>Basics</Info>
