@@ -8,7 +8,6 @@ export default function Home() {
   return (
     <>
         <NavigationBar />
-        <Content text={'Send this to the Hero'} />
         <Content />
         <Footer />
     </>

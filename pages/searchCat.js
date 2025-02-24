@@ -1,13 +1,15 @@
 import React from 'react'
+import NavigationBar from "@/components/Dashboard/Navbar"
+import Footer from "@/components/LandingPage/Footer"
+import Content from "@/components/LandingPage/Content"
+
 
 const SearchCat = () => {
 
   return (
     <>
-        <Navbar/>
-        <Hero text={'Send this to the Hero'} />\
+        <NavigationBar />
         <div>Search Cats</div>
-        <Hero />
         <Footer />
     </>
   )

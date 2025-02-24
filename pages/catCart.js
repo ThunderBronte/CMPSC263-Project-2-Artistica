@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Navbar from '@/components/Dashboard/Navbar'
 import { useStateContext } from '@/context/StateContext'
 import { useRouter } from 'next/router'
+import Footer from "@/components/LandingPage/Footer"
 
 
 const CatCart = () => {
@@ -27,10 +28,10 @@ const CatCart = () => {
   return (
     <>
         <Navbar/>
-        <Hero text={'Send this to the Hero'} />\
         <Section>
        <TopHeader>
         Dashboard
+
         
         <ButtonLink href="/auth/signup">Sign Up</ButtonLink>
         <ButtonLink href="/auth/login">Login</ButtonLink>
@@ -38,7 +39,6 @@ const CatCart = () => {
 
 
     </Section>
-        <Hero />
         <Footer />
     </>
   )

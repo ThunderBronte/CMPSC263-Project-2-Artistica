@@ -29,6 +29,10 @@ const NavigationBar = () => {
   }, user) 
 
 
+  // CHANGE TO
+  //  <Button variant="outline-primary">Primary</Button>
+  // FOR THE LINKS!!
+  // CHANGE THE PROFILE ONE TO LOOK DIFFERENT 
   
 
     return (
@@ -49,7 +53,7 @@ const NavigationBar = () => {
                 <Nav.Link href="/catCart"><ListItem>Cat Cart: Saved Cats</ListItem></Nav.Link>
               </Nav.Item>
               <Nav.Item>
-              <Nav.Link href="/profilePage"><ListItem>Hello {name}!</ListItem></Nav.Link>
+              <Nav.Link href="/profilePage"><ListItem>{name}'s Profile</ListItem></Nav.Link>
               </Nav.Item>
             </Nav>
             </Container>
