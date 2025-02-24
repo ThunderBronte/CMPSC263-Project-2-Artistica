@@ -6,11 +6,12 @@ const Footer = () => {
     <FooterSection>
       <FooterContainer>
         <LeftContainer>
-          {new Date().getFullYear()} <br></br>
-          Left Container Information
+          Contact Us! <br></br>
+          Phone Number: 123-456-7890 <br></br>
+          Email: PurrfectPals@gmail.com
         </LeftContainer>
         <CenterContainer>
-          Center Container information 
+          Center Container information <br></br>
           <Link href="#">Privacy Policy</Link> | <Link href="#">Terms of Service</Link>
         </CenterContainer>
         <RightContainer>
@@ -22,6 +23,10 @@ const Footer = () => {
           <br></br>
           <SocialIcon href="#" aria-label="Instagram">IG icon</SocialIcon>
         </RightContainer>
+        <BottomContainer>
+          Website icon 
+          @{new Date().getFullYear()} PurrfectPals.com
+        </BottomContainer>
       </FooterContainer>
     </FooterSection>
   );
@@ -31,14 +36,25 @@ const FooterSection = styled.footer`
   background-color: #25283D;
   color: white;
   font-size: 16px;
+  margin: 100 px;
 `;
 
+
+// Need to make the grid flexible 
 const FooterContainer = styled.div`
   font-family: "Comic sans";
-  align-content: space-around;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+
+  display: grid;
+  grid-template-columns: 300px 300px 300px;
+  grid-template-rows: auto 50px;
+  column-gap: 10px;
+  row-gap: 15px;
+
+  justify-items: center;
+  align-items: center; 
+  justify-content: center;
+
+  
 `;
 
 const LeftContainer = styled.div`
@@ -50,6 +66,10 @@ const CenterContainer = styled.div`
 `;
 
 const RightContainer = styled.div`
+  text-align: center;
+`;
+
+const BottomContainer = styled.div`
   text-align: center;
 `;
 
