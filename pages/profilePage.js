@@ -33,17 +33,22 @@ export default function Home() {
   
 
   function changeUser(){
-    name = Button.value;
-    setUser(name);
+    setUser(Button.value);
+  }
+
+  function catSearch(){
+    location.href = '/catCart'
   }
 
 
+  // Might want to change it so the useEffect changes what is displayed on the screen
   return (
     <>
     <NavigationBar />
       <ProfilePage>
         <ContentContainer>
           <Heading>Hello {user}!</Heading>
+          <hr></hr>
           <Subheading>Here is your information: </Subheading>
             <ProfileInfo>Current Username: {user}</ProfileInfo>
           <Subheading> Want to change your information? </Subheading>
@@ -51,17 +56,12 @@ export default function Home() {
               New Username: <InputInfo></InputInfo> 
               <Button onClick={changeUser()}>Change Username</Button>
             </ProfileInfo>
-          <Subheading>
-            Cats you have adopted:
+          <Subheading> Cats you have adopted: </Subheading>
             <ProfileInfo>
               Cat names list
             </ProfileInfo>
-          </Subheading>
-          <Subheading>
-            Want to see your current Cat Cart?
-            <br></br>
-            <Button>Go to Cat Cart list!</Button>
-          </Subheading>
+          <Subheading> Want to see your current Cat Cart? </Subheading>
+          <ProfileInfo><Button onClick={() => catSearch()}>Go to Cat Cart list!</Button></ProfileInfo>
         </ContentContainer>
       </ProfilePage>
       <Footer />
@@ -88,6 +88,8 @@ const ContentContainer = styled.div`
 const Heading = styled.h1`
   font-size: 100px;
   text-align: center;
+  padding-top: 75px;
+  padding-bottom: 75px;
 `;
 
 const Subheading = styled.h2`
@@ -113,12 +115,15 @@ const Button = styled.button`
   border-radius: 4px;
   margin-left: 15px;
 
-  background-color: #25283D;
-  color: #43DFBD;
-  &:hover{
-    background-color: #43DFBD;
-    color: #25283D;
+  color: #25283D;
+  &:hover{ 
+    background-color: #25283D; 
+    color: #43DFBD;
   }
+  border-color: #25283D;
+  border-radius: 50px;
+  border-style: solid;
+  background-color: transparent;
 
 `;
 

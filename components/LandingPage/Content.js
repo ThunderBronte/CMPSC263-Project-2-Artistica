@@ -8,7 +8,7 @@ const Content = ({text}) => {
 
   const [ data, setData] = useState(null);
 
-
+  // Create mount to make sure the component runs after we get the API data
   const [isMounted, setIsMounted] = useState(false); // Track mounting state
 
   function catSearch(){
@@ -16,7 +16,7 @@ const Content = ({text}) => {
   }
 
 
-  
+  // WARNING!!! Will fail if you menually reload the page. Not sure why :(
   useEffect(()=> {
     const fetchCatData = async () => {
       try {
@@ -119,7 +119,10 @@ const Button = styled.button`
   left: -5%;
   
   color: White;
-  &:hover{ background-color: #25283D; }
+  &:hover{ 
+    background-color: #25283D; 
+    color: #43DFBD;
+  }
   border-color: white;
   border-radius: 50px;
   border-style: solid;
