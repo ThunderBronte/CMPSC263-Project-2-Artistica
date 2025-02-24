@@ -37,6 +37,7 @@ const FooterSection = styled.footer`
   color: white;
   font-size: 16px;
   margin: 100 px;
+  padding: 30px;
 `;
 
 

@@ -1,6 +1,7 @@
 import Head from 'next/head'    //use instead of head
 import { StateContext } from "@/context/StateContext"
 import { createGlobalStyle } from 'styled-components'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export const GlobalStyle = createGlobalStyle`
   * 
@@ -22,6 +23,14 @@ export default function App({ Component, pageProps }) {
           <link rel="icon" type="image/png" sizes="32x32" href="/favicon_package/favicon-32x32.png"/>
           <link rel="icon" type="image/png" sizes="16x16" href="/favicon_package/favicon-16x16.png"/>
           <link rel="manifest" href="/favicon_package/site.webmanifest"/>
+          
+          <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+            crossorigin="anonymous"
+          />
+
           <meta name="msapplication-TileColor" content="#da532c"/>
           <meta name="theme-color" content="#ffffff"/>
         </Head>

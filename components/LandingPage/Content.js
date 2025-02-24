@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Hero = ({text}) => {
+const Content = ({text}) => {
   return (
     <Section>
       <Overlay>
@@ -55,4 +55,4 @@ const CTAButton = styled.button`
 
 `;
 
-export default Hero;
+export default Content;

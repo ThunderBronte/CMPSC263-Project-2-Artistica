@@ -1,41 +1,85 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components';
 import Link from 'next/link'
 import { logOut } from '@/backend/Auth';
 import { useStateContext } from '@/context/StateContext';
-import Home from '@/components/Dashboard/Home'
+import Logo from '@/components/Dashboard/Logo'
+
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import Container from 'react-bootstrap/Container';
 
 
 
-const Navbar = () => {
-  const { setUser } = useStateContext()
 
-  return (
-    <Nav>
-      <Logo onClick={() => logOut(setUser)} href="/">CMPSC 263</Logo>
-      <Home></Home>
-      <NavLinks>
-        <ButtonLink href="/auth/signup">Sign Up</ButtonLink>
-        <ButtonLink href="/auth/login">Login</ButtonLink>
-      </NavLinks>
-    </Nav>
-  );
+const NavigationBar = () => {
+  
+  const { user } = useStateContext()
+
+  let name = "";
+
+  
+  // See what name to display in the top right corner
+  useEffect(() => {
+    if(!user){
+      name = "guest";
+    }else{
+      name = user;
+    }
+  }, user) 
+
+
+  
+
+    return (
+      <>
+      <ContainerNavBar>
+        <Navbar expand="lg" className="bg-body-tertiary">
+          <Container fluid>
+            <Nav>
+              <ListItem>
+                <Logo></Logo>
+              </ListItem>
+            </Nav>
+            <Nav className="justify-content-center">
+              <Nav.Item>
+                <Nav.Link href="/searchCat"><ListItem>Find Cats to Adopt</ListItem></Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link href="/catCart"><ListItem>Cat Cart: Saved Cats</ListItem></Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+              <Nav.Link href="/profilePage"><ListItem>Hello {name}!</ListItem></Nav.Link>
+              </Nav.Item>
+            </Nav>
+            </Container>
+          </Navbar>
+        </ContainerNavBar>
+      </>
+    );
+  
+
+
 };
 
-const Nav = styled.nav`
+
+
+const ContainerNavBar = styled.div`
+  margin-left: 150px;
+  margin-right: 150px;
+  background-color: #FFFFFF;
 
 `;
 
-const Logo = styled(Link)`
-
+const ListItem = styled.div`
+  padding-left: 30px;
+  color: #25283D;
+  &:hover{
+    color: #43DFBD;
+  }
+  
 `;
 
-const NavLinks = styled.div`
 
-`;
 
-const ButtonLink = styled(Link)`
-
-`;
-
-export default Navbar;
+export default NavigationBar;

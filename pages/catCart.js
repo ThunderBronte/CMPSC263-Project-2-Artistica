@@ -6,7 +6,7 @@ import { useStateContext } from '@/context/StateContext'
 import { useRouter } from 'next/router'
 
 
-const Dashboard = () => {
+const CatCart = () => {
 
   const { user } = useStateContext()  
 
@@ -25,13 +25,22 @@ const Dashboard = () => {
 
 
   return (
-    <Section>
-      { <TopHeader>
+    <>
+        <Navbar/>
+        <Hero text={'Send this to the Hero'} />\
+        <Section>
+       <TopHeader>
         Dashboard
-      </TopHeader> }
+        
+        <ButtonLink href="/auth/signup">Sign Up</ButtonLink>
+        <ButtonLink href="/auth/login">Login</ButtonLink>
+      </TopHeader> 
 
 
     </Section>
+        <Hero />
+        <Footer />
+    </>
   )
 }
 
@@ -44,6 +53,9 @@ display: flex;
 justify-content: center;
 `
 
+const ButtonLink = styled(Link)`
+
+`;
 
 
 const TopHeader = styled.h1`
@@ -54,4 +66,4 @@ display: flex;
 
 
 
-export default Dashboard
+export default CatCart
