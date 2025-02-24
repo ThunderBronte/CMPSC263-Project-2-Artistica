@@ -1,4 +1,4 @@
-import Head from 'next/head' //use instead of head
+import Head from 'next/head'    //use instead of head
 import { StateContext } from "@/context/StateContext"
 import { createGlobalStyle } from 'styled-components'
 

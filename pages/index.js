@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <>
         <Navbar/>
-        <Hero text={'WELCOME TO MY CLASS'} />
+        <Hero text={'Send this to the rest'} />
         <Hero />
         <Footer />
     </>

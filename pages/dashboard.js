@@ -13,22 +13,22 @@ const Dashboard = () => {
   const router = useRouter()
 
 
-  useEffect(() => {
+  /*useEffect(() => {
     if(!user){
       router.push('/')
     }else{
 
     }
-  }, user)
+  }, user) */
 
 
 
 
   return (
     <Section>
-      {/* <TopHeader>
+      { <TopHeader>
         Dashboard
-      </TopHeader> */}
+      </TopHeader> }
 
 
     </Section>
