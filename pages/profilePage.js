@@ -36,9 +36,10 @@ export default function Home() {
     setUser(Button.value);
   }
 
-  function catSearch(){
-    location.href = '/catCart'
+  const catSearch = () =>{
+    router.push('/catCart');
   }
+  
 
 
   // Might want to change it so the useEffect changes what is displayed on the screen

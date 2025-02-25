@@ -4,10 +4,16 @@ import NavigationBar from "@/components/Dashboard/Navbar"
 import Footer from "@/components/LandingPage/Footer"
 import { StateContext, useStateContext } from '@/context/StateContext'
 import React, { useState, useEffect } from 'react'
+import { useRouter } from "next/router"
 
 
 const SearchCat = () => {
 
+  const router = useRouter();
+
+  const homePage = () => {
+    router.push('/');
+  }
 
   const [button, setButton ] = useState(false);
 
@@ -52,6 +58,8 @@ const SearchCat = () => {
   }
 
 
+
+
   //Search Cats<InputInfo></InputInfo>  
   // might get rid of text box
   return (
@@ -63,9 +71,10 @@ const SearchCat = () => {
               Adopt Kittens & Cats!
             </Title>
             <SearchSection>
-              
+              <Button onClick={() => homePage()}>Learn how to take care of cats!</Button>
               <Button onClick={buttenWasPressed}>Search Cats</Button>
             </SearchSection>
+            <hr></hr>
             <ImageContainer>
               {data && isMounted ? (
                 <div>
@@ -78,7 +87,6 @@ const SearchCat = () => {
                       ))}</p> ) : (
                         <p>Loading Cat Names...</p>
                       )}
-
                     </span>
                 ))} 
                 </div>
@@ -111,21 +119,26 @@ const ContentContainer = styled.div`
 
 const Title = styled.h1`
   text-align: center;
+  font-size: 75px;
   padding-bottom: 50px;
 `;
 
 const SearchSection = styled.div`
-  padding-bottom: 100px;
+  padding-bottom: 50px;
+  display: felx;
 `;
 
 const Button = styled.button`
-  padding: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
+font-size: 50px;
+  padding: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
   border-radius: 4px;
   margin: 5px;
   margin-left: 15px;
-  text-align: center;
+
+  display: flex;
+  text-align: right;
 
   color: #25283D;
   &:hover{ 
@@ -144,6 +157,7 @@ const ImageContainer = styled.div`
   border-radius: 30px;
   display: flex;
   justify-content: space-evenly;
+  padding-top: 50px;
   
 `;
 
