@@ -5,7 +5,7 @@ import Footer from "@/components/LandingPage/Footer"
 import { useRouter } from 'next/router'
 import { StateContext, useStateContext } from '@/context/StateContext'
 import React, { useState, useEffect } from 'react'
-//import Button from 'react-bootstrap/Button'
+import Background from '@/components/Elements/Background'
 
 
 
@@ -73,8 +73,8 @@ export default function Home() {
 const ProfilePage = styled.div`
   background-color: #DFDFDF;
   padding: 20px;
-  padding-left: 200px;
-  padding-right: 200px;
+  padding-left: 10%;
+  padding-right: 10%;
 `;
 
 const ContentContainer = styled.div`

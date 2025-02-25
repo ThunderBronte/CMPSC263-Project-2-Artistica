@@ -9,7 +9,7 @@ const Content = ({text}) => {
   const [ data, setData] = useState(null);
 
   // Create mount to make sure the component runs after we get the API data
-  const [isMounted, setIsMounted] = useState(false); // Track mounting state
+  const [isMounted, setIsMounted] = useState(false); 
 
   function catSearch(){
     location.href = '/searchCat'
@@ -80,8 +80,8 @@ const MainPage = styled.div`
   padding: 20px;
   padding-bottom: 0;
   
-  padding-left: 200px;
-  padding-right: 200px;
+  padding-left: 10%;
+  padding-right: 10%;
 `;
 
 const ContentContainer = styled.div`

@@ -16,7 +16,8 @@ export default function App({ Component, pageProps }) {
   return (
     <>
         <Head>
-          <title>MVP Starter</title>
+          <title>Purrfect Pals</title>
+          <link rel="icon" type="image/x-icon" href="/PurrfectPals.png"></link>
           <meta name='description' content='Put a description here about your app'/>
           <meta name='robots' content='index, follow'/>
           <link rel="apple-touch-icon" sizes="180x180" href="/favicon_package/apple-touch-icon.png"/>
@@ -28,7 +29,7 @@ export default function App({ Component, pageProps }) {
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
             integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-            crossorigin="anonymous"
+            crossOrigin="anonymous"
           />
 
           <meta name="msapplication-TileColor" content="#da532c"/>

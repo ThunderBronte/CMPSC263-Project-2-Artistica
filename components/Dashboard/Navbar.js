@@ -26,7 +26,7 @@ const NavigationBar = () => {
     }else{
       name = user;
     }
-  }, user) 
+  }, [user]) 
 
 
   // CHANGE TO

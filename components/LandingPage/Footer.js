@@ -54,7 +54,7 @@ const FooterContainer = styled.div`
   justify-items: center;
   align-items: center; 
   justify-content: center;
-
+  flex-wrap: wrap;
   
 `;
 
