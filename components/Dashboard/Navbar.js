@@ -5,9 +5,6 @@ import { logOut } from '@/backend/Auth';
 import { useStateContext } from '@/context/StateContext';
 import Logo from '@/components/Dashboard/Logo'
 
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import Container from 'react-bootstrap/Container';
 
 
 
@@ -38,27 +35,13 @@ const NavigationBar = () => {
     return (
       <>
       <ContainerNavBar>
-        <Navbar expand="lg" className="bg-body-tertiary">
-          <Container fluid>
-            <Nav>
-              <ListItem>
-                <Logo></Logo>
-              </ListItem>
-            </Nav>
-            <Nav className="justify-content-center">
-              <Nav.Item>
-                <Nav.Link href="/searchCat"><ListItem>Find Cats to Adopt</ListItem></Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link href="/catCart"><ListItem>Cat Cart: Saved Cats</ListItem></Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-              <Nav.Link href="/profilePage"><ListItem>{name}'s Profile</ListItem></Nav.Link>
-              </Nav.Item>
-            </Nav>
-            </Container>
-          </Navbar>
-        </ContainerNavBar>
+        <Navbar>
+          <ListItem><Logo></Logo></ListItem>
+          <ListItem href="/searchCat">Find Cats to Adopt</ListItem>
+          <ListItem href="/catCart">Cat Cart: Saved Cats</ListItem>
+          <ListItem href="/profilePage">{name}'s Profile</ListItem>
+        </Navbar>
+      </ContainerNavBar>
       </>
     );
   
@@ -75,7 +58,14 @@ const ContainerNavBar = styled.div`
 
 `;
 
-const ListItem = styled.div`
+const Navbar = styled.ul`
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+`;
+
+const ListItem = styled.li`
+  display: inline;  
   padding-left: 30px;
   color: #25283D;
   &:hover{
