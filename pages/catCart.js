@@ -10,61 +10,55 @@ import Footer from "@/components/LandingPage/Footer"
 
 const CatCart = () => {
 
-
-  const [button, setButton ] = useState(false);
-
   const { user, setUser } = useStateContext()
   const [ data, setData] = useState(null);
   const [ nameData, setNameData ] = useState(null);
 
+  const router = useRouter()
+
   // Create mount to make sure the component runs after we get the API data
-    const [isMounted, setIsMounted] = useState(false); 
+  const [isMounted, setIsMounted] = useState(false); 
 
 
   useEffect(() =>{
     // Here, I will get the data from a personal json file and display it 
 
+    const fetchCatImages = async () => {
+      try{
+        const res = await fetch('https://api.thecatapi.com/v1/images/search?limit=10');
+        const imageData = await res.json();
 
-    // const fetchCatImages = async () => {
-    //   try{
-    //     const res = await fetch('https://api.thecatapi.com/v1/images/search?limit=10');
-    //     const imageData = await res.json();
+        setData(imageData);
+      } catch(error){ 
+        console.error('Error fetching cat facts:', error);
+      }
+    }
 
-    //     setData(imageData);
-    //   } catch(error){ 
-    //     console.error('Error fetching cat facts:', error);
-    //   }
-    // }
-
-    // const fetchRandomName = async () => {
-    //   try{
-    //     const res = await fetch('https://randomuser.me/api/');
-    //     const nameData = await res.json();
+    const fetchRandomName = async () => {
+      try{
+        const res = await fetch('https://randomuser.me/api/');
+        const nameData = await res.json();
         
-    //     setNameData(nameData.results);
-    //   } catch(error){
-    //     console.error("Error getting names: ", error);
-    //   }
-    // }
+        setNameData(nameData.results);
+      } catch(error){
+        console.error("Error getting names: ", error);
+      }
+    }
     
-    // fetchCatImages();
-    // fetchRandomName();
-    // setIsMounted(true); 
-  },[button])
+    fetchCatImages();
+    fetchRandomName();
+    setIsMounted(true); 
+  },[user])
 
 
-  function buttenWasPressed(){
-    setButton(!button);
-  }
 
+  // useEffect(() => {
+  //   if(!user){
+  //     router.push('/login')
+  //   }else{
 
-  /*useEffect(() => {
-  if(!user){
-    router.push('/login')
-  }else{
-
-  }
-}, user) */
+  //   }
+  // }, user) 
 
 
   //Search Cats<InputInfo></InputInfo>  
@@ -79,24 +73,26 @@ const CatCart = () => {
             </Title>
             <hr></hr>
             <ImageContainer>
-              {data && isMounted ? (
-                <div>
-                  {data.map((image) => (
-                    <span key = {image.id}>
-                      <img src={image.url} width="300"/>
-                      {nameData ? (
-                      <p>{nameData.map((name, index) => (
-                        <span key = {index}> {name.first} {name.last}</span>
-                      ))}</p> ) : (
-                        <p>Loading Cat Names...</p>
-                      )}
-
-                    </span>
-                ))} 
-                </div>
-              ) : (
-                <p>Loading Cat Images...</p>
-              )}
+              <ul>
+                {data && isMounted ? (
+                  <div>
+                    {data.map((image) => (
+                      
+                      <li key = {image.id}>
+                        <img src={image.url} width="300"/>
+                        {nameData ? (
+                        <p>{nameData.map((name, index) => (
+                          <span key = {index}> {name.first} {name.last}</span>
+                        ))}</p> ) : (
+                          <p>Loading Cat Names...</p>
+                        )}
+                        </li>
+                  ))} 
+                  </div>
+                ) : (
+                  <p>Loading Cat Images...</p>
+                )}
+              </ul>
             </ImageContainer>
           </ContentContainer>
         </Page>

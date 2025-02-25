@@ -16,15 +16,15 @@ const NavigationBar = () => {
   
   const { user } = useStateContext()
 
-  let name = "";
+  const [name, setName] = useState(null);
 
   
   // See what name to display in the top right corner
   useEffect(() => {
     if(!user){
-      name = "guest";
+      setName("Guest");
     }else{
-      name = user;
+      setName(user);
     }
   }, [user]) 
 

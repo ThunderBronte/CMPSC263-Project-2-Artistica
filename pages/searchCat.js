@@ -72,7 +72,7 @@ const SearchCat = () => {
             </Title>
             <SearchSection>
               <Button onClick={() => homePage()}>Learn how to take care of cats!</Button>
-              <Button onClick={buttenWasPressed}>Search Cats</Button>
+              <Button onClick={buttenWasPressed}>Search More Cats</Button>
             </SearchSection>
             <hr></hr>
             <ImageContainer>
@@ -88,7 +88,7 @@ const SearchCat = () => {
                         <p>Loading Cat Names...</p>
                       )}
                     </span>
-                ))} 
+                  ))} 
                 </div>
               ) : (
                 <p>Loading Cat Images...</p>
@@ -125,11 +125,12 @@ const Title = styled.h1`
 
 const SearchSection = styled.div`
   padding-bottom: 50px;
-  display: felx;
+  text-align: center;
+  position: relative;
 `;
 
 const Button = styled.button`
-font-size: 50px;
+  font-size: 25px;
   padding: 10px;
   padding-left: 15px;
   padding-right: 15px;
@@ -139,6 +140,7 @@ font-size: 50px;
 
   display: flex;
   text-align: right;
+  display: inline-block;
 
   color: #25283D;
   &:hover{ 

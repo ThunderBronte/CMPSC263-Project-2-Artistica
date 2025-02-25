@@ -8,7 +8,7 @@ const Context = createContext();
 export const StateContext = ({ children }) => {
 
   // Variables to Carry Across Multiple Pages
-  const [user, setUser] = useState("Maple")
+  const [user, setUser] = useState(null)
 
   const router = useRouter()
   const { asPath } = useRouter()

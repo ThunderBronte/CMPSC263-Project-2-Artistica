@@ -17,19 +17,26 @@ export default function Home() {
 
   const router = useRouter()
   
-  let name = "";
+   const [name, setName] = useState(null);
+
+  
+  useEffect(() => {
+      if(!user){
+        setName("Guest");
+      }else{
+        setName(user);
+      }
+    }, [user]) 
   
     
-  // If the user is not logged in, ask them to sign up.
-  // They have a choice to "Sign up" instead.
-  /*
+  // If the user is not logged in, ask them to log in.
   useEffect(() => {
     if(!user){
       router.push('/login')
     }else{
-      name = user;
+      
     }
-  }, user) */
+  }, user);
   
 
   function changeUser(){
@@ -48,10 +55,10 @@ export default function Home() {
     <NavigationBar />
       <ProfilePage>
         <ContentContainer>
-          <Heading>Hello {user}!</Heading>
-          <hr></hr>
+          <Heading>Hello {name}!</Heading>
+          <Line></Line>
           <Subheading>Here is your information: </Subheading>
-            <ProfileInfo>Current Username: {user}</ProfileInfo>
+            <ProfileInfo>Current Username: {name}</ProfileInfo>
           <Subheading> Want to change your information? </Subheading>
             <ProfileInfo>
               New Username: <InputInfo></InputInfo> 
@@ -84,6 +91,10 @@ const ContentContainer = styled.div`
   border-radius: 20px;
   color: #25283D;
   
+`;
+
+const Line = styled.hr`
+  border: 2px dashed #25283D;
 `;
 
 const Heading = styled.h1`

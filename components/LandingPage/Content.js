@@ -1,8 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import { StateContext, useStateContext } from '@/context/StateContext'
+import { useRouter } from 'next/router';
 
 const Content = ({text}) => {
+
+  const router = useRouter();
 
   const { user, setUser } = useStateContext();
 
@@ -11,10 +14,11 @@ const Content = ({text}) => {
   // Create mount to make sure the component runs after we get the API data
   const [isMounted, setIsMounted] = useState(false); 
 
-  function catSearch(){
-    location.href = '/searchCat'
-  }
 
+  const catSearch = () =>{
+    router.push('/searchCat');
+  }  
+ 
 
   // WARNING!!! Will fail if you menually reload the page. Not sure why :(
   useEffect(()=> {
@@ -39,6 +43,13 @@ const Content = ({text}) => {
   }, []) 
 
 
+  //  useEffect(() => {
+  //     if(!user){
+  //       router.push('/loggingIn')
+  //     }else{
+  //       name = user;
+  //     }
+  //   }, user);
   
 
 
