@@ -29,6 +29,7 @@ const LogoInfo = styled(Link)`
 const Name = styled.div`
   color: #25283D;
   &:hover{
+    background-color: #25283D;
     color: #43DFBD;
   }
 `;

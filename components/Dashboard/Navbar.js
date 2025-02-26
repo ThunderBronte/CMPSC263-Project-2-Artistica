@@ -69,6 +69,7 @@ const ListItem = styled.li`
   padding-left: 30px;
   color: #25283D;
   &:hover{
+    background-color: #25283D;
     color: #43DFBD;
   }
   
