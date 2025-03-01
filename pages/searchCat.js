@@ -68,7 +68,7 @@ const SearchCat = () => {
             </Title>
             <SearchSection>
               <Button onClick={() => homePage()}>Learn how to take care of cats!</Button>
-              <Button onClick={buttenWasPressed}>Search More Cats</Button>
+              <Button onClick={buttenWasPressed}>10 More Cats</Button>
             </SearchSection>
             <hr></hr>
             <ImageContainer>
@@ -130,13 +130,14 @@ const Button = styled.button`
   text-align: right;
   display: inline-block;
 
-  color: #25283D;
+  color: #077678;
+  border-color: #077678;
+  border-radius: 50px;
   &:hover{ 
-    background-color: #25283D; 
-    color: #43DFBD;
+    color: white;
+    background-color: #077678; 
   }
 
-  border-color: #25283D;
   border-radius: 50px;
   border-style: solid;
   background-color: transparent;

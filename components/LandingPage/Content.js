@@ -97,7 +97,7 @@ const BackImg = styled.img`
 `;
 
 const TitleWords = styled.h1`
-  font-size: 90px;
+  font-size: 70px;
   position: absolute;
   top: 10%;
   left: 5%;
@@ -115,7 +115,6 @@ const Button = styled.button`
   color: White;
   &:hover{ 
     background-color: #077678; 
-    
   }
   border-color: white;
   border-radius: 50px;

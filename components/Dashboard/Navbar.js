@@ -4,8 +4,10 @@ import Link from 'next/link'
 import { logOut } from '@/backend/Auth';
 import { useStateContext } from '@/context/StateContext';
 import Logo from '@/components/Dashboard/Logo'
+import { CgProfile } from "react-icons/cg";
 
 
+// <Profile href="/profilePage"><CgProfile /></Profile>
 
 
 
@@ -31,12 +33,10 @@ const NavigationBar = () => {
       <>
       <ContainerNavBar>
         <Navbar>
-        <Logo></Logo>
-          <RightNav>
-            <ListItem><LinkRef href="/searchCat">Find Cats to Adopt</LinkRef></ListItem>
+            <LogoItem><Logo></Logo></LogoItem>
+            <ListItem><LinkRef href="/profilePage">{name}'s Profile   </LinkRef></ListItem>
             <ListItem><LinkRef href="/catCart">Cat Cart: Saved Cats</LinkRef></ListItem>
-            <ListItem><LinkRef href="/profilePage">{name}'s Profile</LinkRef></ListItem>
-          </RightNav>
+            <ListItem><LinkRef href="/searchCat">Find Cats to Adopt</LinkRef></ListItem>
         </Navbar>
       </ContainerNavBar>
       </>
@@ -48,44 +48,71 @@ const NavigationBar = () => {
 const ContainerNavBar = styled.div`
   margin-left: 150px;
   margin-right: 150px;
+  
   height: 75px;
-  background-color: #FFFFFF;
 `;
 
 const Navbar = styled.ul`
   list-style-type: none;
   margin: 0;
   padding: 0;
-  display: inline;
-  
+  align-items: center;
 `;
 
-const RightNav = styled.ul`
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  float: right;
-  text-align: center;
+
+
+const LogoItem = styled.li`
+  margin-top: 3px;
+  display: inline;
+  float: left;
 `;
 
 const ListItem = styled.li`
+  margin-top: 20px;
+  margin-left: 5px;
   display: inline;
-  
+  float: right;
 `;
 
 
 const LinkRef = styled.a`
+  display: block;
+
   padding: 30px;
   padding-top: 5px;
   padding-bottom: 7px;
   text-decoration: none;
   color: #077678;
+
   &:hover{
-    color: #43DFBD;
-    color: #077678;
+    color: #25283D;
     list-style-position: inside;
-    border: 1px solid #077678;
+    border: 1px solid #25283D;
     border-radius: 20px;
+  }
+`;
+
+
+
+// Deletes if not used!!
+const Profile = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;   // Adjust the size as needed
+  height: 50px;   // Adjust the size as needed
+  background-color: #007bff;    // Adjust the background color as needed
+  color: white;
+  border-radius: 4px;     // Adjust for square or rounded corners
+  text-decoration: none;
+  
+  svg {
+    width: 24px;    // Adjust icon size as needed
+    height: 24px;     // Adjust icon size as needed
+  }
+
+  &:hover {
+    background-color: #0056b3;  // Adjust hover effect as needed
   }
 `;
 

@@ -18,7 +18,6 @@ const Logo = () => {
 };
 
 const All = styled.div`
-  background-color: black;
   width: 100px;
   height: 75px;
   text-align:center;
