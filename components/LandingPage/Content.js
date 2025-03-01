@@ -21,13 +21,14 @@ const Content = ({text}) => {
   }  
  
 
-  // WARNING!!! Will fail if you menually reload the page. Not sure why :(
   useEffect(()=> {
     const fetchCatData = async () => {
       setLoading(true);
       try {
         // Fetch data from the /facts endpoint
         const res = await fetch('https://cat-fact.herokuapp.com/facts');
+
+         // Handle if the response is not okay
         if(!res.ok){
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
@@ -36,7 +37,7 @@ const Content = ({text}) => {
         // Get a random fact, not all of them 
         const randomFact = factData[Math.floor(Math.random() * factData.length)]
 
-        // Handle the response and set the data
+        // Set the data
         setData(randomFact);
       } catch (error) {
         console.error('Error fetching cat facts:', error);
@@ -76,8 +77,7 @@ const Content = ({text}) => {
             <SectionContainer>
               <Subheading>Fun Cat Facts</Subheading>
                 <Info>
-                    <p>{data.text}</p>
-                  
+                    {data.text}
                 </Info>
               </SectionContainer>
             <SectionContainer>

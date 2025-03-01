@@ -15,18 +15,24 @@ const SearchCat = () => {
     router.push('/');
   }
 
-  const [button, setButton ] = useState(false);
+  const [ button, setButton ] = useState(false);
 
   const { user, setUser } = useStateContext()
+
   const [ data, setData] = useState(null);
   const [ nameData, setNameData ] = useState(null);
-
 
 
   useEffect(() =>{
     const fetchCatImages = async () => {
       try{
         const res = await fetch('https://api.thecatapi.com/v1/images/search?limit=10');
+        
+        // Handle if the response is not okay
+        if(!res.ok){
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+
         const imageData = await res.json();
 
         setData(imageData);
@@ -37,28 +43,33 @@ const SearchCat = () => {
 
     const fetchRandomName = async () => {
       try{
-        const res = await fetch('https://randomuser.me/api/');
-        const nameData = await res.json();
+        const res = await fetch('https://names.ironarachne.com/race/dragonborn/family/10');
         
-        setNameData(nameData.results);
+         // Handle if the response is not okay
+        if(!res.ok){
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+        
+        const namesData = await res.json();
+        
+        setNameData(namesData);
       } catch(error){
         console.error("Error getting names: ", error);
-      }
+        setNameData(null);
+      } 
     }
     
     fetchCatImages();
     fetchRandomName();
   },[button])
 
+
+  // Chang the button being pressed so the useEffect is triggered and gets more cats 
   function buttenWasPressed(){
     setButton(!button);
   }
 
 
-
-
-  //Search Cats<InputInfo></InputInfo>  
-  // might get rid of text box
   return (
     <>
       <NavigationBar />
@@ -70,19 +81,13 @@ const SearchCat = () => {
               <Button onClick={() => homePage()}>Learn how to take care of cats!</Button>
               <Button onClick={buttenWasPressed}>10 More Cats</Button>
             </SearchSection>
-            <hr></hr>
             <ImageContainer>
-              {data? (
+              {data ? (
                 <div>
                   {data.map((image) => (
                     <span key = {image.id}>
                       <img src={image.url} width="300"/>
-                      {nameData ? (
-                      <p>{nameData.map((name, index) => (
-                        <span key = {index}> {name.first} {name.last}</span>
-                      ))}</p> ) : (
-                        <p>Loading Cat Names...</p>
-                      )}
+                      <CatName>{nameData.names[Math.floor(Math.random() * 10)]}</CatName>
                     </span>
                   ))} 
                 </div>
@@ -152,12 +157,7 @@ const ImageContainer = styled.div`
   
 `;
 
-const InputInfo = styled.input`
-  background-color: #DFDFDF;
-  border-radius: 8px;
-  padding: 5px;
-  margin-left: 10px;
-  width: 80%;
+const CatName = styled.p`
 `;
 
 export default SearchCat

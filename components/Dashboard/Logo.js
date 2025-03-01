@@ -28,9 +28,9 @@ const LogoInfo = styled(Link)`
   text-decoration: none;
   display: inline; 
 
-  color: #25283D;
+  color: #077678;
   &:hover{
-    color: #077678;
+    color: #25283D;
   }
 `;
 
