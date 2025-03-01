@@ -11,6 +11,9 @@ const Content = ({text}) => {
 
   const [ data, setData] = useState(null);
 
+  // Added to make sure the loading of data is done before displaying it (I have having issues and this worked)
+  const [loading, setLoading] = useState(true);
+
 
 
   const catSearch = () =>{
@@ -21,22 +24,35 @@ const Content = ({text}) => {
   // WARNING!!! Will fail if you menually reload the page. Not sure why :(
   useEffect(()=> {
     const fetchCatData = async () => {
+      setLoading(true);
       try {
         // Fetch data from the /facts endpoint
         const res = await fetch('https://cat-fact.herokuapp.com/facts');
+        if(!res.ok){
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
         const factData = await res.json();
 
+        // Get a random fact, not all of them 
         const randomFact = factData[Math.floor(Math.random() * factData.length)]
 
         // Handle the response and set the data
         setData(randomFact);
       } catch (error) {
         console.error('Error fetching cat facts:', error);
+        setData(null);
+      } finally {
+        setLoading(false);
       }
     };
   
     fetchCatData();
   }, []) 
+
+
+  if(loading){
+    return <p>Loading Cat Facts...</p>;
+  }
 
 
   return (
@@ -60,13 +76,7 @@ const Content = ({text}) => {
             <SectionContainer>
               <Subheading>Fun Cat Facts</Subheading>
                 <Info>
-                  {/* {data ? (
-                    <div>
-                      <p>{data.text}</p>
-                    </div>
-                  ) : (
-                    <p>Loading Cat Facts...</p>
-                  )} */}
+                    <p>{data.text}</p>
                   
                 </Info>
               </SectionContainer>
@@ -75,7 +85,7 @@ const Content = ({text}) => {
                 <Info>Basics</Info>
             </SectionContainer>
            </TextContent>
-        </ContentContainer>
+        </ContentContainer> 
   ); 
 };
 
