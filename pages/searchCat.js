@@ -63,8 +63,7 @@ const SearchCat = () => {
     fetchRandomName();
   },[button])
 
-
-  // Chang the button being pressed so the useEffect is triggered and gets more cats 
+  // Change the button being pressed so the useEffect is triggered and gets more cats 
   function buttenWasPressed(){
     setButton(!button);
   }
@@ -81,20 +80,20 @@ const SearchCat = () => {
               <Button onClick={() => homePage()}>Learn how to take care of cats!</Button>
               <Button onClick={buttenWasPressed}>10 More Cats</Button>
             </SearchSection>
-            <ImageContainer>
+            <CatContainer>
               {data ? (
                 <div>
                   {data.map((image) => (
-                    <span key = {image.id}>
-                      <img src={image.url} width="300"/>
-                      <CatName>{nameData.names[Math.floor(Math.random() * 10)]}</CatName>
-                    </span>
+                    <OneCatContainer key = {image.id}>
+                      <Image src={image.url} width="300"/>
+                      <CatName>{nameData ? nameData.names[Math.floor(Math.random() * 10)] : "Loading Cat Name..."}</CatName>
+                    </OneCatContainer>
                   ))} 
                 </div>
               ) : (
                 <p>Loading Cat Images...</p>
               )}
-            </ImageContainer>
+            </CatContainer>
           </ContentContainer>
       <Footer />
     </>
@@ -106,8 +105,6 @@ const SearchCat = () => {
 const ContentContainer = styled.div`
   background-color: white;
   padding: 3%;
-  color: #25283D;
-  
 `;
 
 const Title = styled.h1`
@@ -149,15 +146,37 @@ const Button = styled.button`
 
 `;
 
-const ImageContainer = styled.div`
-  border-radius: 30px;
-  display: flex;
+const CatContainer = styled.div`
+  display: grid;
   justify-content: space-evenly;
   padding-top: 50px;
+
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-rows: auto; 
+  gap: 20px;
+
+  grid-auto-flow: row;
+
   
+  background-color: blue;
+`;
+
+const Image = styled.img`
+  border-radius: 20px;
+
+  // :<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+  //&:hover{
+  //  border-style: 3px soild #077678;
+  //}
+`;
+
+const OneCatContainer = styled.div`
+  text-align: center;
+  border-radius: 20px;
 `;
 
 const CatName = styled.p`
+  text-align: center;
 `;
 
 export default SearchCat
