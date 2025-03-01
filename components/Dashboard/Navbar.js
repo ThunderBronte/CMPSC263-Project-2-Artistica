@@ -25,28 +25,22 @@ const NavigationBar = () => {
     }
   }, [user]) 
 
-
-  // CHANGE TO
-  //  <Button variant="outline-primary">Primary</Button>
-  // FOR THE LINKS!!
-  // CHANGE THE PROFILE ONE TO LOOK DIFFERENT 
-  
+  //<ListItem><Logo></Logo></ListItem>
 
     return (
       <>
       <ContainerNavBar>
         <Navbar>
-          <ListItem><Logo></Logo></ListItem>
-          <ListItem href="/searchCat">Find Cats to Adopt</ListItem>
-          <ListItem href="/catCart">Cat Cart: Saved Cats</ListItem>
-          <ListItem href="/profilePage">{name}'s Profile</ListItem>
+        <Logo></Logo>
+          <RightNav>
+            <ListItem><LinkRef href="/searchCat">Find Cats to Adopt</LinkRef></ListItem>
+            <ListItem><LinkRef href="/catCart">Cat Cart: Saved Cats</LinkRef></ListItem>
+            <ListItem><LinkRef href="/profilePage">{name}'s Profile</LinkRef></ListItem>
+          </RightNav>
         </Navbar>
       </ContainerNavBar>
       </>
     );
-  
-
-
 };
 
 
@@ -54,25 +48,45 @@ const NavigationBar = () => {
 const ContainerNavBar = styled.div`
   margin-left: 150px;
   margin-right: 150px;
+  height: 75px;
   background-color: #FFFFFF;
-
 `;
 
 const Navbar = styled.ul`
   list-style-type: none;
   margin: 0;
   padding: 0;
+  display: inline;
+  
+`;
+
+const RightNav = styled.ul`
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  float: right;
+  text-align: center;
 `;
 
 const ListItem = styled.li`
-  display: inline;  
-  padding-left: 30px;
+  display: inline;
+  
+`;
+
+
+const LinkRef = styled.a`
+  padding: 30px;
+  padding-top: 5px;
+  padding-bottom: 7px;
+  text-decoration: none;
   color: #25283D;
   &:hover{
-    background-color: #25283D;
     color: #43DFBD;
+    color: #25283D;
+    list-style-position: inside;
+    border: 1px solid #25283D;
+    border-radius: 20px;
   }
-  
 `;
 
 

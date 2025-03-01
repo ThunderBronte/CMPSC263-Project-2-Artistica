@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
-import { StateContext, useStateContext } from '@/context/StateContext'
+import { useStateContext } from '@/context/StateContext'
 import { useRouter } from 'next/router';
 
 const Content = ({text}) => {
@@ -11,8 +11,6 @@ const Content = ({text}) => {
 
   const [ data, setData] = useState(null);
 
-  // Create mount to make sure the component runs after we get the API data
-  const [isMounted, setIsMounted] = useState(false); 
 
 
   const catSearch = () =>{
@@ -38,23 +36,10 @@ const Content = ({text}) => {
     };
   
     fetchCatData();
-    setIsMounted(true);
-
   }, []) 
 
 
-  //  useEffect(() => {
-  //     if(!user){
-  //       router.push('/loggingIn')
-  //     }else{
-  //       name = user;
-  //     }
-  //   }, user);
-  
-
-
   return (
-    <MainPage>
         <ContentContainer>
           <TitleScreen>
               <BackImg src="backgroundImage.JPEG"></BackImg>
@@ -63,41 +48,40 @@ const Content = ({text}) => {
               </TitleWords>
           </TitleScreen>
           <TextContent>
-            <Subheading> About Us </Subheading>
-              <Info>Information</Info>
-            <Subheading>Adopt Don't Shop!</Subheading>
-              <Info>Info</Info>
-            <Subheading>Fun Cat Facts</Subheading>
-              <Info>
-                {data && isMounted ? (
-                  <div>
-                    <p>{data.text}</p>
-                  </div>
-                ) : (
-                  <p>Loading Cat Facts...</p>
-                )}
-                
-              </Info>
-            <Subheading>Basics of Taking Care of a Cat</Subheading>
-              <Info>Basics</Info>
+            <SectionContainer>
+              <Subheading> About Us </Subheading>
+                <Info>Information</Info>
+            </SectionContainer>
+            <SectionContainer>
+              <Subheading>Adopt Don't Shop!</Subheading>
+                <Info>Info</Info>
+                <SectionButton onClick={() => catSearch()}>Search Cats!</SectionButton>
+            </SectionContainer>
+            <SectionContainer>
+              <Subheading>Fun Cat Facts</Subheading>
+                <Info>
+                  {/* {data ? (
+                    <div>
+                      <p>{data.text}</p>
+                    </div>
+                  ) : (
+                    <p>Loading Cat Facts...</p>
+                  )} */}
+                  
+                </Info>
+              </SectionContainer>
+            <SectionContainer>
+              <Subheading>Basics of Taking Care of a Cat</Subheading>
+                <Info>Basics</Info>
+            </SectionContainer>
            </TextContent>
         </ContentContainer>
-      </MainPage>
-  );
+  ); 
 };
 
-const MainPage = styled.div`
-  background-color: #DFDFDF;
-  padding: 20px;
-  padding-bottom: 0;
-  
-  padding-left: 10%;
-  padding-right: 10%;
-`;
 
 const ContentContainer = styled.div`
   background-color: white;
-  border-radius: 20px;
   color: #25283D;
 `;
 
@@ -110,7 +94,6 @@ const TitleScreen = styled.div`
 const BackImg = styled.img`
   width: 100%;
   padding: 0px;
-  border-radius: 20px;
 `;
 
 const TitleWords = styled.h1`
@@ -127,12 +110,12 @@ const Button = styled.button`
   padding-left: 15px;
   padding-right: 15px;
   position: absolute;
-  left: -5%;
+  left: -5%; 
   
   color: White;
   &:hover{ 
     background-color: #25283D; 
-    color: #43DFBD;
+    
   }
   border-color: white;
   border-radius: 50px;
@@ -140,19 +123,43 @@ const Button = styled.button`
   background-color: transparent;
 `;
 
+const SectionButton = styled.button`
+  font-size: 30px;
+  margin: 20px;
+  padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  
+  color: #077678;
+  border-color: #077678;
+  border-radius: 50px;
+  &:hover{ 
+    color: white;
+    background-color: #077678; 
+  }
+
+  
+  border-style: solid;
+  background-color: transparent;
+`;
 
 const TextContent = styled.div`
   text-align: center;
   padding-bottom: 30px;
 `;
 
+const SectionContainer = styled.div`
+
+`;
+
 const Subheading =styled.h2`
-  font-size: 30px;
+  font-size: 50px;
   padding: 20px;
 
 `;
 
 const Info = styled.p`
+  font-size: 25px;
   padding-bottom: 30px;
 `;
 

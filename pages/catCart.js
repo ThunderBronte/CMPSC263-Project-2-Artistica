@@ -66,7 +66,6 @@ const CatCart = () => {
   return (
     <>
       <NavigationBar />
-        <Page>
           <ContentContainer>
             <Title>
               Here is a list of your favorite cats!
@@ -95,24 +94,15 @@ const CatCart = () => {
               </ul>
             </ImageContainer>
           </ContentContainer>
-        </Page>
       <Footer />
     </>
   )
 };
 
 
-const Page = styled.div`
-  background-color: #DFDFDF;
-  padding: 20px;
-  padding-left: 10%;
-  padding-right: 10%;
-`;
-
 const ContentContainer = styled.div`
   background-color: white;
   padding: 3%;
-  border-radius: 20px;
   color: #25283D;
   
 `;

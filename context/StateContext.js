@@ -8,7 +8,7 @@ const Context = createContext();
 export const StateContext = ({ children }) => {
 
   // Variables to Carry Across Multiple Pages
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(undefined)
 
   const router = useRouter()
   const { asPath } = useRouter()
@@ -28,6 +28,8 @@ export const StateContext = ({ children }) => {
   //   });
   //   return () => unsubscribe();
   // }, []);
+  //
+  // user === null
 
 
 

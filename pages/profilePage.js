@@ -53,7 +53,6 @@ export default function Home() {
   return (
     <>
     <NavigationBar />
-      <ProfilePage>
         <ContentContainer>
           <Heading>Hello {name}!</Heading>
           <Line></Line>
@@ -71,24 +70,15 @@ export default function Home() {
           <Subheading> Want to see your current Cat Cart? </Subheading>
           <ProfileInfo><Button onClick={() => catSearch()}>Go to Cat Cart list!</Button></ProfileInfo>
         </ContentContainer>
-      </ProfilePage>
       <Footer />
     </>
   )
 };
 
 
-const ProfilePage = styled.div`
-  background-color: #DFDFDF;
-  padding: 20px;
-  padding-left: 10%;
-  padding-right: 10%;
-`;
-
 const ContentContainer = styled.div`
   background-color: white;
   padding: 20px;
-  border-radius: 20px;
   color: #25283D;
   
 `;

@@ -55,7 +55,6 @@ const Signup = () => {
 
   return (
     <>
-   <Page>
       <ContentContainer>
         <Section>
             <Header>Signup</Header>
@@ -74,23 +73,15 @@ const Signup = () => {
 
         </Section>
       </ContentContainer>
-    </Page>
     </>
   )
 }
 
-const Page = styled.div`
-background-color: #DFDFDF;
-padding: 20px;
-padding-left: 10%;
-padding-right: 10%;
-`;
 
 const ContentContainer = styled.div`
-background-color: white;
-padding: 20px;
-border-radius: 20px;
-color: #25283D;
+  background-color: white;
+  padding: 20px;
+  color: #25283D;
 `;
 
 

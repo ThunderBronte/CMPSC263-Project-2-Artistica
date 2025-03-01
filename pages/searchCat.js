@@ -21,8 +21,6 @@ const SearchCat = () => {
   const [ data, setData] = useState(null);
   const [ nameData, setNameData ] = useState(null);
 
-  // Create mount to make sure the component runs after we get the API data
-    const [isMounted, setIsMounted] = useState(false); 
 
 
   useEffect(() =>{
@@ -50,7 +48,6 @@ const SearchCat = () => {
     
     fetchCatImages();
     fetchRandomName();
-    setIsMounted(true); 
   },[button])
 
   function buttenWasPressed(){
@@ -65,7 +62,6 @@ const SearchCat = () => {
   return (
     <>
       <NavigationBar />
-        <Page>
           <ContentContainer>
             <Title>
               Adopt Kittens & Cats!
@@ -76,7 +72,7 @@ const SearchCat = () => {
             </SearchSection>
             <hr></hr>
             <ImageContainer>
-              {data && isMounted ? (
+              {data? (
                 <div>
                   {data.map((image) => (
                     <span key = {image.id}>
@@ -95,24 +91,16 @@ const SearchCat = () => {
               )}
             </ImageContainer>
           </ContentContainer>
-        </Page>
       <Footer />
     </>
   )
 };
 
 
-const Page = styled.div`
-  background-color: #DFDFDF;
-  padding: 20px;
-  padding-left: 10%;
-  padding-right: 10%;
-`;
 
 const ContentContainer = styled.div`
   background-color: white;
   padding: 3%;
-  border-radius: 20px;
   color: #25283D;
   
 `;

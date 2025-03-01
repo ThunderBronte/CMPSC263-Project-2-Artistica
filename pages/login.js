@@ -30,7 +30,6 @@ const Login = () => {
   return (
     <>
     <NavigationBar />
-    <Page>
       <ContentContainer>
         <Section>
             <Header>Login</Header>
@@ -49,24 +48,16 @@ const Login = () => {
 
         </Section>
       </ContentContainer>
-    </Page>
     <Footer />
     </>
   )
 };
 
 
-const Page = styled.div`
-background-color: #DFDFDF;
-padding: 20px;
-padding-left: 10%;
-padding-right: 10%;
-`;
 
 const ContentContainer = styled.div`
 background-color: white;
 padding: 20px;
-border-radius: 20px;
 color: #25283D;
 `;
 
