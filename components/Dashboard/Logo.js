@@ -6,16 +6,24 @@ import styled from 'styled-components';
 
 const Logo = () => {
   return (
-    <LogoInfo href="/">
-      <LogoImage src="/PurrfectPals.png"></LogoImage>
-      <Name>
-        Purrfect Pals
-      </Name>
-    </LogoInfo>
+    <All>
+      <LogoInfo href="/">
+        <LogoImage src="/PurrfectPals.png"></LogoImage>
+        <Name>
+          Purrfect Pals
+        </Name>
+      </LogoInfo>
+    </All>
   );
 };
 
-// Center both text and image!!
+const All = styled.div`
+  background-color: black;
+  width: 100px;
+  height: 75px;
+  text-align:center;
+`;
+
 const LogoInfo = styled(Link)`
   justify-content: center;
   text-decoration: none;
@@ -23,14 +31,14 @@ const LogoInfo = styled(Link)`
 
   color: #25283D;
   &:hover{
-    color: #43DFBD;
+    color: #077678;
   }
 `;
 
 const Name = styled.div`
-  color: #25283D;
+  color: #077678;
   &:hover{
-    color: #43DFBD;
+    color: #25283D;
   }
 `;
 

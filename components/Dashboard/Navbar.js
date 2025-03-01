@@ -79,12 +79,12 @@ const LinkRef = styled.a`
   padding-top: 5px;
   padding-bottom: 7px;
   text-decoration: none;
-  color: #25283D;
+  color: #077678;
   &:hover{
     color: #43DFBD;
-    color: #25283D;
+    color: #077678;
     list-style-position: inside;
-    border: 1px solid #25283D;
+    border: 1px solid #077678;
     border-radius: 20px;
   }
 `;

@@ -42,7 +42,7 @@ const Content = ({text}) => {
   return (
         <ContentContainer>
           <TitleScreen>
-              <BackImg src="backgroundImage.JPEG"></BackImg>
+              <BackImg src="ContentImg.png"></BackImg>
               <TitleWords>Adopt a cat today! <br></br>
                 <Button onClick={() => catSearch()}>Find a cat! </Button>
               </TitleWords>
@@ -97,7 +97,7 @@ const BackImg = styled.img`
 `;
 
 const TitleWords = styled.h1`
-  font-size: 70px;
+  font-size: 90px;
   position: absolute;
   top: 10%;
   left: 5%;
@@ -110,11 +110,11 @@ const Button = styled.button`
   padding-left: 15px;
   padding-right: 15px;
   position: absolute;
-  left: -5%; 
+  left: 0%; 
   
   color: White;
   &:hover{ 
-    background-color: #25283D; 
+    background-color: #077678; 
     
   }
   border-color: white;
