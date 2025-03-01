@@ -158,7 +158,11 @@ const TextContent = styled.div`
 `;
 
 const SectionContainer = styled.div`
-
+  margin: 50px;  
+  margin-left: 300px;
+  margin-right: 300px;
+  
+  //background-color: red;
 `;
 
 const Subheading =styled.h2`
@@ -170,6 +174,10 @@ const Subheading =styled.h2`
 const Info = styled.p`
   font-size: 25px;
   padding-bottom: 30px;
+  margin-left: 200px;
+  margin-right: 200px;
+  
+  //background-color: blue;
 `;
 
 
