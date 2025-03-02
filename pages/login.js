@@ -74,6 +74,8 @@ const LogIn = styled.div`
   justify-content: center;
   background-color: white;
   border-radius: 20px;
+
+  margin: 100px;
 `;
 
 const Section = styled.section`
