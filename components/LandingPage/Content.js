@@ -138,17 +138,17 @@ const SectionButton = styled.button`
   padding-left: 15px;
   padding-right: 15px;
   
-  color: #077678;
-  border-color: #077678;
-  border-radius: 50px;
-  &:hover{ 
-    color: white;
-    background-color: #077678; 
-  }
-
   
-  border-style: solid;
-  background-color: transparent;
+  color: white;
+  background-color: #077678; 
+  border: 2px solid #077678;
+  border-radius: 50px;
+
+  &:hover{ 
+    color: #077678;
+    border-color: #077678;
+    background-color: transparent;
+  }
 `;
 
 const TextContent = styled.div`

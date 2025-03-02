@@ -33,7 +33,7 @@ const Footer = () => {
 };
 
 const FooterSection = styled.footer`
-  background-color: #25283D;
+  background-color: #062e3d;
   color: white;
   font-size: 16px;
   margin: 100 px;
