@@ -24,19 +24,14 @@ export default function Home() {
   useEffect(() => {
     if(!user){
       router.push('/login')
-    }else{
+    } else {
       
     }
-  }, user);
+  }, [user]);
   
-
-  function changeUser(){
-    setUser(Button.value);
-  }
-
-  const catSearch = () =>{
-    router.push('/catCart');
-  }
+  // const catSearch = () =>{
+  //   router.push('/catCart');
+  // }
   
 
 
@@ -52,14 +47,14 @@ export default function Home() {
           <Subheading> Want to change your information? </Subheading>
             <ProfileInfo>
               New Username: <InputInfo></InputInfo> 
-              <Button onClick={changeUser()}>Change Username</Button>
+              <Button onClick={(e) => setUser(e.target.value)}>Change Username</Button>
             </ProfileInfo>
           <Subheading> Cats you have adopted: </Subheading>
             <ProfileInfo>
               Cat names list
             </ProfileInfo>
           <Subheading> Want to see your current Cat Cart? </Subheading>
-          <ProfileInfo><Button onClick={() => catSearch()}>Go to Cat Cart list!</Button></ProfileInfo>
+          <ProfileInfo><Button onClick={() => router.push('/catCart')}>Go to Cat Cart list!</Button></ProfileInfo>
         </ContentContainer>
       <Footer />
     </>

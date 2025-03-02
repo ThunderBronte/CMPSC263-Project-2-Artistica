@@ -11,10 +11,6 @@ const Content = ({text}) => {
 
   const [ data, setData] = useState(null);
 
-  // Added to make sure the loading of data is done before displaying it (I have having issues and this worked)
-  const [loading, setLoading] = useState(true);
-
-
 
   const catSearch = () =>{
     router.push('/searchCat');
@@ -23,7 +19,6 @@ const Content = ({text}) => {
 
   useEffect(()=> {
     const fetchCatData = async () => {
-      setLoading(true);
       try {
         // Fetch data from the /facts endpoint
         const res = await fetch('https://catfact.ninja/fact');
@@ -42,17 +37,12 @@ const Content = ({text}) => {
         setData(null);
       } finally {
         console.log("In finally ");
-        setLoading(false);
       }
     };
   
     fetchCatData();
   }, []) 
 
-
-  if(loading){
-    return <p>Loading Cat Facts...</p>;
-  }
 
 
   return (
@@ -76,7 +66,7 @@ const Content = ({text}) => {
             <SectionContainer>
               <Subheading>Fun Cat Facts</Subheading>
                 <Info>
-                    {data.fact}
+                    {data ? data.fact : "<p>Loading Cat Facts...</p>"}
                 </Info>
               </SectionContainer>
             <SectionContainer>
@@ -123,7 +113,7 @@ const Button = styled.button`
   
   color: White;
   &:hover{ 
-    background-color: #077678; 
+    background-color: #077678;
   }
   border-color: white;
   border-radius: 50px;
@@ -138,7 +128,7 @@ const SectionButton = styled.button`
   padding-left: 15px;
   padding-right: 15px;
   
-  
+
   color: white;
   background-color: #077678; 
   border: 2px solid #077678;

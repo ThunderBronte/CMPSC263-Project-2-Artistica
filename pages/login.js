@@ -36,7 +36,7 @@ const Login = () => {
         <LogIn>
         <Section>
             <Header>Login</Header>
-              <SignUp>Don't have an account? <SignUpSpan href="/Auth/signup">Sign up!</SignUpSpan></SignUp>
+              <SignUp>Don't have an account? <SignUpSpan href="/signup">Sign up!</SignUpSpan></SignUp>
             <InputTitle>Email</InputTitle>
             <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
             <InputTitle>Password</InputTitle>

@@ -35,23 +35,144 @@ const Signup = () => {
 
   async function handleSignup(){
     const isValidEmail = await validateEmail()
-    // console.log('isValidEmail', isValidEmail)
-    // if(!isValidEmail){ return; }
+    console.log('isValidEmail: ', isValidEmail)
+    if(!isValidEmail){ 
+      return "boo"; 
+    }
     
     try{
         await register(email, password, setUser)
-        router.push('/dashboard')
+        router.push('/profilePage')
     }catch(err){
-        console.log('Error Signing Up', err)
+        console.log('Error Signing Up: ', err)
     }
   }
 
 
-  function logIn(){
-    router.push('/login')
+
+  return (
+    <>
+    <NavigationBar />
+      <ContentContainer>
+        <SignUp>
+        <Section>
+            <Header>Sign up</Header>
+              <LogIn>Already have an account? <LogInSpan href="/login">Login!</LogInSpan></LogIn>
+            <InputTitle>Email</InputTitle>
+            <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+            <InputTitle>Password</InputTitle>
+            <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+
+            <Button onClick={handleSignup}>Sign Up</Button>
+      
+        </Section>
+        </SignUp>
+      </ContentContainer>
+    <Footer />
+    </>
+  )
+};
+
+
+
+const ContentContainer = styled.div`
+  background-color: #f2f0f0;
+  padding: 20px;  
+`;
+
+const SignUp = styled.div`
+  width: 500px;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  border-radius: 10px;
+
+  box-shadow: 0.5px 0.5px 3px 3px #DFDFDF;
+
+  margin: auto;
+  margin-top: 100px;
+  margin-bottom: 100px;
+`;
+
+const Section = styled.section`
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 400px;
+`;
+
+const Header = styled.h1`
+  font-size: 40px;
+  text-align: center;
+  padding-top: 50px;
+`;
+
+const Input = styled.input`
+  font-size: 16px;
+  margin-bottom: 20px;
+  padding: 5px;
+`;
+
+const InputTitle = styled.label`
+  font-size: 17px;
+  color: #666;
+`;
+
+
+const Button = styled.button`
+  font-size: 25px;
+  padding: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-top: 40px;
+
+  display: flex;
+  text-align: center;
+  display: inline-block;
+
+  border-radius: 50px;
+
+  color: white;
+  background-color: #077678; 
+  border: 2px solid #077678;
+
+  &:hover{ 
+    color: #077678;
+    border-color: #077678;
+    background-color: transparent;
   }
+`;
 
 
+const LogIn = styled.p`
+  padding: 15px;
+  text-align: center;
+
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 4px;
+  margin: 5px;
+  margin-left: 15px;
+
+  display: flex;
+  text-align: center;
+  display: inline-block;
+`;
+
+
+const LogInSpan = styled(Link)`
+  color: #1fb896;
+  font-weight: bold;
+  &:hover {
+    color: #077678; 
+    text-decoration: none;
+  }
+`;
+
+
+/*
 
   return (
     <>
@@ -141,6 +262,6 @@ const UserAgreementSpan = styled(Link)`
   color: #007bff;
 
 `;
-
+*/
 
 export default Signup

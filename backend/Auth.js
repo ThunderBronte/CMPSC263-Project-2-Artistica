@@ -3,7 +3,7 @@ import { auth } from "./Firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, fetchSignInMethodsForEmail } from "firebase/auth";
   
 
-export const createUser = async (email, password) => {
+export const register = async (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
 }
 
