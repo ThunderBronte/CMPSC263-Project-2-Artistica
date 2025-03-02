@@ -5,7 +5,7 @@ import { getStorage } from "firebase/storage";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 
 
-/*
+
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -21,6 +21,12 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+
+
+export { app, auth }
+
+
+
 /*
 // New users, create account
 createUserWithEmailAndPassword(auth, email, password)

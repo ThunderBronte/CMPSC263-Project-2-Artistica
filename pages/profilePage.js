@@ -20,14 +20,14 @@ export default function Home() {
    const [name, setName] = useState(null);
   
     
-  // // If the user is not logged in, ask them to log in.
-  // useEffect(() => {
-  //   if(!user){
-  //     router.push('/login')
-  //   }else{
+  // If the user is not logged in, ask them to log in.
+  useEffect(() => {
+    if(!user){
+      router.push('/login')
+    }else{
       
-  //   }
-  // }, user);
+    }
+  }, user);
   
 
   function changeUser(){
