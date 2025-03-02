@@ -26,23 +26,22 @@ const Content = ({text}) => {
       setLoading(true);
       try {
         // Fetch data from the /facts endpoint
-        const res = await fetch('https://cat-fact.herokuapp.com/facts');
+        const res = await fetch('https://catfact.ninja/fact');
 
          // Handle if the response is not okay
         if(!res.ok){
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
+
         const factData = await res.json();
 
-        // Get a random fact, not all of them 
-        const randomFact = factData[Math.floor(Math.random() * factData.length)]
-
         // Set the data
-        setData(randomFact);
+        setData(factData);
       } catch (error) {
         console.error('Error fetching cat facts:', error);
         setData(null);
       } finally {
+        console.log("In finally ");
         setLoading(false);
       }
     };
@@ -77,7 +76,7 @@ const Content = ({text}) => {
             <SectionContainer>
               <Subheading>Fun Cat Facts</Subheading>
                 <Info>
-                    {data.text}
+                    {data.fact}
                 </Info>
               </SectionContainer>
             <SectionContainer>
