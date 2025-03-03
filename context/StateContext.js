@@ -1,14 +1,16 @@
 import { useRouter } from 'next/router';
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { onIdTokenChanged } from 'firebase/auth';
-import {auth} from '@/backend/Firebase';
+import { auth } from '@/backend/Firebase';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,  } from "firebase/auth";
+
 
 const Context = createContext();
 
 export const StateContext = ({ children }) => {
 
   // Variables to Carry Across Multiple Pages
-  const [user, setUser] = useState(undefined);
+  const [user, setUser] = useState("Hello");
 
 
   const router = useRouter()
@@ -48,3 +50,70 @@ return(
 }
 
 export const useStateContext = () => useContext(Context);
+
+/*
+
+export function useStateContext() {
+  return useContext(Context)
+}
+
+export function StateContext({ children }) {
+  const [user, setUser] = useState("Hello")
+  const [loading, setLoading] = useState(true)
+
+  function login(email, password) {
+    return signInWithEmailAndPassword(getAuth(), email, password)
+  }
+
+  function signOut() {
+    return signOut(getAuth());
+  }
+
+  function signUp(email, password) {
+    console.log(createUserWithEmailAndPassword(getAuth(), email, password));
+  }
+
+  function getUser() {
+    return user;
+  }
+
+  // function isAdmin() {
+  //   return auth.user.getIdTokenResult()
+  //   .then((idTokenResult) => {
+  //     if (!!idTokenResult.claims.admin) {
+  //       return true
+  //     } else {
+  //       return false
+  //     }
+  //   })
+  // }
+
+  // function isEditor() {
+
+  // }
+
+  useEffect(() => {
+    const unsubscribe = getAuth().onAuthStateChanged((newUser) => {
+      setUser(newUser);
+      setLoading(false);
+    })
+
+    return unsubscribe;
+  }, [])
+
+  const value = {
+    user,
+    setUser,
+    // getUser,
+    // login,
+    // signOut,
+    // signUp,
+  }
+
+  return (
+    <Context.Provider value={value}>
+      { !loading && children }
+    </Context.Provider>
+  )
+
+} */

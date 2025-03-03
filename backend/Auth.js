@@ -1,10 +1,11 @@
 import { sign } from "crypto";
 import { auth } from "./Firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, fetchSignInMethodsForEmail } from "firebase/auth";
-  
 
-export const register = async (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
+
+
+export const register = async (email, password, setUser) => {
+    return setUser(createUserWithEmailAndPassword(auth, email, password).user);
 }
 
 export const login = (email, password) => {
@@ -26,6 +27,7 @@ export const signOut = () => {
 export const isEmailInDatabase = (email) => {
     return "Need to change - true / flase"; 
 }
+
 
 
 

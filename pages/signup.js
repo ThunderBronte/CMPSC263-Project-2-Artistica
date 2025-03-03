@@ -12,15 +12,27 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const Signup = () => {
 
-  const { user, setUser } = useStateContext()
-  const [ currUser, setCurrUser ] = useState(undefined);
+  const { user, setUser } = useStateContext();
+  const [ currUser, setCurrUser ] = useState("uh");
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
+  const router = useRouter()
 
   // Any alerts to dispaly to user 
-  const [ alert, setAlert] = useState(null);
+  const [ alert, setAlert] = useState('');
 
-  const router = useRouter()
+
+  // let userContent = {
+  //   "uid":"",
+  //   "email":"",
+  //   "emailVerified":"",
+  //   "isAnonymous":"",
+
+  // }
+
+  
+
+  
 
 //   async function validateEmail(){
 //     const emailRegex = /^[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
@@ -38,11 +50,32 @@ const Signup = () => {
 // }
 
   async function handleSignup(){
+    // console.log("email: ", email);
+    // console.log("password: ", password);
+    // setCurrUser({
+    //   "email": email,
+    //   "password": password
+    // })
+
+    // console.log("currUser: ", currUser);
+    // await signUp(email, password)
+    // .catch(err => console.log("Error in singing up: ", err))
+    //router.push('/profilePage');
+
+
+
+
+
+
     // const isValidEmail = await validateEmail()
     // console.log('isValidEmail: ', isValidEmail)
     // if(!isValidEmail){ 
     //   return "boo"; 
     // }
+
+
+
+
 
     try{
       const userCred = await createUserWithEmailAndPassword(getAuth(), email, password)
@@ -52,15 +85,27 @@ const Signup = () => {
       const userOnly = userCred.user
       console.log("User cred . user: ",  JSON.stringify(userOnly, null, 2));
 
-      setCurrUser(userOnly);
 
-      //setUser(currUser);
+      console.log("User uid: ", userOnly.uid);
+      await setUser(userOnly.uid);
+      console.log("User NOW: ", user);
       //router.push('/profilePage')
 
       
     } catch(error){
       console.log('Error Signing Up: ', error)
     }
+
+
+
+    // try{
+    //   await register(email, password, setUser)
+    //   router.push('/dashboard')
+    // }catch(err){
+    //   console.log('Error Signing Up', err)
+    // }
+
+
 
 
   /* .then((userInfo) => {
@@ -211,97 +256,5 @@ const LogInSpan = styled(Link)`
   }
 `;
 
-
-/*
-
-  return (
-    <>
-      <ContentContainer>
-        <Section>
-            <Header>Signup</Header>
-            <SignIn>
-              Already have an account?
-              <SignUpButton onClick={() => logIn()}>Log In!</SignUpButton>
-            </SignIn>
-          <InputTitle>Email</InputTitle>
-          <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-          <InputTitle>Password</InputTitle>
-          <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-
-          <UserAgreementText>By signing in, you automatically agree to our <UserAgreementSpan href='/legal/terms-of-use' rel="noopener noreferrer" target="_blank"> Terms of Use</UserAgreementSpan> and <UserAgreementSpan href='/legal/privacy-policy' rel="noopener noreferrer" target="_blank">Privacy Policy.</UserAgreementSpan></UserAgreementText>
-
-          <Button onClick={handleSignup}>Signup</Button>
-
-        </Section>
-      </ContentContainer>
-    </>
-  )
-}
-
-
-const ContentContainer = styled.div`
-  background-color: white;
-  padding: 20px;
-  color: #25283D;
-`;
-
-
-const Section = styled.section`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Header = styled.h1`
-  font-size: 75px;
-  text-align: center;
-  padding-top: 50px;
-  padding-bottom: 25px;
-`;
-
-
-const Input = styled.input`
-  font-size: 16px;
-
-`;
-
-const InputTitle = styled.label`
-  font-size: 14px;
-`;
-
-
-const Button = styled.button`
-  font-size: 25px;
-  padding: 10px;
-  padding-left: 15px;
-  padding-right: 15px;
-  border-radius: 4px;
-  margin: 5px;
-  margin-left: 15px;
-
-  display: flex;
-  text-align: center;
-  display: inline-block;
-
-  color: #25283D;
-  &:hover{ 
-    background-color: #25283D; 
-    color: #43DFBD;
-  }
-
-  border-color: #25283D;
-  border-radius: 50px;
-  border-style: solid;
-  background-color: transparent;
-`;
-
-const UserAgreementText = styled.p`
-  font-size: 12px;
-`;
-
-const UserAgreementSpan = styled(Link)` 
-  color: #007bff;
-
-`;
-*/
 
 export default Signup
