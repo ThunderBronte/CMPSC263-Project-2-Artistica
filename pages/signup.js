@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
 import { useStateContext } from '@/context/StateContext'
-import { isEmailInUse, register} from '@/backend/Auth'
+import { isEmailInDatabase, register} from '@/backend/Auth'
 import Link from 'next/link'
 import Navbar from '@/components/Dashboard/Navbar'
 import NavigationBar from "@/components/Dashboard/Navbar"
@@ -16,6 +16,9 @@ const Signup = () => {
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
 
+  // Any alerts to dispaly to user 
+  const [ alert, setAlert] = useState(null);
+
   const router = useRouter()
 
   async function validateEmail(){
@@ -24,7 +27,7 @@ const Signup = () => {
         return false;
     }
     console.log('so far so good...')
-    const emailResponse = await isEmailInUse(email)
+    const emailResponse = await isEmailInDatabase(email)
     console.log('email response', emailResponse)
     if(emailResponse.length == 0 ){
         return false;
@@ -57,11 +60,13 @@ const Signup = () => {
         <SignUp>
         <Section>
             <Header>Sign up</Header>
-              <LogIn>Already have an account? <LogInSpan href="/login">Login!</LogInSpan></LogIn>
+              <Alerts>{alert}</Alerts>
             <InputTitle>Email</InputTitle>
             <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
             <InputTitle>Password</InputTitle>
             <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+
+            <LogIn>Already have an account? <LogInSpan href="/login">Login!</LogInSpan></LogIn>
 
             <Button onClick={handleSignup}>Sign Up</Button>
       
@@ -108,6 +113,12 @@ const Header = styled.h1`
   padding-top: 50px;
 `;
 
+const Alerts = styled.p`
+  color: red;
+  margin: 10px; 
+  text-align: center;
+`;
+
 const Input = styled.input`
   font-size: 16px;
   margin-bottom: 20px;
@@ -125,7 +136,7 @@ const Button = styled.button`
   padding: 10px;
   padding-left: 15px;
   padding-right: 15px;
-  margin-top: 40px;
+  margin-top: 20px;
 
   display: flex;
   text-align: center;
@@ -153,7 +164,7 @@ const LogIn = styled.p`
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 4px;
-  margin: 5px;
+  margin-top: 20px;
   margin-left: 15px;
 
   display: flex;

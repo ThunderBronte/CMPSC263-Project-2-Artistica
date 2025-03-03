@@ -23,7 +23,7 @@ export const signOut = () => {
 }
 
 // Change
-export const isEmailInUse = (email) => {
+export const isEmailInDatabase = (email) => {
     return "Need to change - true / flase"; 
 }
 

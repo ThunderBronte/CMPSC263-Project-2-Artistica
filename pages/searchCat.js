@@ -132,18 +132,16 @@ const Button = styled.button`
   text-align: right;
   display: inline-block;
 
-  color: #077678;
-  border-color: #077678;
+  color: white;
+  background-color: #077678; W
+  border: 2px solid #077678;
   border-radius: 50px;
+
   &:hover{ 
-    color: white;
-    background-color: #077678; 
+    color: #077678;
+    border-color: #077678;
+    background-color: transparent;
   }
-
-  border-radius: 50px;
-  border-style: solid;
-  background-color: transparent;
-
 `;
 
 const CatContainer = styled.div`

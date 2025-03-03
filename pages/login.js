@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
 import { useStateContext } from '@/context/StateContext'
-import {login, isEmailInUse} from '@/backend/Auth'
+import {login, isEmailInDatabase} from '@/backend/Auth'
 import Link from 'next/link'
 import NavigationBar from "@/components/Dashboard/Navbar"
 import Footer from "@/components/LandingPage/Footer"
@@ -15,16 +15,60 @@ const Login = () => {
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
 
+  // Any alerts to dispaly to user 
+  const [ alert, setAlert] = useState(null);
+
   const router = useRouter()
+
+  // Validating email
+  async function validateEmail(){
+    const emailRegex = /^[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+    if(emailRegex.test(email) == false ){
+        return false;
+    }
+    console.log('so far so good...')
+    const emailResponse = await isEmailInUse(email)
+    console.log('email response', emailResponse)
+    if(emailResponse.length == 0 ){
+        return false;
+    }
+
+    return true;
+  }
+
+  async function handleSignup(){
+    const isValidEmail = await validateEmail()
+    // console.log('isValidEmail', isValidEmail)
+    // if(!isValidEmail){ return; }
+    
+    try{
+        await register(email, password, setUser)
+        router.push('/dashboard')
+    }catch(err){
+        console.log('Error Signing Up', err)
+    }
+  }
 
 
   async function handleLogin(){
-    // Check to see if the email is in use (in database). If not, ask for the user to go to "sign up". Else, log in
-    const emailInUse = isEmailInUse(email);
-    if(!emailInUse){
-      setUser(login(email, password));
-    } else {
-      await login(email, password)
+    // Validate email 
+    const isValidEmail = await validateEmail()
+    if(!isValidEmail){
+      setAlert("Email is not valid");
+      return false;
+    }
+
+    try{
+      // Check to see if the email is in database. If not, ask for the user to go to "sign up". Else, log in
+      const emailInDatabase = isEmailInDatabase(email);
+      if(!emailInDatabase){
+        setAlert("Email is does not exist. Please signs up.");
+        router.push('/signup');
+      } else {
+        setUser( await login(email, password));
+      } 
+    } catch(error){
+      console.log("Error logging in: "+ error);
     }
   }
 
@@ -36,11 +80,12 @@ const Login = () => {
         <LogIn>
         <Section>
             <Header>Login</Header>
-              <SignUp>Don't have an account? <SignUpSpan href="/signup">Sign up!</SignUpSpan></SignUp>
+              <Alerts>{alert}</Alerts>
             <InputTitle>Email</InputTitle>
             <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
             <InputTitle>Password</InputTitle>
             <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+            <SignUp>Don't have an account? <SignUpSpan href="/signup">Sign up!</SignUpSpan></SignUp>
 
             <Button onClick={handleLogin}>Login</Button>
       
@@ -87,6 +132,12 @@ const Header = styled.h1`
   padding-top: 50px;
 `;
 
+const Alerts = styled.p`
+  color: red;
+  margin: 10px; 
+  text-align: center;
+`;
+
 const Input = styled.input`
   font-size: 16px;
   margin-bottom: 20px;
@@ -104,7 +155,7 @@ const Button = styled.button`
   padding: 10px;
   padding-left: 15px;
   padding-right: 15px;
-  margin-top: 40px;
+  margin-top: 20px;
 
   display: flex;
   text-align: center;
@@ -132,7 +183,7 @@ const SignUp = styled.p`
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 4px;
-  margin: 5px;
+  margin-top: 20px;
   margin-left: 15px;
 
   display: flex;
