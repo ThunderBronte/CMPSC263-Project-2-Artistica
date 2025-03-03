@@ -12,51 +12,33 @@ export const login = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
 }
 
-// FIX!!!
-// export const doFetchSignInMethodsForEmail = () =>{
-//     return fetchSignInMethodsForEmail()
-// }
+// If email exists
+export const isEmailInDatabase = (email) => {
+    return fetchSignInMethodsForEmail(auth, email)
+    // try{
+    //     const res = await fetchSignInMethodsForEmail(auth, email);
+    //     return res;
+    // } catch(err) {
+    //     console.error("Troubles fetching email: ", err)
+    //     return [];
+    // }
+}
+
 
 
 // 
-export const signOut = () => {
-    return auth.signOut();
-}
+// export const signOut = () => {
+//     return signOut(auth);
+// }
 
-// Change
-export const isEmailInDatabase = (email) => {
-    return "Need to change - true / flase"; 
-}
+
+
 
 
 
 
 
 /*
-// New users, create account
-createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-        const user = UserInformation.UserInformation;
-    })
-    .catch((error) =>{
-        const errorCode = error.code;
-        const errorMessage = error.message;
-    });
-
-/*
-// Returning Users
-signInWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-  });
-
-
 // Do something when the auth changes 
 // I could change the display of the cat cart
 onAuthStateChanged(auth, (user) => {

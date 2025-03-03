@@ -53,7 +53,7 @@ const Login = () => {
 
 
   async function handleLogin(){
-    // // Validate email 
+    // Validate email 
     // const isValidEmail = await validateEmail()
     // if(!isValidEmail){
     //   setAlert("Email is not valid");
@@ -71,8 +71,10 @@ const Login = () => {
 
     try{
       // Check to see if the email is in auth database. If not, ask for the user to go to "sign up". Else, log in
-      const emailInDatabase = isEmailInDatabase(email);
-      // if(!emailInDatabase){
+      const emailInDatabase = await isEmailInDatabase("mayachitu@gmail.com");
+      console.log("email dtatabase check: ", emailInDatabase);
+      console.log("email: ", email);
+      // if(emailInDatabase <= 0){
       //   setAlert("Email is does not exist. Please sign up.");
       //   router.push('/signup');
       // } else {
