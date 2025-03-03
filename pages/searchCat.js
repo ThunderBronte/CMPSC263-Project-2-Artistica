@@ -133,7 +133,7 @@ const Button = styled.button`
   display: inline-block;
 
   color: white;
-  background-color: #077678; W
+  background-color: #077678; 
   border: 2px solid #077678;
   border-radius: 50px;
 

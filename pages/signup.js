@@ -58,6 +58,14 @@ const Signup = () => {
       return false; 
     }
 
+    // Validate Password
+    const passwordStatus = await validatePassword(getAuth(), password)
+    if(!passwordStatus.isValid){
+      const errMes = "Password is not valid. Please make sure it has the following: \n - One uppercase character \n - One lowercase character \n - One special character \n - One numeric character";
+      setAlert(errMes);
+      return false;
+    }
+
 
 
     try{

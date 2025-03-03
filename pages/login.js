@@ -28,64 +28,60 @@ const Login = () => {
         return false;
     }
     console.log('so far so good...')
-    const emailResponse = await isEmailInDatabase(email)
-    console.log('email response', emailResponse)
-    if(emailResponse.length == 0 ){
-        return false;
-    }
+    // const emailResponse = await isEmailInDatabase(email)
+    // console.log('email response', emailResponse)
+    // if(emailResponse.length == 0 ){
+    //     return false;
+    // }
 
     return true;
   }
 
-  /*
-  async function handleSignup(){
-    const isValidEmail = await validateEmail()
-    // console.log('isValidEmail', isValidEmail)
-    // if(!isValidEmail){ return; }
-    
-    try{
-        await register(email, password, setUser)
-        router.push('/dashboard')
-    }catch(err){
-        console.log('Error Signing Up', err)
-    }
-  } */
-
 
   async function handleLogin(){
     // Validate email 
-    // const isValidEmail = await validateEmail()
-    // if(!isValidEmail){
-    //   setAlert("Email is not valid");
-    //   return false;
-    // }
-
-    // // Validate Password
-    // const passwordStatus = await validatePassword(getAuth(), password)
-    // if(!passwordStatus.isValid){
-    //   const errMes = "Password is not valid. Please make sure it has the following: \n - One uppercase character \n - One lowercase character \n - One special character \n - One numeric character";
-    //   setAlert(errMes);
-    //   return false;
-    // }
-
+    const isValidEmail = await validateEmail()
+    if(!isValidEmail){
+      setAlert("Email is not valid");
+      return false;
+    }
 
     try{
       // Check to see if the email is in auth database. If not, ask for the user to go to "sign up". Else, log in
-      const emailInDatabase = await isEmailInDatabase("mayachitu@gmail.com");
-      console.log("email dtatabase check: ", emailInDatabase);
-      console.log("email: ", email);
-      // if(emailInDatabase <= 0){
-      //   setAlert("Email is does not exist. Please sign up.");
-      //   router.push('/signup');
-      // } else {
+      // Separate from validateEmail so I can write another error message.
+      const emailInDatabase = await isEmailInDatabase(email);
+      if(emailInDatabase <= 0){
+        setAlert("Email is does not exist. Please sign up.");
+      } else {
+        console.log("Logging user in!");
         const loginStatus = await login(email, password);
         await setUser(loginStatus.user.email);
-        //router.push('/profilePage');
-      //} 
+        router.push('/profilePage');
+      } 
     } catch(error){
+      handleAuthError(error.code);
       console.log("Error logging in: "+ error);
     }
-  }
+  };
+
+
+  // Handle errors I did not get
+  const handleAuthError = (errorCode) => {
+    switch (errorCode) {
+      case "auth/wrong-password":
+        setAlert("Incorrect password. Please try again.");
+        break;
+      case "auth/user-not-found":
+        setAlert("User not found. Please check your email or sign up.");
+        break;
+      case "auth/invalid-email":
+        setAlert("Invalid email format.");
+        break;
+      default:
+        setAlert("An error occurred. Please try again later.");
+        break;
+    }
+  };
 
 
   return (
