@@ -21,26 +21,38 @@ export default function Home() {
 
   useEffect(() => {
     console.log(user);
-    // const listen = onAuthStateChanged(getAuth(), (currUser) => {
-    //   if(currUser){
-    //     setUser(currUser);
-    //   } else {
-    //     setUser(null);
-    //   }
-    // });
+    const listen = onAuthStateChanged(getAuth(), (currUser) => {
+      if(currUser){
+        setUser(currUser);
+      } else {
+        setUser(null);
+      }
+    });
 
-    // return () => listen();
+    return () => listen();
   }, [])
   
-    
+
   // If the user is not logged in, ask them to log in.
-  // useEffect(() => {
-  //   if(!user){
-  //     router.push('/login')
-  //   } else {
-      
-  //   }
-  // }, [user]);
+  useEffect(() => {
+    // wait for information to load 
+    if(user === undefined){ console.log("Waiting for user info...");}
+    else {
+      if(!user){
+        router.push('/login')
+      } else {
+        // Get name from email
+        let userName = '';
+        if(typeof user === 'object'){
+          userName = user.email.split('@');
+        } else if(typeof user === 'string') {
+          userName = user.split('@');
+        }
+        
+        setName(userName[0]);
+      }
+    }
+  }, [user]);
   
   // const catSearch = () =>{
   //   router.push('/catCart');
@@ -53,7 +65,6 @@ export default function Home() {
     <>
     <NavigationBar />
         <ContentContainer>
-          {user ? <p>Logged In {user.email}</p> : <p>NOT logged in</p>}
           <Heading>Hello {name}!</Heading>
           <Line></Line>
           <Subheading>Here is your information: </Subheading>

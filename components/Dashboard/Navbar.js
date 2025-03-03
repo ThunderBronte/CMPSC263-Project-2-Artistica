@@ -23,7 +23,15 @@ const NavigationBar = () => {
     if(!user){
       setName("Guest");
     }else{
-      setName(user);
+      // Get name from email
+      let userName = '';
+      if(typeof user === 'object'){
+        userName = user.email.split('@');
+      } else if(typeof user === 'string') {
+        userName = user.split('@');
+      }
+      
+      setName(userName[0]);
     }
   }, [user]) 
 
