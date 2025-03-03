@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
 import { useStateContext } from '@/context/StateContext'
-import { isEmailInDatabase, register} from '@/backend/Auth'
+import { isEmailInDatabase, signUp} from '@/backend/Auth'
 import Link from 'next/link'
 import NavigationBar from "@/components/Dashboard/Navbar"
 import Footer from "@/components/LandingPage/Footer"
@@ -34,95 +34,40 @@ const Signup = () => {
 
   
 
-//   async function validateEmail(){
-//     const emailRegex = /^[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-//     if(emailRegex.test(email) == false ){
-//         return false;
-//     }
-//     console.log('so far so good...')
-//     const emailResponse = await isEmailInDatabase(email)
-//     console.log('email response', emailResponse)
-//     if(emailResponse.length == 0 ){
-//         return false;
-//     }
+  async function validateEmail(){
+    const emailRegex = /^[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+    if(emailRegex.test(email) == false ){
+        return false;
+    }
+    console.log('so far so good...')
+    const emailResponse = await isEmailInDatabase(email)
+    console.log('email response', emailResponse)
+    if(emailResponse.length == 0 ){
+        return false;
+    }
 
-//     return true;
-// }
+    return true;
+}
 
   async function handleSignup(){
-    // console.log("email: ", email);
-    // console.log("password: ", password);
-    // setCurrUser({
-    //   "email": email,
-    //   "password": password
-    // })
-
-    // console.log("currUser: ", currUser);
-    // await signUp(email, password)
-    // .catch(err => console.log("Error in singing up: ", err))
-    //router.push('/profilePage');
-
-
-
-
-
-
-    // const isValidEmail = await validateEmail()
-    // console.log('isValidEmail: ', isValidEmail)
-    // if(!isValidEmail){ 
-    //   return "boo"; 
-    // }
-
-
-
-
-
-    try{
-      const userCred = await createUserWithEmailAndPassword(getAuth(), email, password)
-
-      console.log('userCredential:', JSON.stringify(userCred, null, 2));
-
-      const userOnly = userCred.user
-      console.log("User cred . user: ",  JSON.stringify(userOnly, null, 2));
-
-
-      console.log("User uid: ", userOnly.uid);
-      await setUser(userOnly.uid);
-      console.log("User NOW: ", user);
-      //router.push('/profilePage')
-
-      
-    } catch(error){
-      console.log('Error Signing Up: ', error)
+    // Validate the email
+    const isValidEmail = await validateEmail()
+    console.log('isValidEmail: ', isValidEmail)
+    if(!isValidEmail){ 
+      setAlert("Email is not valid.");
+      return false; 
     }
 
 
 
-    // try{
-    //   await register(email, password, setUser)
-    //   router.push('/dashboard')
-    // }catch(err){
-    //   console.log('Error Signing Up', err)
-    // }
-
-
-
-
-  /* .then((userInfo) => {
-        console.log("User info: ", JSON.stringify(userInfo, null, 2));
-        setUser(userInfo);
-      })
-      .catch((error) => {
-        console.log("Error with singing user up: ", error);
-      }) */
-    
-
-    // try{
-    //     await register(email, password, setUser)
-    //     router.push('/profilePage')
-    // }catch(err){
-    //     console.log('Error Signing Up: ', err)
-    // }
+    try{
+      const userCred = await signUp(email, password);
+      await setUser(userCred.user.email);
+      console.log("It worled!!: ", userCred.user.email)
+      router.push('/profilePage')
+    }catch(err){
+      console.log('Error Signing Up', err)
+    }
   }
 
 

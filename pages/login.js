@@ -21,21 +21,21 @@ const Login = () => {
 
   const router = useRouter()
 
-  // // Validating email
-  // async function validateEmail(){
-  //   const emailRegex = /^[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-  //   if(emailRegex.test(email) == false ){
-  //       return false;
-  //   }
-  //   console.log('so far so good...')
-  //   const emailResponse = await isEmailInDatabase(email)
-  //   console.log('email response', emailResponse)
-  //   if(emailResponse.length == 0 ){
-  //       return false;
-  //   }
+  // Validating email
+  async function validateEmail(){
+    const emailRegex = /^[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+    if(emailRegex.test(email) == false ){
+        return false;
+    }
+    console.log('so far so good...')
+    const emailResponse = await isEmailInDatabase(email)
+    console.log('email response', emailResponse)
+    if(emailResponse.length == 0 ){
+        return false;
+    }
 
-  //   return true;
-  // }
+    return true;
+  }
 
   /*
   async function handleSignup(){
@@ -68,36 +68,21 @@ const Login = () => {
     //   return false;
     // }
 
-    // // Check to see if the email is in database. If not, ask for the user to go to "sign up"
-    // const emailInDatabase = isEmailInUse(email);
-    // if(!emailInDatabase){
-    //   setAlert("Email is does not exist. Please sign up.");
-    //   return false;
-    // } 
-    
-    signInWithEmailAndPassword(getAuth(), email, password)
-      .then((userInfo) => {
-        console.log("User info: " + userInfo);
-        //setUser(userInfo) 
-      })
-      .catch((error) => {
-        console.log("Error with singing user up: " + error);
-      })
-    
 
-
-    // try{
-    //   // Check to see if the email is in database. If not, ask for the user to go to "sign up". Else, log in
-    //   const emailInDatabase = isEmailInDatabase(email);
-    //   if(!emailInDatabase){
-    //     setAlert("Email is does not exist. Please sign up.");
-    //     router.push('/signup');
-    //   } else {
-    //     setUser( await login(email, password));
-    //   } 
-    // } catch(error){
-    //   console.log("Error logging in: "+ error);
-    // }
+    try{
+      // Check to see if the email is in auth database. If not, ask for the user to go to "sign up". Else, log in
+      const emailInDatabase = isEmailInDatabase(email);
+      // if(!emailInDatabase){
+      //   setAlert("Email is does not exist. Please sign up.");
+      //   router.push('/signup');
+      // } else {
+        const loginStatus = await login(email, password);
+        await setUser(loginStatus.user.email);
+        //router.push('/profilePage');
+      //} 
+    } catch(error){
+      console.log("Error logging in: "+ error);
+    }
   }
 
 

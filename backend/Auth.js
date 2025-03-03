@@ -4,8 +4,8 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, fetchSignIn
 
 
 
-export const register = async (email, password, setUser) => {
-    return setUser(createUserWithEmailAndPassword(auth, email, password).user);
+export const signUp = async (email, password) => {
+    return createUserWithEmailAndPassword(auth, email, password);
 }
 
 export const login = (email, password) => {
@@ -13,9 +13,9 @@ export const login = (email, password) => {
 }
 
 // FIX!!!
-export const doFetchSignInMethodsForEmail = () =>{
-    return fetchSignInMethodsForEmail()
-}
+// export const doFetchSignInMethodsForEmail = () =>{
+//     return fetchSignInMethodsForEmail()
+// }
 
 
 // 
