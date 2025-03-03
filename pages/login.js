@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
 import { useStateContext } from '@/context/StateContext'
-import {login, isEmailInDatabase} from '@/backend/Auth'
+import { login, isEmailInDatabase } from '@/backend/Auth'
 import Link from 'next/link'
 import NavigationBar from "@/components/Dashboard/Navbar"
 import Footer from "@/components/LandingPage/Footer"
+import { getAuth, validatePassword, signInWithEmailAndPassword } from "firebase/auth";
 
 
 
@@ -20,22 +21,23 @@ const Login = () => {
 
   const router = useRouter()
 
-  // Validating email
-  async function validateEmail(){
-    const emailRegex = /^[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-    if(emailRegex.test(email) == false ){
-        return false;
-    }
-    console.log('so far so good...')
-    const emailResponse = await isEmailInUse(email)
-    console.log('email response', emailResponse)
-    if(emailResponse.length == 0 ){
-        return false;
-    }
+  // // Validating email
+  // async function validateEmail(){
+  //   const emailRegex = /^[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+  //   if(emailRegex.test(email) == false ){
+  //       return false;
+  //   }
+  //   console.log('so far so good...')
+  //   const emailResponse = await isEmailInDatabase(email)
+  //   console.log('email response', emailResponse)
+  //   if(emailResponse.length == 0 ){
+  //       return false;
+  //   }
 
-    return true;
-  }
+  //   return true;
+  // }
 
+  /*
   async function handleSignup(){
     const isValidEmail = await validateEmail()
     // console.log('isValidEmail', isValidEmail)
@@ -47,29 +49,55 @@ const Login = () => {
     }catch(err){
         console.log('Error Signing Up', err)
     }
-  }
+  } */
 
 
   async function handleLogin(){
-    // Validate email 
-    const isValidEmail = await validateEmail()
-    if(!isValidEmail){
-      setAlert("Email is not valid");
-      return false;
-    }
+    // // Validate email 
+    // const isValidEmail = await validateEmail()
+    // if(!isValidEmail){
+    //   setAlert("Email is not valid");
+    //   return false;
+    // }
 
-    try{
-      // Check to see if the email is in database. If not, ask for the user to go to "sign up". Else, log in
-      const emailInDatabase = isEmailInDatabase(email);
-      if(!emailInDatabase){
-        setAlert("Email is does not exist. Please signs up.");
-        router.push('/signup');
-      } else {
-        setUser( await login(email, password));
-      } 
-    } catch(error){
-      console.log("Error logging in: "+ error);
-    }
+    // // Validate Password
+    // const passwordStatus = await validatePassword(getAuth(), password)
+    // if(!passwordStatus.isValid){
+    //   const errMes = "Password is not valid. Please make sure it has the following: \n - One uppercase character \n - One lowercase character \n - One special character \n - One numeric character";
+    //   setAlert(errMes);
+    //   return false;
+    // }
+
+    // // Check to see if the email is in database. If not, ask for the user to go to "sign up"
+    // const emailInDatabase = isEmailInUse(email);
+    // if(!emailInDatabase){
+    //   setAlert("Email is does not exist. Please sign up.");
+    //   return false;
+    // } 
+    
+    signInWithEmailAndPassword(getAuth(), email, password)
+      .then((userInfo) => {
+        console.log("User info: " + userInfo);
+        //setUser(userInfo) 
+      })
+      .catch((error) => {
+        console.log("Error with singing user up: " + error);
+      })
+    
+
+
+    // try{
+    //   // Check to see if the email is in database. If not, ask for the user to go to "sign up". Else, log in
+    //   const emailInDatabase = isEmailInDatabase(email);
+    //   if(!emailInDatabase){
+    //     setAlert("Email is does not exist. Please sign up.");
+    //     router.push('/signup');
+    //   } else {
+    //     setUser( await login(email, password));
+    //   } 
+    // } catch(error){
+    //   console.log("Error logging in: "+ error);
+    // }
   }
 
 
@@ -80,7 +108,7 @@ const Login = () => {
         <LogIn>
         <Section>
             <Header>Login</Header>
-              <Alerts>{alert}</Alerts>
+              <Alerts value="">{alert}</Alerts>
             <InputTitle>Email</InputTitle>
             <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
             <InputTitle>Password</InputTitle>
@@ -135,7 +163,8 @@ const Header = styled.h1`
 const Alerts = styled.p`
   color: red;
   margin: 10px; 
-  text-align: center;
+  text-align: left;
+  white-space: pre-line;
 `;
 
 const Input = styled.input`

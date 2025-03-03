@@ -35,9 +35,7 @@ const Content = ({text}) => {
       } catch (error) {
         console.error('Error fetching cat facts:', error);
         setData(null);
-      } finally {
-        console.log("In finally ");
-      }
+      } 
     };
   
     fetchCatData();

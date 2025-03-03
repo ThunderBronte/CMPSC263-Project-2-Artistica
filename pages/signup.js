@@ -4,15 +4,16 @@ import { useRouter } from 'next/router'
 import { useStateContext } from '@/context/StateContext'
 import { isEmailInDatabase, register} from '@/backend/Auth'
 import Link from 'next/link'
-import Navbar from '@/components/Dashboard/Navbar'
 import NavigationBar from "@/components/Dashboard/Navbar"
 import Footer from "@/components/LandingPage/Footer"
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 
 
 const Signup = () => {
 
   const { user, setUser } = useStateContext()
+  const [ currUser, setCurrUser ] = useState(undefined);
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
 
@@ -21,34 +22,62 @@ const Signup = () => {
 
   const router = useRouter()
 
-  async function validateEmail(){
-    const emailRegex = /^[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-    if(emailRegex.test(email) == false ){
-        return false;
-    }
-    console.log('so far so good...')
-    const emailResponse = await isEmailInDatabase(email)
-    console.log('email response', emailResponse)
-    if(emailResponse.length == 0 ){
-        return false;
-    }
+//   async function validateEmail(){
+//     const emailRegex = /^[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+//     if(emailRegex.test(email) == false ){
+//         return false;
+//     }
+//     console.log('so far so good...')
+//     const emailResponse = await isEmailInDatabase(email)
+//     console.log('email response', emailResponse)
+//     if(emailResponse.length == 0 ){
+//         return false;
+//     }
 
-    return true;
-}
+//     return true;
+// }
 
   async function handleSignup(){
-    const isValidEmail = await validateEmail()
-    console.log('isValidEmail: ', isValidEmail)
-    if(!isValidEmail){ 
-      return "boo"; 
-    }
-    
+    // const isValidEmail = await validateEmail()
+    // console.log('isValidEmail: ', isValidEmail)
+    // if(!isValidEmail){ 
+    //   return "boo"; 
+    // }
+
     try{
-        await register(email, password, setUser)
-        router.push('/profilePage')
-    }catch(err){
-        console.log('Error Signing Up: ', err)
+      const userCred = await createUserWithEmailAndPassword(getAuth(), email, password)
+
+      console.log('userCredential:', JSON.stringify(userCred, null, 2));
+
+      const userOnly = userCred.user
+      console.log("User cred . user: ",  JSON.stringify(userOnly, null, 2));
+
+      setCurrUser(userOnly);
+
+      //setUser(currUser);
+      //router.push('/profilePage')
+
+      
+    } catch(error){
+      console.log('Error Signing Up: ', error)
     }
+
+
+  /* .then((userInfo) => {
+        console.log("User info: ", JSON.stringify(userInfo, null, 2));
+        setUser(userInfo);
+      })
+      .catch((error) => {
+        console.log("Error with singing user up: ", error);
+      }) */
+    
+
+    // try{
+    //     await register(email, password, setUser)
+    //     router.push('/profilePage')
+    // }catch(err){
+    //     console.log('Error Signing Up: ', err)
+    // }
   }
 
 
