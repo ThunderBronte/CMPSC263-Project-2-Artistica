@@ -18,10 +18,6 @@ export const isEmailInDatabase = (email) => {
 }
 
 
-export const signOut = () => {
-    return signOut(auth);
-}
-
 
 
 

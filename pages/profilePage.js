@@ -4,15 +4,14 @@ import Footer from "@/components/LandingPage/Footer"
 import { useRouter } from 'next/router'
 import { StateContext, useStateContext } from '@/context/StateContext'
 import React, { useState, useEffect } from 'react'
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth"
+//import { signOut } from '@/backend/Auth';
 
 
 
 export default function Home() {
   
   const { user, setUser } = useStateContext()
-
-  //const [user, setUser] = useState(null);
 
   const router = useRouter()
   
@@ -53,9 +52,10 @@ export default function Home() {
     }
   }, [user]);
 
+  // sign user out
   function signOutUser(){
-    console.log(signOut());
-    router.push("/");
+    let promie = signOut(getAuth())
+    console.log("Promie: ", promie);
   }
   
   
