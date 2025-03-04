@@ -21,7 +21,7 @@ const NavigationBar = () => {
   // See what name to display in the top right corner
   useEffect(() => {
     if(!user){
-      setName("Guest");
+      setName("Log in");
     }else{
       // Get name from email
       let userName = '';
@@ -31,7 +31,7 @@ const NavigationBar = () => {
         userName = user.split('@');
       }
       
-      setName(userName[0]);
+      setName(userName[0]+ "'s Profile");
     }
   }, [user]) 
 
@@ -42,7 +42,7 @@ const NavigationBar = () => {
       <ContainerNavBar>
         <Navbar>
             <LogoItem><Logo></Logo></LogoItem>
-            <ListItem><LinkRef href="/profilePage">{name}'s Profile   </LinkRef></ListItem>
+            <ListItem><LinkRef href="/profilePage">{name}</LinkRef></ListItem>
             <ListItem><LinkRef href="/catCart">Cat Cart: Saved Cats</LinkRef></ListItem>
             <ListItem><LinkRef href="/searchCat">Find Cats to Adopt</LinkRef></ListItem>
         </Navbar>
@@ -76,6 +76,7 @@ const LogoItem = styled.li`
 `;
 
 const ListItem = styled.li`
+  font-size: 20px;
   margin-top: 20px;
   margin-left: 5px;
   display: inline;
@@ -91,6 +92,7 @@ const LinkRef = styled.a`
   padding-bottom: 7px;
   text-decoration: none;
   color: #077678;
+  border: 1px solid white;
 
   &:hover{
     color: #25283D;

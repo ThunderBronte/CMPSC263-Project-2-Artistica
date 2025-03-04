@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { CiInstagram } from "react-icons/ci";
+import { FaFacebookF } from "react-icons/fa";
+
 
 const Footer = () => {
   return (
@@ -18,10 +21,9 @@ const Footer = () => {
           Right Container Information
           <br></br>
           Follow us on social media!
-          <br></br>
-          <SocialIcon href="#" aria-label="Facebook">FB icon</SocialIcon>
-          <br></br>
-          <SocialIcon href="#" aria-label="Instagram">IG icon</SocialIcon>
+          <br></br><br></br>
+          <SocialIcon href="#"><CiInstagram /></SocialIcon>
+          <SocialIcon href="#"><FaFacebookF /></SocialIcon>
         </RightContainer>
         <BottomContainer>
           Website icon 
@@ -87,8 +89,11 @@ const SocialIcon = styled.a`
   color: #fff;
   text-decoration: none;
   font-size: 1.5rem;
+  padding: 5px;
+
+  color: #43DFBD;
   &:hover {
-    color: #007bff;
+    color: #8a8a8a;
   }
 `;
 

@@ -15,21 +15,12 @@ export const login = (email, password) => {
 // If email exists
 export const isEmailInDatabase = (email) => {
     return fetchSignInMethodsForEmail(auth, email)
-    // try{
-    //     const res = await fetchSignInMethodsForEmail(auth, email);
-    //     return res;
-    // } catch(err) {
-    //     console.error("Troubles fetching email: ", err)
-    //     return [];
-    // }
 }
 
 
-
-// 
-// export const signOut = () => {
-//     return signOut(auth);
-// }
+export const signOut = () => {
+    return signOut(auth);
+}
 
 
 

@@ -1,11 +1,10 @@
-import Content from "@/components/LandingPage/Content"
 import { styled } from 'styled-components'
 import NavigationBar from "@/components/Dashboard/Navbar"
 import Footer from "@/components/LandingPage/Footer"
 import { useRouter } from 'next/router'
 import { StateContext, useStateContext } from '@/context/StateContext'
 import React, { useState, useEffect } from 'react'
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 
 
 
@@ -53,20 +52,19 @@ export default function Home() {
       }
     }
   }, [user]);
-  
-  // const catSearch = () =>{
-  //   router.push('/catCart');
-  // }
-  
 
-
-  // Might want to change it so the useEffect changes what is displayed on the screen
+  function signOutUser(){
+    console.log(signOut());
+    router.push("/");
+  }
+  
+  
   return (
     <>
     <NavigationBar />
         <ContentContainer>
           <Heading>Hello {name}!</Heading>
-          <Line></Line>
+          <HeaderButton onClick={() => signOutUser()}>Sign Out</HeaderButton>
           <Subheading>Here is your information: </Subheading>
             <ProfileInfo>Current Username: {name}</ProfileInfo>
           <Subheading> Want to change your information? </Subheading>
@@ -74,14 +72,7 @@ export default function Home() {
               New Username: <InputInfo></InputInfo> 
               <Button onClick={(e) => setUser(e.target.value)}>Change Username</Button>
             </ProfileInfo>
-          {/* TOO MUCH WORK!!!
-           Maybe change it to:
-           See your current cat cart! and a button to the cart 
-          <Subheading> Cats you have adopted: </Subheading>
-            <ProfileInfo>
-              Cat names list
-            </ProfileInfo> */}
-          <Subheading> Want to see your current Cat Cart? </Subheading>
+          <Subheading> Want to see your current Favorite Cats? </Subheading>
           <ProfileInfo><Button onClick={() => router.push('/catCart')}>Go to Cat Cart list!</Button></ProfileInfo>
         </ContentContainer>
       <Footer />
@@ -95,6 +86,8 @@ const ContentContainer = styled.div`
   padding: 20px;
   color: #25283D;
   
+  margin-left: 300px;
+  margin-right: 300px;
 `;
 
 const Line = styled.hr`
@@ -106,6 +99,25 @@ const Heading = styled.h1`
   text-align: center;
   padding-top: 75px;
   padding-bottom: 75px;
+`;
+
+const HeaderButton = styled.button`
+  font-size: 25px;
+  margin: 20px;
+  padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  
+  color: white;
+  background-color: #077678; 
+  border: 2px solid #077678;
+  border-radius: 50px;
+
+  &:hover{ 
+    color: #077678;
+    border-color: #077678;
+    background-color: transparent;
+  }
 `;
 
 const Subheading = styled.h2`
@@ -125,21 +137,23 @@ const InputInfo = styled.input`
 `;
 
 const Button = styled.button`
+  font-size: 20px;
   padding: 5px;
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 4px;
   margin-left: 15px;
 
-  color: #25283D;
-  &:hover{ 
-    background-color: #25283D; 
-    color: #43DFBD;
-  }
-  border-color: #25283D;
+  color: white;
+  background-color: #077678; 
+  border: 2px solid #077678;
   border-radius: 50px;
-  border-style: solid;
-  background-color: transparent;
+
+  &:hover{ 
+    color: #077678;
+    border-color: #077678;
+    background-color: transparent;
+  }
 
 `;
 
