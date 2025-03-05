@@ -72,32 +72,35 @@ const CatCart = () => {
   }, [user]);
 
 
+
+  /*
   // Display all the cats in the database
-  //function displayCatInfo(info){
     // Might need useEffect ---------------------------------------
     // Create a containter for each of the cats 
-    //useEffect(() =>{ 
-      // if(data === undefined){ 
-      //   console.log("Waiting for data info...");
-      // } else {
-      //   // Remove any previous info 
-      //   if(containerTag.current.children.length > 0){
-      //     containerTag.current.innerHTML = "";
-      //     console.log("Removed children");
-      //   }
+    useEffect(() =>{ 
+      if(data === undefined){ 
+        console.log("Waiting for data info...");
+      } else {
+        // Remove any previous info 
+        if(containerTag.current.children.length > 0){
+          containerTag.current.innerHTML = "";
+          console.log("Removed children");
+        }
 
-        //data.forEach((cat) => {
-          // const cat = data[2];
-          // console.log("In loop");
+        data.forEach((cat) => {
+          //const cat = data[2];
+          console.log("In loop");
 
-          // const oneCat = (
-          //   <OneCatContainer key={cat.id}>
-          //     <ImageCats src={cat.url}></ImageCats>
-          //     <CatInfo>{cat.name}</CatInfo>
-          //     <Button onClick={() => removeCat()}>Remove Cat</Button>
-          //   </OneCatContainer>
-          // );
+          const oneCat = (
+          //containerTag.current.appendChild(
+            <OneCatContainer key={cat.id}>
+              <ImageCats src={cat.url}></ImageCats>
+              <CatInfo>{cat.name}</CatInfo>
+              <Button onClick={() => removeCat()}>Remove Cat</Button>
+            </OneCatContainer>
+          );
 
+          
 
 
           // Create a new tag for each portion of the container with the desired information
@@ -123,15 +126,53 @@ const CatCart = () => {
           // oneCatContainer.appendChild(catInfo);
           // oneCatContainer.appendChild(btnRemove);
 
-          // if(containerTag.current){
-          //   containerTag.current.appendChild(oneCat);
-          // } else {
-          //   console.log("CatContainer is not reachable");
-          // }
-        //})
-      //}
-    //}, [data])
-  //}
+          
+          
+          
+          //containerTag.current.appendChild(temp);
+        })
+      }
+    }, [data])
+
+
+    */
+
+  /*
+    // Display all the cats in the database
+    useEffect(() => {
+      if (containerTag.current && data) {
+        // Clear previous children
+        containerTag.current.innerHTML = ""
+  
+        // Dynamically append new cats
+        data.forEach((cat) => {
+          const oneCatContainer = document.createElement('div')
+          oneCatContainer.className = OneCatContainer.styledComponentId
+          oneCatContainer.key = cat.id
+  
+          const imageCats = document.createElement('img')
+          imageCats.className = ImageCats.styledComponentId
+          imageCats.src = cat.url
+  
+          const catInfo = document.createElement('p')
+          catInfo.className = CatInfo.styledComponentId
+          catInfo.innerText = cat.name
+  
+          const btnRemove = document.createElement('button')
+          btnRemove.className = Button.styledComponentId
+          btnRemove.innerText = "Remove Cat"
+          btnRemove.onclick = () => removeCat(cat.id)
+  
+          // Append the image, name, and button to the oneCatContainer
+          oneCatContainer.appendChild(imageCats)
+          oneCatContainer.appendChild(catInfo)
+          oneCatContainer.appendChild(btnRemove)
+  
+          // Append the new oneCatContainer to the main container
+          containerTag.current.appendChild(oneCatContainer)
+        })
+      }
+    }, [data]) */
 
 
   // Remove cat from favorites list 
@@ -177,7 +218,7 @@ const CatCart = () => {
                     <Image src="catImages/sadCat2.jpg"></Image>
                     <Image src="catImages/sadCat3.webp"></Image>
                   </NoCatImags>
-                </NoCatContainer>
+                </NoCatContainer> 
               </NoCat> 
               : 
               <CatContainer ref={containerTag}>
@@ -186,7 +227,7 @@ const CatCart = () => {
                   {data.map((cat) => (
                     <OneCatContainer key={cat.id}>
                       <ImageCats src={cat.url}></ImageCats>
-                      <CatInfo>{cat.name}</CatInfo>
+                      <CatInfo>{cat.name}</CatInfo> 
                       <Button onClick={() => removeCat()}>Remove Cat</Button>
                     </OneCatContainer>
                   ))} 
@@ -286,6 +327,7 @@ const CatContainer = styled.div`
   gap: 20px;
 
   grid-auto-flow: row;
+  //grid-auto-rows: auto;
   
   background-color: blue;
 `;
