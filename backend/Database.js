@@ -3,24 +3,52 @@ import { database } from "./Firebase"
 import { getDatabase, ref, set, onValue } from "firebase/database"
 
 
+// I have it set up so the "document" is the user's email and the fields are the cat id & url
 
-try{
-  const docRef = await addDoc(collection(database, "UserCatCollection"), {
-    userEmail: "email",
-    catInfo: {
-      id: "id",
-      url: "url"
+// Get data from the database based on an email 
+export const fetchData = async (email) => {
+  try{
+    const docRef = doc(database, "UserCatCartCollection", email);
+    const docSnap = await getDoc(docRef);
+
+    if(docSnap.exists()){
+      console.log("Success! Doc data:", docSnap.data());
+      return docSnap.data();
+    } else {
+      console.log("No luck :( document does not exist");
+      return null
     }
-  });
-  console.log("doc written w ID: ", docRef.id)
-} catch(err){
-  console.error("Error w adding doc: ", err);
+  } catch(err) {
+    console.error("Error fetching databse data from document: ", err)
+    return null;
+  }
 }
 
-const querySnapshot = await getDocs(collection(database, "UserCatCollection"));
-querySnapshot.forEach((doc) => {
-  console.log(`${doc.userEmail} => ${doc.catInfo}`);
-})
+// Get data from the a collection 
+export const fetchCollectionData = async (email, subName) => {
+  try{
+    const docRef = doc(database, `/UserCatCartCollection/${email}`);
+    const subRef = collection(docRef, subName);
+    const subCollect = [];
+    const querySnapshot = await getDocs(subRef);
+
+    querySnapshot.forEach((doc) => {
+      subCollect.push(doc.data());
+    })
+
+    return subCollect;
+
+  } catch(err) {
+    console.error("Error fetching collection data from document: ", err)
+    return [];
+  } 
+}
+
+
+// Create a new document and add infomration to it
+export const createDoc = async (email, data) =>{
+
+}
 
 
 

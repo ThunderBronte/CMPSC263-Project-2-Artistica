@@ -44,35 +44,35 @@ const Content = ({text}) => {
 
 
   return (
-        <ContentContainer>
-          <TitleScreen>
-              <BackImg src="ContentImg.png"></BackImg>
-              <TitleWords>Adopt a cat today! <br></br>
-                <Button onClick={() => catSearch()}>Find a cat! </Button>
-              </TitleWords>
-          </TitleScreen>
-          <TextContent>
-            <SectionContainer>
-              <Subheading> About Us </Subheading>
-                <Info>Information</Info>
-            </SectionContainer>
-            <SectionContainer>
-              <Subheading>Adopt Don't Shop!</Subheading>
-                <Info>Info</Info>
-                <SectionButton onClick={() => catSearch()}>Search Cats!</SectionButton>
-            </SectionContainer>
-            <SectionContainer>
-              <Subheading>Fun Cat Facts</Subheading>
-                <Info>
-                    {data ? data.fact : "<p>Loading Cat Facts...</p>"}
-                </Info>
-              </SectionContainer>
-            <SectionContainer>
-              <Subheading>Basics of Taking Care of a Cat</Subheading>
-                <Info>Basics</Info>
-            </SectionContainer>
-           </TextContent>
-        </ContentContainer> 
+    <ContentContainer>
+      <TitleScreen>
+          <BackImg src="ContentImg.png"></BackImg>
+          <TitleWords>Adopt a cat today! <br></br>
+            <Button onClick={() => catSearch()}>Find a cat! </Button>
+          </TitleWords>
+      </TitleScreen>
+      <TextContent>
+        <SectionContainer>
+          <Subheading> About Us </Subheading>
+            <Info>Information</Info>
+        </SectionContainer>
+        <SectionContainer>
+          <Subheading>Adopt Don't Shop!</Subheading>
+            <Info>Info</Info>
+            <SectionButton onClick={() => catSearch()}>Search Cats!</SectionButton>
+        </SectionContainer>
+        <SectionContainer>
+          <Subheading>Fun Cat Facts</Subheading>
+            <Info>
+                {data ? data.fact : "<p>Loading Cat Facts...</p>"}
+            </Info>
+          </SectionContainer>
+        <SectionContainer>
+          <Subheading>Basics of Taking Care of a Cat</Subheading>
+            <Info>Basics</Info>
+        </SectionContainer>
+        </TextContent>
+    </ContentContainer> 
   ); 
 };
 
@@ -146,8 +146,8 @@ const TextContent = styled.div`
 
 const SectionContainer = styled.div`
   margin: 50px;  
-  margin-left: 300px;
-  margin-right: 300px;
+  margin-left: 10%;
+  margin-right: 10%;
   
   //background-color: red;
 `;

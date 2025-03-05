@@ -24,6 +24,7 @@ const SearchCat = () => {
 
 
   useEffect(() =>{
+    // API for cat images
     const fetchCatImages = async () => {
       try{
         const res = await fetch('https://api.thecatapi.com/v1/images/search?limit=10');
@@ -41,6 +42,7 @@ const SearchCat = () => {
       }
     }
 
+    // API for names 
     const fetchRandomName = async () => {
       try{
         const res = await fetch('https://names.ironarachne.com/race/dragonborn/family/10');
@@ -145,6 +147,8 @@ const Button = styled.button`
 `;
 
 const CatContainer = styled.div`
+  margin-left: 10%;
+  margin-right: 10%;  
   display: grid;
   justify-content: space-evenly;
   padding-top: 50px;

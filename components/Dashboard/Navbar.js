@@ -35,8 +35,8 @@ const NavigationBar = () => {
     }
   }, [user]) 
 
-  //<ListItem><Logo></Logo></ListItem>
-
+  
+// Need list in reverse order with the way I am displaying them. 
     return (
       <>
       <ContainerNavBar>
@@ -44,7 +44,7 @@ const NavigationBar = () => {
             <LogoItem><Logo></Logo></LogoItem>
             <ListItem><LinkRef href="/profilePage">{name}</LinkRef></ListItem>
             <ListItem><LinkRef href="/catCart">Cat Cart: Saved Cats</LinkRef></ListItem>
-            <ListItem><LinkRef href="/searchCat">Find Cats to Adopt</LinkRef></ListItem>
+            <ListItem><LinkRef href="/searchCat">Find Cats</LinkRef></ListItem>
         </Navbar>
       </ContainerNavBar>
       </>
