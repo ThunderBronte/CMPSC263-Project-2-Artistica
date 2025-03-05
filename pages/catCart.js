@@ -59,12 +59,21 @@ const CatCart = () => {
             // Get all the cats saved for account
             const info = await fetchCatListData(user.email);
 
-            console.log("indo: ", info);
-
-            if(info){
-              setData(info);
+            if(info.length === 0){
+              console.log("No cats :(((");
+                setAlert(`You do not have any saved cats.`);
+                setIsVisible(false);
             } else {
-              setAlert("No cats saved in second doc.");
+              setIsVisible(true);
+              setAlert("");
+
+              console.log("indo: ", info);
+
+              if(info){
+                setData(info);
+              } else {
+                setAlert("No cats saved in second doc.");
+              }
             }
           }
         }
@@ -88,27 +97,28 @@ const CatCart = () => {
           if(deleteInfo === undefined){
             console.log("Waiting for delete promise...");
           } else {
-            //Reset the data
-            console.log("In the else");
-            const data = await fetchEmailData(user.email);
-            
-            if(!data){
-              // No cats saved 
-              setAlert(`You do not have any saved cats.`);
-            } else {
-              setAlert("");
-              // Get all the cats saved for account
+            // Reset the data
               const info = await fetchCatListData(user.email);
 
-              if(info == undefined) {
-                console.log("Waiting for new info...");
-              } else {
-                console.log("NEW indo: ", info);
+              console.log("Top ifno: ", info);
 
-                if(info){
-                  setData(info);
+              if(info.length === 0){
+                setAlert(`You do not have any saved cats.`);
+                setIsVisible(false);
+              } else {
+                setIsVisible(true);
+                setAlert("");
+
+                if(info == undefined) {
+                  console.log("Waiting for new info...");
                 } else {
-                  setAlert("No cats saved in second doc.");
+                  console.log("NEW indo: ", info);
+
+                  if(info){
+                    setData(info);
+                  } else {
+                    setAlert("No cats saved in second doc.");
+                  }
                 }
               }
             }
@@ -119,7 +129,7 @@ const CatCart = () => {
             }
           }
         }
-      }
+      //}
     }
 
     getNewData();
@@ -156,7 +166,7 @@ const CatCart = () => {
               <NoCat>
                 <NoCatContainer>
                   <Alert>{alert}</Alert>
-                  <Button>Explore Cats!</Button>
+                  <ButtonTop onClick={() => router.push("/searchCat")}>Explore Cats!</ButtonTop>
                 </NoCatContainer>
                 <NoCatContainer>
                   <Text>The cats at the shelter because you are not interested in any of them:</Text>
@@ -202,6 +212,32 @@ const Title = styled.h1`
   padding-bottom: 50px;
 `;
 
+const ButtonTop = styled.button`
+  font-size: 30px;
+  padding: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 4px;
+  margin: 10px;
+  margin-top: 40px;
+
+  display: inline-block;
+
+  float: center;
+
+  color: white;
+  background-color: #077678; 
+  border: 2px solid #077678;
+  border-radius: 50px;
+
+  &:hover{ 
+    color: #077678;
+    border-color: #077678;
+    background-color: transparent;
+    cursor: pointer;
+  }
+`;
+
 const Alert = styled.h1`
   font-size: 40px;
   text-align: center;
@@ -225,14 +261,11 @@ const NoCatContainer = styled.div`
   margin-bottom: 70px;
 `;
 
-
-
 const NoCatImags = styled.div`
   margin-top: 40px;
   display: flex;
   justify-content: space-around;
 `;
-
 
 const Image = styled.img`
   width: 25%;
@@ -261,11 +294,11 @@ const Button = styled.button`
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 4px;
-  margin: 5px;
+  margin: 10px;
 
   display: inline-block;
 
-  float: right;
+  float: center;
 
   color: white;
   background-color: #077678; 

@@ -58,7 +58,8 @@ const Content = ({text}) => {
         </SectionContainer>
         <SectionContainer>
           <Subheading>Adopt Don't Shop!</Subheading>
-            <Info>Info</Info>
+            <Info>Here are reasons why you should Adopt rather than shop for cats:</Info>
+            <Info>- Saving Lives: Shelters are overwhelmed and adopting can help those </Info>
             <SectionButton onClick={() => catSearch()}>Search Cats!</SectionButton>
         </SectionContainer>
         <SectionContainer>

@@ -40,11 +40,12 @@ const Signup = () => {
         return false;
     }
     console.log('so far so good...')
-    const emailResponse = await isEmailInDatabase(email)
+    
+    /*const emailResponse = await isEmailInDatabase(email)
     console.log('email response', emailResponse)
     if(emailResponse.length == 0 ){
         return false;
-    }
+    } */
 
     return true;
 }
@@ -59,12 +60,12 @@ const Signup = () => {
     }
 
     // Validate Password
-    const passwordStatus = await validatePassword(getAuth(), password)
-    if(!passwordStatus.isValid){
-      const errMes = "Password is not valid. Please make sure it has the following: \n - One uppercase character \n - One lowercase character \n - One special character \n - One numeric character";
-      setAlert(errMes);
-      return false;
-    }
+    // const passwordStatus = await validatePassword(getAuth(), password)
+    // if(!passwordStatus.isValid){
+    //   const errMes = "Password is not valid. Please make sure it has the following: \n - One uppercase character \n - One lowercase character \n - One special character \n - One numeric character";
+    //   setAlert(errMes);
+    //   return false;
+    // }
 
 
 
