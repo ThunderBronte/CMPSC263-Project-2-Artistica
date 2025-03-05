@@ -22,6 +22,9 @@ const SearchCat = () => {
   const [ data, setData] = useState(null);
   const [ nameData, setNameData ] = useState(null);
 
+  const [ catImg, setCatImg ] = useState(null);
+  const [ catName, setCatName ] = useState(null);
+
 
   useEffect(() =>{
     // API for cat images
@@ -35,6 +38,8 @@ const SearchCat = () => {
         }
 
         const imageData = await res.json();
+
+        console.log("Image data: ", imageData);
 
         setData(imageData);
       } catch(error){ 
@@ -71,6 +76,10 @@ const SearchCat = () => {
   }
 
 
+  function saveCat(email, catUrl, catId){
+
+  }
+
   return (
     <>
       <NavigationBar />
@@ -80,7 +89,7 @@ const SearchCat = () => {
             </Title>
             <SearchSection>
               <Button onClick={() => homePage()}>Learn how to take care of cats!</Button>
-              <Button onClick={buttenWasPressed}>10 More Cats</Button>
+              <Button onClick={buttenWasPressed}>Load 10 More Cats</Button>
             </SearchSection>
             <CatContainer>
               {data ? (
@@ -88,7 +97,10 @@ const SearchCat = () => {
                   {data.map((image) => (
                     <OneCatContainer key = {image.id}>
                       <Image src={image.url} width="300"/>
-                      <CatName>{nameData ? nameData.names[Math.floor(Math.random() * 10)] : "Loading Cat Name..."}</CatName>
+                      <CatText>
+                        <CatName>{nameData ? nameData.names[Math.floor(Math.random() * 10)] : "Loading Cat Name..."}</CatName>
+                        <CatButton onClick={() => saveCat()}>Save Cat</CatButton>
+                      </CatText>
                     </OneCatContainer>
                   ))} 
                 </>
@@ -96,6 +108,7 @@ const SearchCat = () => {
                 <p>Loading Cat Images...</p>
               )}
             </CatContainer>
+            <BottomButton><Button onClick={buttenWasPressed}>Load 10 More Cats</Button></BottomButton>
           </ContentContainer>
       <Footer />
     </>
@@ -128,7 +141,8 @@ const Button = styled.button`
   padding-right: 15px;
   border-radius: 4px;
   margin: 5px;
-  margin-left: 15px;
+  margin-right: 10%;
+  margin-left: 5%;
 
   display: flex;
   text-align: right;
@@ -146,6 +160,11 @@ const Button = styled.button`
   }
 `;
 
+const BottomButton = styled.div`
+  margin-top: 100px;
+  text-align: center;
+`;
+
 const CatContainer = styled.div`
   margin-left: 10%;
   margin-right: 10%;  
@@ -155,30 +174,64 @@ const CatContainer = styled.div`
 
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-template-rows: auto; 
-  gap: 20px;
+  gap: 30px;
 
   grid-auto-flow: row;
-
-  
-  background-color: blue;
 `;
 
 const Image = styled.img`
   border-radius: 20px;
-
-  // :<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-  //&:hover{
-  //  border-style: 3px soild #077678;
-  //}
+  border-style: 3px soild white;
+  width: 300px;
+  height: 300px;
 `;
 
 const OneCatContainer = styled.div`
   text-align: center;
   border-radius: 20px;
+  width: 320px;
+  height: 380px;
+  border: 4px solid white;
+
+  // &:hover{
+  //   border: 4px solid #077678;
+  // }
 `;
 
 const CatName = styled.p`
-  text-align: center;
+  font-size: 20px;
+  padding: 7px;
+  padding-right: 15%;
+  margin: 5px;
+`;
+
+const CatButton = styled.div`
+  font-size: 18px;
+  padding: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 4px;
+  margin: 5px;
+
+  display: inline-block;
+
+  float: right;
+
+  color: white;
+  background-color: #077678; 
+  border: 2px solid #077678;
+  border-radius: 50px;
+
+  &:hover{ 
+    color: #077678;
+    border-color: #077678;
+    background-color: transparent;
+  }
+`;
+
+const CatText = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 export default SearchCat

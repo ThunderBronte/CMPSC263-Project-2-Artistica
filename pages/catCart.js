@@ -5,7 +5,7 @@ import NavigationBar from '@/components/Dashboard/Navbar'
 import { useStateContext } from '@/context/StateContext'
 import { useRouter } from 'next/router'
 import Footer from "@/components/LandingPage/Footer"
-import { fetchEmailData, fetchCatListData } from "@/backend/Database"
+import { fetchEmailData, fetchCatListData, deleteDesiredCat } from "@/backend/Database"
 
 
 
@@ -16,6 +16,10 @@ const CatCart = () => {
   const [ data, setData ] = useState(undefined);
   const [ alert, setAlert ] = useState("");
   const [ isVisible, setIsVisible ] = useState(false);
+
+  const [ deleteInfo, setDeleteInfo ] = useState(false);
+  const [ desiredCatId, setDesiredCatId ] = useState(null);
+  const [ buttonPressed, setButtonPressed ] = useState(null);
 
 
   const router = useRouter()
@@ -34,7 +38,7 @@ const CatCart = () => {
   }, [user]);
 
 
-  // Get data from the database 
+  // Get data from the database, chnage when button ('remove') was pressed
   useEffect(() => {
     async function getData(){
       if(user === undefined){ 
@@ -66,22 +70,53 @@ const CatCart = () => {
     }
 
     getData();
-  }, [user]);
+  }, [buttonPressed]);
 
 
+  useEffect(() =>{
+    async function getNewData(){
+      const deleteRes = setDeleteInfo(await deleteDesiredCat("mayachitu@gmail.com", desiredCatId));
+      console.log("back from del: ", deleteRes);
+      setDeleteInfo(deleteRes);
 
-  // Remove cat from favorites list 
-  function removeCat(){
-    console.log("Bye bye kitty");
+      if(deleteInfo === undefined){
+        console.log("Waiting for delete promise...");
+      } else {
+        //Reset the data
+        console.log("In the else");
+        const data = await fetchEmailData("mayachitu@gmail.com");
+        
+        if(!data){
+          // No cats saved 
+          setAlert(`You do not have any saved cats.`);
+        } else {
+          setAlert("");
+          // Get all the cats saved for account
+                                              // Change to user.email
+          const info = await fetchCatListData("mayachitu@gmail.com");
 
-    
+          if(info == undefined) {
+            console.log("Waiting for new info...");
+          } else {
+            console.log("NEW indo: ", info);
 
-    //if there are no more cats, change the page
-    if(data.length === 0){
-      setIsVisible(false);
+            if(info){
+              setData(info);
+            } else {
+              setAlert("No cats saved in second doc.");
+            }
+          }
+        }
+              
+        //if there are no more cats, change the page
+        if(data.length === 0){
+          setIsVisible(false);
+        }
+      }
     }
-  }
-  
+
+    getNewData();
+  }, [deleteInfo])
 
 
   // See if to show cat list or sad cats 
@@ -95,6 +130,11 @@ const CatCart = () => {
   }, [alert])
 
 
+  function setToDeleteCat(catId){
+    setDeleteInfo(true);
+    setDesiredCatId(catId);
+    setButtonPressed(!buttonPressed);
+  }
  
   
 
@@ -125,15 +165,15 @@ const CatCart = () => {
                 {data ? (
                 <>
                   {data.map((cat) => (
-                    <OneCatContainer key={cat.id}>
+                    <OneCatContainer id="oneCatContainer" key={cat.id}>
                       <ImageCats src={cat.url}></ImageCats>
                       <CatText>
                         <CatInfo>{cat.name}</CatInfo> 
-                        <Button onClick={() => removeCat()}>Remove Cat</Button>
+                        <Button onClick={() => setToDeleteCat(cat.id)}>Remove Cat</Button>
                       </CatText>
                     </OneCatContainer>
                   ))} 
-                  </> ) : <p></p>}
+                  </> ) : <p>Loading Cat Cart...</p>}
               </CatContainer> 
             }
           </ContentContainer>
@@ -209,14 +249,13 @@ const CatContainer = styled.div`
 `;
 
 const Button = styled.button`
-  font-size: 15px;
+  font-size: 18px;
   padding: 5px;
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 4px;
   margin: 5px;
 
-  //text-align: right;
   display: inline-block;
 
   float: right;
@@ -237,12 +276,8 @@ const OneCatContainer = styled.div`
   text-align: center;
   border-radius: 20px;
   width: 320px;
-  padding: 10px;
-   border: 4px solid white;
 
-  // &:hover{
-  //   border: 4px solid #077678;
-  // }
+  padding: 10px;
 `;
 
 const ImageCats = styled.img`
@@ -250,6 +285,7 @@ const ImageCats = styled.img`
   display: flex;
   justify-content: center;
   width: 300px;
+  height: 300px;
 `;
 
 const CatInfo = styled.p`
@@ -259,7 +295,7 @@ const CatInfo = styled.p`
   margin: 5px;
 `;
 
-const CatText = styled.p`
+const CatText = styled.div`
   display: flex;
   justify-content: center;
 `;

@@ -1,4 +1,4 @@
-import { doc, setDoc, getDoc, getDocs, collection, query, where } from "firebase/firestore"
+import { doc, setDoc, getDoc, getDocs, collection, query, where, deleteDoc } from "firebase/firestore"
 import { database } from "./Firebase"
 import { getDatabase, ref, set, onValue } from "firebase/database"
 
@@ -80,7 +80,18 @@ export const fetchCollectionData = async (email, subName) => {
 
 
 // Remove from database
+export const deleteDesiredCat = async (email, catRef) =>{
+  try{
+    const docRef = doc(database, `/UserCatCartCollection/${email}/catsSaved/${catRef}`);
 
+    console.log("docRef: ", docRef);
+    await deleteDoc(docRef);
+
+  } catch(err) {
+    console.log("Unable to delete desired data: ", err);
+  }
+
+}
 
 
 
