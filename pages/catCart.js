@@ -29,7 +29,7 @@ const CatCart = () => {
   useEffect(() => {
     // wait for user information to load 
     if(user === undefined){ 
-      console.log("Waiting for user info...");
+      console.log("Starting up! Waiting for user info...");
     } else {
       if(!user){
         router.push('/login')
@@ -42,11 +42,10 @@ const CatCart = () => {
   useEffect(() => {
     async function getData(){
       if(user === undefined){ 
-        console.log("Waiting for user info...");
+        console.log("Getting Database useEffect. Waiting for user info...");
       } else {
         // Get information for a specific user (currently logged in)
-                                      // Change to user.email
-        const data = await fetchEmailData("mayachitu@gmail.com");
+        const data = await fetchEmailData(user.email);
 
         // If this email has any data
         if(!data){
@@ -55,8 +54,7 @@ const CatCart = () => {
         } else {
           setAlert("");
           // Get all the cats saved for account
-                                             // Change to user.email
-          const info = await fetchCatListData("mayachitu@gmail.com");
+          const info = await fetchCatListData(user.email);
 
           console.log("indo: ", info);
 
@@ -70,47 +68,52 @@ const CatCart = () => {
     }
 
     getData();
-  }, [buttonPressed]);
+  }, [user]);
 
 
   useEffect(() =>{
     async function getNewData(){
-      const deleteRes = setDeleteInfo(await deleteDesiredCat("mayachitu@gmail.com", desiredCatId));
-      console.log("back from del: ", deleteRes);
-      setDeleteInfo(deleteRes);
-
-      if(deleteInfo === undefined){
-        console.log("Waiting for delete promise...");
-      } else {
-        //Reset the data
-        console.log("In the else");
-        const data = await fetchEmailData("mayachitu@gmail.com");
-        
-        if(!data){
-          // No cats saved 
-          setAlert(`You do not have any saved cats.`);
+      if(deleteInfo == true){
+        if(user === undefined){ 
+          console.log("2 Waiting for user info...");
         } else {
-          setAlert("");
-          // Get all the cats saved for account
-                                              // Change to user.email
-          const info = await fetchCatListData("mayachitu@gmail.com");
+          const deleteRes = setDeleteInfo(await deleteDesiredCat(user.email, desiredCatId));
+          console.log("back from del: ", deleteRes);
+          setDeleteInfo(deleteRes);
 
-          if(info == undefined) {
-            console.log("Waiting for new info...");
+          if(deleteInfo === undefined){
+            console.log("Waiting for delete promise...");
           } else {
-            console.log("NEW indo: ", info);
-
-            if(info){
-              setData(info);
+            //Reset the data
+            console.log("In the else");
+            const data = await fetchEmailData(user.email);
+            
+            if(!data){
+              // No cats saved 
+              setAlert(`You do not have any saved cats.`);
             } else {
-              setAlert("No cats saved in second doc.");
+              setAlert("");
+              // Get all the cats saved for account
+              const info = await fetchCatListData(user.email);
+
+              if(info == undefined) {
+                console.log("Waiting for new info...");
+              } else {
+                console.log("NEW indo: ", info);
+
+                if(info){
+                  setData(info);
+                } else {
+                  setAlert("No cats saved in second doc.");
+                }
+              }
+            }
+                  
+            //if there are no more cats, change the page
+            if(data === null){
+              setIsVisible(false);
             }
           }
-        }
-              
-        //if there are no more cats, change the page
-        if(data.length === 0){
-          setIsVisible(false);
         }
       }
     }

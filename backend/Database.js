@@ -98,10 +98,22 @@ export const deleteDesiredCat = async (email, catRef) =>{
 // Create a new document and add infomration to it
 export const createDoc = async (email, data) =>{
   try{
+    await addEmail(email);
     const docRef = doc(database, `/UserCatCartCollection/${email}/catsSaved/`, data.id);
     await setDoc(docRef, data);
   } catch(err) {
     console.log("Unable to create document in databse. ", err);
+  }
+}
+
+async function addEmail(email){
+  try{
+    const docRef = doc(database, `/UserCatCartCollection/${email}`);
+    await setDoc(docRef, { email });
+    
+    console.log("Set uo email!")
+  } catch(err) {
+    console.log("Unable to add email in database. ", err);
   }
 }
 

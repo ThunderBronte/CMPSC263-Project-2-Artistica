@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import NavigationBar from "@/components/Dashboard/Navbar"
 import Footer from "@/components/LandingPage/Footer"
 import {useStateContext } from '@/context/StateContext'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useRouter } from "next/router"
 import { createDoc } from "@/backend/Database"
 
@@ -16,14 +16,14 @@ const SearchCat = () => {
     router.push('/');
   }
 
-  const [ button, setButton ] = useState(false);
-
   const { user, setUser } = useStateContext()
 
+  const [ button, setButton ] = useState(false);
   const [ data, setData] = useState(null);
   const [ nameData, setNameData ] = useState(null);
-
   const [ alert, setAlert ] = useState(null);
+
+  const focus = useRef('');
 
 
   useEffect(() =>{
@@ -81,23 +81,27 @@ const SearchCat = () => {
       name: catName
     };
 
-    const reply = createDoc("mayachitu@gmail.com", catData)
+    const reply = createDoc(email, catData)
 
     console.log("reply: ", reply);
 
-    setAlert(catName + " was succsessfully added to your Cat Cart!");
-    // focus at the top?
-
+    setAlert(catName + " was successfully added to your Cat Cart!");
+    if(focus.current){
+      focus.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
   }
 
   return (
     <>
       <NavigationBar />
           <ContentContainer>
-            <Title>
+            <Title ref={focus}>
               Adopt Kittens & Cats!
             </Title>
-            <Alert >{alert}</Alert>
+            <Alert>{alert}</Alert>
             <SearchSection>
               <Button onClick={() => homePage()}>Learn how to take care of cats!</Button>
               <Button onClick={buttenWasPressed}>Load 10 More Cats</Button>
@@ -105,7 +109,6 @@ const SearchCat = () => {
             <CatContainer>
               {data && nameData ? ( 
                 <>
-                  
                   {data.map((image) => {
                   const randomName = nameData.names[Math.floor(Math.random() * 10)]
                     return(
@@ -150,10 +153,7 @@ const Alert = styled.div`
   padding: 15px;
   color: #077678;
   text-align: center;
-
-  //border: 3px solid, #077678;
-  //background-color: #43DFBD;
-  //border-radius: 20px;
+  text-decoration: underline;
 `;
 const SearchSection = styled.div`
   padding-bottom: 50px;
