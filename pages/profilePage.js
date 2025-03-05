@@ -117,6 +117,7 @@ const HeaderButton = styled.button`
     color: #077678;
     border-color: #077678;
     background-color: transparent;
+    cursor: pointer;
   }
 `;
 
@@ -153,6 +154,7 @@ const Button = styled.button`
     color: #077678;
     border-color: #077678;
     background-color: transparent;
+    cursor: pointer;
   }
 
 `;

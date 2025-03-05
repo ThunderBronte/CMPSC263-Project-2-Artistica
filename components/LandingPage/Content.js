@@ -112,6 +112,7 @@ const Button = styled.button`
   color: White;
   &:hover{ 
     background-color: #077678;
+    cursor: pointer;
   }
   border-color: white;
   border-radius: 50px;
@@ -136,6 +137,7 @@ const SectionButton = styled.button`
     color: #077678;
     border-color: #077678;
     background-color: transparent;
+    cursor: pointer;
   }
 `;
 

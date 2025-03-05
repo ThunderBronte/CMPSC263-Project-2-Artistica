@@ -44,24 +44,28 @@ const CatCart = () => {
       if(user === undefined){ 
         console.log("Getting Database useEffect. Waiting for user info...");
       } else {
-        // Get information for a specific user (currently logged in)
-        const data = await fetchEmailData(user.email);
-
-        // If this email has any data
-        if(!data){
-          // No cats saved 
-          setAlert(`You do not have any saved cats.`);
+        if(!user){
+          router.push('/login')
         } else {
-          setAlert("");
-          // Get all the cats saved for account
-          const info = await fetchCatListData(user.email);
+          // Get information for a specific user (currently logged in)
+          const data = await fetchEmailData(user.email);
 
-          console.log("indo: ", info);
-
-          if(info){
-            setData(info);
+          // If this email has any data
+          if(!data){
+            // No cats saved 
+            setAlert(`You do not have any saved cats.`);
           } else {
-            setAlert("No cats saved in second doc.");
+            setAlert("");
+            // Get all the cats saved for account
+            const info = await fetchCatListData(user.email);
+
+            console.log("indo: ", info);
+
+            if(info){
+              setData(info);
+            } else {
+              setAlert("No cats saved in second doc.");
+            }
           }
         }
       }
@@ -272,6 +276,7 @@ const Button = styled.button`
     color: #077678;
     border-color: #077678;
     background-color: transparent;
+    cursor: pointer;
   }
 `;
 

@@ -74,23 +74,27 @@ const SearchCat = () => {
   }
 
 
-  function saveCat(email, catId, catUrl, catName){
-    const catData = {
-      id: catId,
-      url: catUrl,
-      name: catName
-    };
+  function saveCat( catId, catUrl, catName){
+    if(!user){
+      router.push('/login');
+    } else {
+      const catData = {
+        id: catId,
+        url: catUrl,
+        name: catName
+      };
 
-    const reply = createDoc(email, catData)
+      const reply = createDoc(user.email, catData)
 
-    console.log("reply: ", reply);
+      console.log("reply: ", reply);
 
-    setAlert(catName + " was successfully added to your Cat Cart!");
-    if(focus.current){
-      focus.current.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
+      setAlert(catName + " was successfully added to your Cat Cart!");
+      if(focus.current){
+        focus.current.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }
     }
   }
 
@@ -116,7 +120,7 @@ const SearchCat = () => {
                         <Image src={image.url} width="300"/>
                         <CatText>
                           <CatName>{randomName}</CatName>
-                          <CatButton onClick={() => saveCat(user.email, image.id, image.url, randomName)}>Save Cat</CatButton>
+                          <CatButton onClick={() => saveCat(image.id, image.url, randomName)}>Save Cat</CatButton>
                         </CatText>
                       </OneCatContainer>
                     );
@@ -184,12 +188,14 @@ const Button = styled.button`
     color: #077678;
     border-color: #077678;
     background-color: transparent;
+    cursor: pointer;
   }
 `;
 
 const BottomButton = styled.div`
   margin-top: 100px;
   text-align: center;
+  
 `;
 
 const CatContainer = styled.div`
