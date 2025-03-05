@@ -54,13 +54,21 @@ const Content = ({text}) => {
       <TextContent>
         <SectionContainer>
           <Subheading> About Us </Subheading>
-            <Info>Information</Info>
-        </SectionContainer>
+            <Info>Our mission is simple: to find loving homes for cats in need and provide a platform where these amazing animals can find their forever families. We are a passionate community of animal lovers, rescue groups, and dedicated volunteers, all working together to ensure that every cat—whether a playful kitten or a wise senior—has the opportunity to live a happy, healthy life.</Info>
+         </SectionContainer>
         <SectionContainer>
-          <Subheading>Adopt Don't Shop!</Subheading>
-            <Info>Here are reasons why you should Adopt rather than shop for cats:</Info>
-            <Info>- Saving Lives: Shelters are overwhelmed and adopting can help those </Info>
-            <SectionButton onClick={() => catSearch()}>Search Cats!</SectionButton>
+          <TotalContainer>
+            <LeftContainer>
+              <Subheading>Adopt Don't Shop!</Subheading>
+              <SectionButton onClick={() => catSearch()}>Search Cats!</SectionButton>
+            </LeftContainer>
+            <RightContainer>
+              <Info>Here are reasons why you should adopt rather than shop for cats:</Info>
+              <listItem>- Saving Lives: Shelters are overwhelmed and adopting can help save those cats. </listItem>
+              <listItem>- Cost Effective: It is cheaper to adopt a cat rather than buy.</listItem>
+              <listItem>- Support Shelter: Most shelters are non-profit so adotping from them helps their costs.</listItem>
+            </RightContainer>
+          </TotalContainer>
         </SectionContainer>
         <SectionContainer>
           <Subheading>Fun Cat Facts</Subheading>
@@ -70,8 +78,11 @@ const Content = ({text}) => {
           </SectionContainer>
         <SectionContainer>
           <Subheading>Basics of Taking Care of a Cat</Subheading>
-            <Info>Basics</Info>
-        </SectionContainer>
+            <Info>Provide Fresh Water: Always have clean water available for your cat to drink.</Info>
+            <Info>Proper Food: Make sure the food is age-appropriate and healthy for your cat.</Info>
+            <Info>Litter Box: Keep a clean litter box and scoop it daily. </Info>
+            <Info>Routine Vet Checkups: Take your cat for their annual check-ups.</Info>
+         </SectionContainer>
         </TextContent>
     </ContentContainer> 
   ); 
@@ -167,8 +178,37 @@ const Info = styled.p`
   margin-left: 200px;
   margin-right: 200px;
   
-  //background-color: blue;
 `;
+
+const BoldWords = styled.span`
+  color: #077678;
+`;
+
+const UnorderedList = styled.ul`
+  font-size: 25px;
+  padding-bottom: 10px;
+  margin-left: 200px;
+  margin-right: 200px;
+`;
+
+const listItem = styled.li`
+  
+`;
+
+const TotalContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+`;
+
+const LeftContainer = styled.div`
+  text-align: center;
+`;
+
+const RightContainer = styled.div`
+  text-align: left;
+`;
+
 
 
 

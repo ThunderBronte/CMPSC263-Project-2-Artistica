@@ -67,11 +67,11 @@ export default function Home() {
           <HeaderButton onClick={() => signOutUser()}>Sign Out</HeaderButton>
           <Subheading>Here is your information: </Subheading>
             <ProfileInfo>Current Username: {name}</ProfileInfo>
-          <Subheading> Want to change your information? </Subheading>
+          {/* <Subheading> Want to change your information? </Subheading>
             <ProfileInfo>
               New Username: <InputInfo></InputInfo> 
               <Button onClick={(e) => setUser(e.target.value)}>Change Username</Button>
-            </ProfileInfo>
+            </ProfileInfo> */} 
           <Subheading> Want to see your current Favorite Cats? </Subheading>
           <ProfileInfo><Button onClick={() => router.push('/catCart')}>Go to Cat Cart list!</Button></ProfileInfo>
         </ContentContainer>
@@ -113,6 +113,8 @@ const HeaderButton = styled.button`
   border: 2px solid #077678;
   border-radius: 50px;
 
+  float: right;
+
   &:hover{ 
     color: #077678;
     border-color: #077678;
@@ -124,9 +126,11 @@ const HeaderButton = styled.button`
 const Subheading = styled.h2`
   font-size: 30px;
   padding: 20px;
+  margin-top: 50px;
 `;
 
 const ProfileInfo = styled.p`
+  font-size: 20px;
   padding-left: 50px;
 `;
 
