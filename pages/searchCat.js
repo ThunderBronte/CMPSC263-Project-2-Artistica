@@ -84,14 +84,14 @@ const SearchCat = () => {
             </SearchSection>
             <CatContainer>
               {data ? (
-                <div>
+                <>
                   {data.map((image) => (
                     <OneCatContainer key = {image.id}>
                       <Image src={image.url} width="300"/>
                       <CatName>{nameData ? nameData.names[Math.floor(Math.random() * 10)] : "Loading Cat Name..."}</CatName>
                     </OneCatContainer>
                   ))} 
-                </div>
+                </>
               ) : (
                 <p>Loading Cat Images...</p>
               )}

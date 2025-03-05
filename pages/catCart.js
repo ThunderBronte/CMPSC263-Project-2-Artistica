@@ -17,8 +17,6 @@ const CatCart = () => {
   const [ alert, setAlert ] = useState("");
   const [ isVisible, setIsVisible ] = useState(false);
 
-  const containerTag = useRef(null);
-
 
   const router = useRouter()
 
@@ -59,7 +57,6 @@ const CatCart = () => {
           console.log("indo: ", info);
 
           if(info){
-            //displayCatInfo(info);
             setData(info);
           } else {
             setAlert("No cats saved in second doc.");
@@ -73,111 +70,11 @@ const CatCart = () => {
 
 
 
-  /*
-  // Display all the cats in the database
-    // Might need useEffect ---------------------------------------
-    // Create a containter for each of the cats 
-    useEffect(() =>{ 
-      if(data === undefined){ 
-        console.log("Waiting for data info...");
-      } else {
-        // Remove any previous info 
-        if(containerTag.current.children.length > 0){
-          containerTag.current.innerHTML = "";
-          console.log("Removed children");
-        }
-
-        data.forEach((cat) => {
-          //const cat = data[2];
-          console.log("In loop");
-
-          const oneCat = (
-          //containerTag.current.appendChild(
-            <OneCatContainer key={cat.id}>
-              <ImageCats src={cat.url}></ImageCats>
-              <CatInfo>{cat.name}</CatInfo>
-              <Button onClick={() => removeCat()}>Remove Cat</Button>
-            </OneCatContainer>
-          );
-
-          
-
-
-          // Create a new tag for each portion of the container with the desired information
-          // const oneCatContainer = document.createElement('div');
-          // oneCatContainer.className = OneCatContainer.styledComponentId;
-          // oneCatContainer.key = cat.id;
-
-          // const imageCats = document.createElement('img');
-          // imageCats.className = ImageCats.styledComponentId;
-          // imageCats.src = cat.url;
-          
-          // oneCatContainer.src = cat.url;
-
-          // const catInfo = document.createElement('p');
-          // catInfo.className = CatInfo.styledComponentId;
-          // catInfo.innerHTML = cat.name;
-
-          // const btnRemove = document.createElement('button');
-          // btnRemove.className = Button.styledComponentId;
-          // btnRemove.innerHTML = "Remove"; 
-          // btnRemove.onclick = () => {removeCat};
-
-          // oneCatContainer.appendChild(catInfo);
-          // oneCatContainer.appendChild(btnRemove);
-
-          
-          
-          
-          //containerTag.current.appendChild(temp);
-        })
-      }
-    }, [data])
-
-
-    */
-
-  /*
-    // Display all the cats in the database
-    useEffect(() => {
-      if (containerTag.current && data) {
-        // Clear previous children
-        containerTag.current.innerHTML = ""
-  
-        // Dynamically append new cats
-        data.forEach((cat) => {
-          const oneCatContainer = document.createElement('div')
-          oneCatContainer.className = OneCatContainer.styledComponentId
-          oneCatContainer.key = cat.id
-  
-          const imageCats = document.createElement('img')
-          imageCats.className = ImageCats.styledComponentId
-          imageCats.src = cat.url
-  
-          const catInfo = document.createElement('p')
-          catInfo.className = CatInfo.styledComponentId
-          catInfo.innerText = cat.name
-  
-          const btnRemove = document.createElement('button')
-          btnRemove.className = Button.styledComponentId
-          btnRemove.innerText = "Remove Cat"
-          btnRemove.onclick = () => removeCat(cat.id)
-  
-          // Append the image, name, and button to the oneCatContainer
-          oneCatContainer.appendChild(imageCats)
-          oneCatContainer.appendChild(catInfo)
-          oneCatContainer.appendChild(btnRemove)
-  
-          // Append the new oneCatContainer to the main container
-          containerTag.current.appendChild(oneCatContainer)
-        })
-      }
-    }, [data]) */
-
-
   // Remove cat from favorites list 
   function removeCat(){
     console.log("Bye bye kitty");
+
+    
 
     //if there are no more cats, change the page
     if(data.length === 0){
@@ -196,6 +93,9 @@ const CatCart = () => {
       setIsVisible(false);
     }
   }, [alert])
+
+
+ 
   
 
   return (
@@ -221,17 +121,19 @@ const CatCart = () => {
                 </NoCatContainer> 
               </NoCat> 
               : 
-              <CatContainer ref={containerTag}>
+              <CatContainer>
                 {data ? (
-                <div>
+                <>
                   {data.map((cat) => (
                     <OneCatContainer key={cat.id}>
                       <ImageCats src={cat.url}></ImageCats>
-                      <CatInfo>{cat.name}</CatInfo> 
-                      <Button onClick={() => removeCat()}>Remove Cat</Button>
+                      <CatText>
+                        <CatInfo>{cat.name}</CatInfo> 
+                        <Button onClick={() => removeCat()}>Remove Cat</Button>
+                      </CatText>
                     </OneCatContainer>
                   ))} 
-                  </div> ) : <p></p>}
+                  </> ) : <p></p>}
               </CatContainer> 
             }
           </ContentContainer>
@@ -245,7 +147,6 @@ const ContentContainer = styled.div`
   background-color: white;
   padding: 3%;
   color: #25283D;
-  
 `;
 
 const Title = styled.h1`
@@ -277,29 +178,7 @@ const NoCatContainer = styled.div`
   margin-bottom: 70px;
 `;
 
-const Button = styled.button`
-  font-size: 15px;
-  padding: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
-  border-radius: 4px;
-  margin: 5px;
 
-  display: flex;
-  text-align: right;
-  display: inline-block;
-
-  color: white;
-  background-color: #077678; 
-  border: 2px solid #077678;
-  border-radius: 50px;
-
-  &:hover{ 
-    color: #077678;
-    border-color: #077678;
-    background-color: transparent;
-  }
-`;
 
 const NoCatImags = styled.div`
   margin-top: 40px;
@@ -324,30 +203,65 @@ const CatContainer = styled.div`
 
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-template-rows: auto; 
-  gap: 20px;
+  gap: 20px 20px;
 
   grid-auto-flow: row;
-  //grid-auto-rows: auto;
-  
-  background-color: blue;
+`;
+
+const Button = styled.button`
+  font-size: 15px;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 4px;
+  margin: 5px;
+
+  //text-align: right;
+  display: inline-block;
+
+  float: right;
+
+  color: white;
+  background-color: #077678; 
+  border: 2px solid #077678;
+  border-radius: 50px;
+
+  &:hover{ 
+    color: #077678;
+    border-color: #077678;
+    background-color: transparent;
+  }
 `;
 
 const OneCatContainer = styled.div`
   text-align: center;
   border-radius: 20px;
-  width: 300px;
-  background-color: white;
+  width: 320px;
+  padding: 10px;
+   border: 4px solid white;
+
+  // &:hover{
+  //   border: 4px solid #077678;
+  // }
 `;
 
 const ImageCats = styled.img`
   border-radius: 20px;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   width: 300px;
 `;
 
 const CatInfo = styled.p`
-  text-align: center;
+  font-size: 20px;
+  padding: 7px;
+  padding-right: 15%;
+  margin: 5px;
+`;
+
+const CatText = styled.p`
+  display: flex;
+  justify-content: center;
 `;
 
 
