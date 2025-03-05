@@ -2,9 +2,10 @@ import Content from "@/components/LandingPage/Content"
 import styled from 'styled-components'
 import NavigationBar from "@/components/Dashboard/Navbar"
 import Footer from "@/components/LandingPage/Footer"
-import { StateContext, useStateContext } from '@/context/StateContext'
+import {useStateContext } from '@/context/StateContext'
 import React, { useState, useEffect } from 'react'
 import { useRouter } from "next/router"
+import { createDoc } from "@/backend/Database"
 
 
 const SearchCat = () => {
@@ -22,8 +23,7 @@ const SearchCat = () => {
   const [ data, setData] = useState(null);
   const [ nameData, setNameData ] = useState(null);
 
-  const [ catImg, setCatImg ] = useState(null);
-  const [ catName, setCatName ] = useState(null);
+  const [ alert, setAlert ] = useState(null);
 
 
   useEffect(() =>{
@@ -38,8 +38,6 @@ const SearchCat = () => {
         }
 
         const imageData = await res.json();
-
-        console.log("Image data: ", imageData);
 
         setData(imageData);
       } catch(error){ 
@@ -76,7 +74,19 @@ const SearchCat = () => {
   }
 
 
-  function saveCat(email, catUrl, catId){
+  function saveCat(email, catId, catUrl, catName){
+    const catData = {
+      id: catId,
+      url: catUrl,
+      name: catName
+    };
+
+    const reply = createDoc("mayachitu@gmail.com", catData)
+
+    console.log("reply: ", reply);
+
+    setAlert(catName + " was succsessfully added to your Cat Cart!");
+    // focus at the top?
 
   }
 
@@ -87,22 +97,27 @@ const SearchCat = () => {
             <Title>
               Adopt Kittens & Cats!
             </Title>
+            <Alert >{alert}</Alert>
             <SearchSection>
               <Button onClick={() => homePage()}>Learn how to take care of cats!</Button>
               <Button onClick={buttenWasPressed}>Load 10 More Cats</Button>
             </SearchSection>
             <CatContainer>
-              {data ? (
+              {data && nameData ? ( 
                 <>
-                  {data.map((image) => (
-                    <OneCatContainer key = {image.id}>
-                      <Image src={image.url} width="300"/>
-                      <CatText>
-                        <CatName>{nameData ? nameData.names[Math.floor(Math.random() * 10)] : "Loading Cat Name..."}</CatName>
-                        <CatButton onClick={() => saveCat()}>Save Cat</CatButton>
-                      </CatText>
-                    </OneCatContainer>
-                  ))} 
+                  
+                  {data.map((image) => {
+                  const randomName = nameData.names[Math.floor(Math.random() * 10)]
+                    return(
+                      <OneCatContainer key = {image.id}>
+                        <Image src={image.url} width="300"/>
+                        <CatText>
+                          <CatName>{randomName}</CatName>
+                          <CatButton onClick={() => saveCat(user.email, image.id, image.url, randomName)}>Save Cat</CatButton>
+                        </CatText>
+                      </OneCatContainer>
+                    );
+                  })} 
                 </>
               ) : (
                 <p>Loading Cat Images...</p>
@@ -128,6 +143,18 @@ const Title = styled.h1`
   padding-bottom: 50px;
 `;
 
+const Alert = styled.div`
+  font-size: 35px;
+  margin-top: 30px;
+  margin-bottom: 70px;
+  padding: 15px;
+  color: #077678;
+  text-align: center;
+
+  //border: 3px solid, #077678;
+  //background-color: #43DFBD;
+  //border-radius: 20px;
+`;
 const SearchSection = styled.div`
   padding-bottom: 50px;
   text-align: center;
@@ -226,6 +253,7 @@ const CatButton = styled.div`
     color: #077678;
     border-color: #077678;
     background-color: transparent;
+    cursor: pointer;
   }
 `;
 

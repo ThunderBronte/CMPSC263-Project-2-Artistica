@@ -1,4 +1,4 @@
-import { doc, setDoc, getDoc, getDocs, collection, query, where, deleteDoc } from "firebase/firestore"
+import { doc, setDoc, getDoc, getDocs, collection, query, where, deleteDoc, addDoc } from "firebase/firestore"
 import { database } from "./Firebase"
 import { getDatabase, ref, set, onValue } from "firebase/database"
 
@@ -97,7 +97,12 @@ export const deleteDesiredCat = async (email, catRef) =>{
 
 // Create a new document and add infomration to it
 export const createDoc = async (email, data) =>{
-
+  try{
+    const docRef = doc(database, `/UserCatCartCollection/${email}/catsSaved/`, data.id);
+    await setDoc(docRef, data);
+  } catch(err) {
+    console.log("Unable to create document in databse. ", err);
+  }
 }
 
 
