@@ -5,14 +5,14 @@ import { getDatabase, ref, set, onValue } from "firebase/database"
 
 // I have it set up so the "document" is the user's email and the fields are the cat id & url
 
-// Get data from the database based on an email 
-export const fetchData = async (email) => {
+// Get data from the document database based on an email 
+export const fetchEmailData = async (email) => {
   try{
     const docRef = doc(database, "UserCatCartCollection", email);
     const docSnap = await getDoc(docRef);
 
+    // See if the user info exists in the database 
     if(docSnap.exists()){
-      console.log("Success! Doc data:", docSnap.data());
       return docSnap.data();
     } else {
       console.log("No luck :( document does not exist");
@@ -24,13 +24,46 @@ export const fetchData = async (email) => {
   }
 }
 
-// Get data from the a collection 
+
+// Get the list of cats from the subcollection
+export const fetchCatListData = async (email) => {
+  try{
+    // Get sub collection
+    const docRef = doc(database, `/UserCatCartCollection/${email}`);
+    const subRef = collection(docRef, "catsSaved");
+    // is array of docs
+    const querySnapshot = await getDocs(subRef);
+
+    const listOfCats = [];
+    let catInfo = {};
+
+    querySnapshot.forEach((doc) => {
+      // Popular inner variable with cat information
+      catInfo = {
+        id: doc.data().id,
+        url: doc.data().url,
+        name: doc.data().name
+      }
+
+      // Add it to list
+      listOfCats.push(catInfo);
+    })
+
+    return listOfCats;
+  } catch(err) {
+    console.error("Error fetching databse data from subCollection documents: ", err)
+    return null;
+  }
+}
+
+
+// Get data from the a collection within a doc
 export const fetchCollectionData = async (email, subName) => {
   try{
     const docRef = doc(database, `/UserCatCartCollection/${email}`);
     const subRef = collection(docRef, subName);
-    const subCollect = [];
     const querySnapshot = await getDocs(subRef);
+    const subCollect = [];
 
     querySnapshot.forEach((doc) => {
       subCollect.push(doc.data());
@@ -43,6 +76,12 @@ export const fetchCollectionData = async (email, subName) => {
     return [];
   } 
 }
+
+
+
+// Remove from database
+
+
 
 
 // Create a new document and add infomration to it

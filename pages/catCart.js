@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import Link from 'next/link'
 import NavigationBar from '@/components/Dashboard/Navbar'
 import { useStateContext } from '@/context/StateContext'
 import { useRouter } from 'next/router'
 import Footer from "@/components/LandingPage/Footer"
-import { fetchData, fetchCollectionData } from "@/backend/Database"
+import { fetchEmailData, fetchCatListData } from "@/backend/Database"
 
 
 
@@ -13,9 +13,11 @@ const CatCart = () => {
 
   const { user, setUser } = useStateContext()
 
-  const [ data, setData ] = useState();
+  const [ data, setData ] = useState(undefined);
   const [ alert, setAlert ] = useState("");
   const [ isVisible, setIsVisible ] = useState(false);
+
+  const containerTag = useRef(null);
 
 
   const router = useRouter()
@@ -40,22 +42,28 @@ const CatCart = () => {
       if(user === undefined){ 
         console.log("Waiting for user info...");
       } else {
-        console.log(user.email);
-
         // Get information for a specific user (currently logged in)
-        const data = await fetchData("mayachitu@gmail.com");
+                                      // Change to user.email
+        const data = await fetchEmailData("mayachitu@gmail.com");
 
-        // any saved cats or not
+        // If this email has any data
         if(!data){
           // No cats saved 
           setAlert(`You do not have any saved cats.`);
         } else {
-          // Will
           setAlert("");
-          console.log("Dataaa: ", data);
-          console.log("new studd: ", fetchCollectionData(data, "cat1"));
-          // const newInfo = fetchCollectionData()
-          //setData(data);
+          // Get all the cats saved for account
+                                             // Change to user.email
+          const info = await fetchCatListData("mayachitu@gmail.com");
+
+          console.log("indo: ", info);
+
+          if(info){
+            //displayCatInfo(info);
+            setData(info);
+          } else {
+            setAlert("No cats saved in second doc.");
+          }
         }
       }
     }
@@ -65,7 +73,77 @@ const CatCart = () => {
 
 
   // Display all the cats in the database
-  // Do not know how many cats there are so need for loop 
+  //function displayCatInfo(info){
+    // Might need useEffect ---------------------------------------
+    // Create a containter for each of the cats 
+    //useEffect(() =>{ 
+      // if(data === undefined){ 
+      //   console.log("Waiting for data info...");
+      // } else {
+      //   // Remove any previous info 
+      //   if(containerTag.current.children.length > 0){
+      //     containerTag.current.innerHTML = "";
+      //     console.log("Removed children");
+      //   }
+
+        //data.forEach((cat) => {
+          // const cat = data[2];
+          // console.log("In loop");
+
+          // const oneCat = (
+          //   <OneCatContainer key={cat.id}>
+          //     <ImageCats src={cat.url}></ImageCats>
+          //     <CatInfo>{cat.name}</CatInfo>
+          //     <Button onClick={() => removeCat()}>Remove Cat</Button>
+          //   </OneCatContainer>
+          // );
+
+
+
+          // Create a new tag for each portion of the container with the desired information
+          // const oneCatContainer = document.createElement('div');
+          // oneCatContainer.className = OneCatContainer.styledComponentId;
+          // oneCatContainer.key = cat.id;
+
+          // const imageCats = document.createElement('img');
+          // imageCats.className = ImageCats.styledComponentId;
+          // imageCats.src = cat.url;
+          
+          // oneCatContainer.src = cat.url;
+
+          // const catInfo = document.createElement('p');
+          // catInfo.className = CatInfo.styledComponentId;
+          // catInfo.innerHTML = cat.name;
+
+          // const btnRemove = document.createElement('button');
+          // btnRemove.className = Button.styledComponentId;
+          // btnRemove.innerHTML = "Remove"; 
+          // btnRemove.onclick = () => {removeCat};
+
+          // oneCatContainer.appendChild(catInfo);
+          // oneCatContainer.appendChild(btnRemove);
+
+          // if(containerTag.current){
+          //   containerTag.current.appendChild(oneCat);
+          // } else {
+          //   console.log("CatContainer is not reachable");
+          // }
+        //})
+      //}
+    //}, [data])
+  //}
+
+
+  // Remove cat from favorites list 
+  function removeCat(){
+    console.log("Bye bye kitty");
+
+    //if there are no more cats, change the page
+    if(data.length === 0){
+      setIsVisible(false);
+    }
+  }
+  
 
 
   // See if to show cat list or sad cats 
@@ -102,13 +180,18 @@ const CatCart = () => {
                 </NoCatContainer>
               </NoCat> 
               : 
-              <CatList>
-                <ImageContainer src="{data.catUrl}">
-                  Data: 
-                  {/* {data.catId}
-                  {data.catUrl} */}
-                </ImageContainer>
-              </CatList> 
+              <CatContainer ref={containerTag}>
+                {data ? (
+                <div>
+                  {data.map((cat) => (
+                    <OneCatContainer key={cat.id}>
+                      <ImageCats src={cat.url}></ImageCats>
+                      <CatInfo>{cat.name}</CatInfo>
+                      <Button onClick={() => removeCat()}>Remove Cat</Button>
+                    </OneCatContainer>
+                  ))} 
+                  </div> ) : <p></p>}
+              </CatContainer> 
             }
           </ContentContainer>
       <Footer />
@@ -136,8 +219,6 @@ const Alert = styled.h1`
   color: #077678;
 `;
 
-const CatList = styled.div`
-`;
 
 const Text = styled.p`
   font-size: 25px; 
@@ -156,12 +237,12 @@ const NoCatContainer = styled.div`
 `;
 
 const Button = styled.button`
-  font-size: 25px;
-  padding: 10px;
-  padding-left: 15px;
-  padding-right: 15px;
+  font-size: 15px;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
   border-radius: 4px;
-  margin: 20px;
+  margin: 5px;
 
   display: flex;
   text-align: right;
@@ -190,78 +271,42 @@ const Image = styled.img`
   width: 25%;
 `;
 
-const ImageContainer = styled.div`
-  border-radius: 30px;
-  display: flex;
+
+
+// Info for creacting a grid with all the cats
+const CatContainer = styled.div`
+  margin-left: 10%;
+  margin-right: 10%;  
+  display: grid;
   justify-content: space-evenly;
   padding-top: 50px;
+
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-rows: auto; 
+  gap: 20px;
+
+  grid-auto-flow: row;
   
+  background-color: blue;
+`;
+
+const OneCatContainer = styled.div`
+  text-align: center;
+  border-radius: 20px;
+  width: 300px;
+  background-color: white;
+`;
+
+const ImageCats = styled.img`
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  width: 300px;
+`;
+
+const CatInfo = styled.p`
+  text-align: center;
 `;
 
 
-
 export default CatCart
-
-
-// useEffect(() =>{
-  //   // Here, I will get the data from a personal json file and display it 
-
-  //   const fetchCatImages = async () => {
-  //     try{
-  //       const res = await fetch('https://api.thecatapi.com/v1/images/search?limit=10');
-  //       const imageData = await res.json();
-
-  //       setData(imageData);
-  //     } catch(error){ 
-  //       console.error('Error fetching cat facts:', error);
-  //     }
-  //   }
-
-  //   const fetchRandomName = async () => {
-  //     try{
-  //       const res = await fetch('https://randomuser.me/api/');
-  //       const nameData = await res.json();
-        
-  //       setNameData(nameData.results);
-  //     } catch(error){
-  //       console.error("Error getting names: ", error);
-  //     }
-  //   }
-    
-  //   fetchCatImages();
-  //   fetchRandomName();
-  //   setIsMounted(true); 
-  // },[user])
-
-
-
-  // useEffect(() => {
-  //   if(!user){
-  //     router.push('/login')
-  //   }else{
-
-  //   }
-  // }, user) 
-
-
-
-   /* <ul>
-                {data && isMounted ? (
-                  <div>
-                    {data.map((image) => (
-                      
-                      <li key = {image.id}>
-                        <img src={image.url} width="300"/>
-                        {nameData ? (
-                        <p>{nameData.map((name, index) => (
-                          <span key = {index}> {name.first} {name.last}</span>
-                        ))}</p> ) : (
-                          <p>Loading Cat Names...</p>
-                        )}
-                        </li>
-                  ))} 
-                  </div>
-                ) : (
-                  <p>Loading Cat Images...</p>
-                )}
-              </ul> */
