@@ -30,32 +30,3 @@ const database = getFirestore(app);
 export { app, auth, database }
 
 
-
-/*
-
-
-// Do something when the auth changes 
-// I could change the display of the cat cart
-onAuthStateChanged(auth, (user) => {
-if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/auth.user
-    const uid = user.uid;
-    // ...
-} else {
-    // User is signed out
-    // ...
-}
-});
-
-
-// //Do i need??
-// var admin = require("firebase-admin");
-
-// var serviceAccount = require("path/to/serviceAccountKey.json");
-
-// admin.initializeApp({
-//   credential: admin.credential.cert(serviceAccount)
-// });
-
-*/
