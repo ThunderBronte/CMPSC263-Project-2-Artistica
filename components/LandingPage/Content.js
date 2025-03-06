@@ -82,15 +82,15 @@ const Content = ({text}) => {
               <SubContainer>
                 <InnerContainer>
                   <Bold>Saves Animal Lives</Bold>
-                  <Img src="catImages/saveLife.webp"></Img>
+                  <Img src="saveLife.webp"></Img>
                 </InnerContainer>
                 <InnerContainer>
                   <Bold>Cost Effective</Bold>
-                  <Img src="/catImages/support.webp"></Img>
+                  <Img src="support.webp"></Img>
                 </InnerContainer>
                 <InnerContainer> 
                   <Bold>Support Shelters</Bold>
-                  <Img src="catImages/cost.webp"></Img>
+                  <Img src="cost.webp"></Img>
                 </InnerContainer>
               </SubContainer>
             </BottomContainer>
