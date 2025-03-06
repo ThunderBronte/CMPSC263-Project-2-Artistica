@@ -172,9 +172,9 @@ const CatCart = () => {
                 <NoCatContainer>
                   <Text>The cats at the shelter because you are not interested in any of them:</Text>
                   <NoCatImags>
-                    <Image src="catImages/sadCat1.webp"></Image>
-                    <Image src="catImages/sadCat2.jpg"></Image>
-                    <Image src="catImages/sadCat3.webp"></Image>
+                    <Image src="sadCat1.webp"></Image>
+                    <Image src="sadCat2.jpg"></Image>
+                    <Image src="sadCat3.webp"></Image>
                   </NoCatImags>
                 </NoCatContainer> 
               </NoCat> 
