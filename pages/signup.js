@@ -8,7 +8,9 @@ import NavigationBar from "@/components/Dashboard/Navbar"
 import Footer from "@/components/LandingPage/Footer"
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
-
+//The user will be asked to sign up. it will make sure the password is in right.An alert will pop up if the password is not good 
+// enough or if the email is not a good domain. The user can then log inif they have an account. It also checks if the email ir currently in use.
+// The user useStateContext will be updated with the email. 
 
 const Signup = () => {
 
@@ -21,17 +23,6 @@ const Signup = () => {
   // Any alerts to dispaly to user 
   const [ alert, setAlert] = useState('');
 
-
-  // let userContent = {
-  //   "uid":"",
-  //   "email":"",
-  //   "emailVerified":"",
-  //   "isAnonymous":"",
-
-  // }
-
-  
-
   
 
   async function validateEmail(){
@@ -40,12 +31,6 @@ const Signup = () => {
         return false;
     }
     console.log('so far so good...')
-    
-    /*const emailResponse = await isEmailInDatabase(email)
-    console.log('email response', emailResponse)
-    if(emailResponse.length == 0 ){
-        return false;
-    } */
 
     return true;
 }
@@ -58,15 +43,6 @@ const Signup = () => {
       setAlert("Email is not valid.");
       return false; 
     }
-
-    // Validate Password
-    // const passwordStatus = await validatePassword(getAuth(), password)
-    // if(!passwordStatus.isValid){
-    //   const errMes = "Password is not valid. Please make sure it has the following: \n - One uppercase character \n - One lowercase character \n - One special character \n - One numeric character";
-    //   setAlert(errMes);
-    //   return false;
-    // }
-
 
 
     try{

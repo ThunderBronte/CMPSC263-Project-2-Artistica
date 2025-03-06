@@ -5,6 +5,7 @@ import { getStorage } from "firebase/storage";
 import { getDatabase } from "firebase/database";
 import { getAuth } from "firebase/auth";
 
+//Connect to firebase to use in application 
 
 
 // Your web app's Firebase configuration

@@ -1,4 +1,3 @@
-import Content from "@/components/LandingPage/Content"
 import styled from 'styled-components'
 import NavigationBar from "@/components/Dashboard/Navbar"
 import Footer from "@/components/LandingPage/Footer"
@@ -6,6 +5,11 @@ import {useStateContext } from '@/context/StateContext'
 import React, { useState, useEffect, useRef } from 'react'
 import { useRouter } from "next/router"
 import { createDoc } from "@/backend/Database"
+
+//Search for cats. Cat image API and random name API was used.
+// Every time the page loads (or one of the two "search 10 more cats"), new images and names pop up.
+// When the user clicks on a "save cat" button, if the user is not logged in it will be asked to. If they are, the cat id, name, & url will be 
+// added to their databse under their email. 
 
 
 const SearchCat = () => {
@@ -108,7 +112,7 @@ const SearchCat = () => {
             <Alert>{alert}</Alert>
             <SearchSection>
               <Button onClick={() => homePage()}>Learn how to take care of cats!</Button>
-              <Button onClick={buttenWasPressed}>Load 10 More Cats</Button>
+              <Button onClick={buttenWasPressed}>Search 10 More Cats</Button>
             </SearchSection>
             <CatContainer>
               {data && nameData ? ( 
@@ -130,7 +134,7 @@ const SearchCat = () => {
                 <p>Loading Cat Images...</p>
               )}
             </CatContainer>
-            <BottomButton><Button onClick={buttenWasPressed}>Load 10 More Cats</Button></BottomButton>
+            <BottomButton><Button onClick={buttenWasPressed}>Search 10 More Cats</Button></BottomButton>
           </ContentContainer>
       <Footer />
     </>
@@ -195,7 +199,7 @@ const Button = styled.button`
 const BottomButton = styled.div`
   margin-top: 100px;
   text-align: center;
-  
+
 `;
 
 const CatContainer = styled.div`

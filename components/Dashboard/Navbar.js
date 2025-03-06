@@ -7,7 +7,7 @@ import Logo from '@/components/Dashboard/Logo'
 import { CgProfile } from "react-icons/cg";
 
 
-// <Profile href="/profilePage"><CgProfile /></Profile>
+// Has the different links to the different pages and a logo with the name of the website. Has the user's info if logged in, or else it says to "log in"
 
 
 

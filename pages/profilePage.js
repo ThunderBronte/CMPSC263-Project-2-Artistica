@@ -5,9 +5,11 @@ import { useRouter } from 'next/router'
 import { StateContext, useStateContext } from '@/context/StateContext'
 import React, { useState, useEffect } from 'react'
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth"
-//import { signOut } from '@/backend/Auth';
 
 
+// Profile page of the user current signed in. If you are not signed in, you will be moved to the login page. 
+// Will show the current user that is signed in and their info. They are able to sign out. 
+// There are quick links to navigate the website
 
 export default function Home() {
   
@@ -16,6 +18,7 @@ export default function Home() {
   const router = useRouter()
   
   const [name, setName] = useState(null);
+  const [email, setEmail] = useState(null);
 
   useEffect(() => {
     console.log(user);
@@ -43,8 +46,10 @@ export default function Home() {
         let userName = '';
         if(typeof user === 'object'){
           userName = user.email.split('@');
+          setEmail(user.email);
         } else if(typeof user === 'string') {
           userName = user.split('@');
+          setEmail(user);
         }
         
         setName(userName[0]);
@@ -63,17 +68,29 @@ export default function Home() {
     <>
     <NavigationBar />
         <ContentContainer>
-          <Heading>Hello {name}!</Heading>
-          <HeaderButton onClick={() => signOutUser()}>Sign Out</HeaderButton>
-          <Subheading>Here is your information: </Subheading>
-            <ProfileInfo>Current Username: {name}</ProfileInfo>
-          {/* <Subheading> Want to change your information? </Subheading>
-            <ProfileInfo>
-              New Username: <InputInfo></InputInfo> 
-              <Button onClick={(e) => setUser(e.target.value)}>Change Username</Button>
-            </ProfileInfo> */} 
-          <Subheading> Want to see your current Favorite Cats? </Subheading>
-          <ProfileInfo><Button onClick={() => router.push('/catCart')}>Go to Cat Cart list!</Button></ProfileInfo>
+          <Header>
+            <Left>
+              <Img src="/profilePicture.png"></Img>
+              <Heading>Hello {name}!</Heading>
+              {/* <Thanks>Thank you for being a user with us!</Thanks> */}
+              <Links>Here are some quick Links:</Links>
+              <ButtonLinks>
+                <Button onClick={() => router.push("/")}>Homepage</Button>
+                <Button onClick={() => router.push("/searchCat")}>Search Cats</Button>
+                <Button onClick={() => router.push("/catCart")}>Cat Cart</Button>
+              </ButtonLinks>
+            </Left>
+            <Right>
+              <Subheading>Here is your information: </Subheading>
+                <ProfileInfo>Current Username: {name}</ProfileInfo>
+                <ProfileInfo>Current email: {email}</ProfileInfo>
+                <ProfileInfo><Button onClick={() => signOutUser()}>Sign Out</Button></ProfileInfo>
+            <Subheading> Want to see your current Cat Cart? </Subheading>
+            <ProfileInfo><Button onClick={() => router.push('/catCart')}>Go to Cat Cart list!</Button></ProfileInfo>
+            </Right>
+            
+          </Header>
+          
         </ContentContainer>
       <Footer />
     </>
@@ -86,42 +103,44 @@ const ContentContainer = styled.div`
   padding: 20px;
   color: #25283D;
   
-  margin-left: 300px;
-  margin-right: 300px;
+  margin-left: 15%;
+  margin-right: 15%;
 `;
 
-const Line = styled.hr`
-  border: 2px dashed #25283D;
+const Header = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+`;
+
+const Left = styled.div`
+  text-align: left;
+`;
+
+const Links = styled.div`
+  font-size: 30px;
+  margin-top: 25px;
+`;
+
+const Img = styled.img`
+ width: 70%;
+`;
+
+const ButtonLinks = styled.div`
+  display: felx;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const Right = styled.div`
+  text-align: left;
 `;
 
 const Heading = styled.h1`
-  font-size: 100px;
-  text-align: center;
-  padding-top: 75px;
-  padding-bottom: 75px;
+  font-size: 60px;
+  text-align: left;
+  padding-top: 20px;
 `;
 
-const HeaderButton = styled.button`
-  font-size: 25px;
-  margin: 20px;
-  padding: 5px;
-  padding-left: 15px;
-  padding-right: 15px;
-  
-  color: white;
-  background-color: #077678; 
-  border: 2px solid #077678;
-  border-radius: 50px;
-
-  float: right;
-
-  &:hover{ 
-    color: #077678;
-    border-color: #077678;
-    background-color: transparent;
-    cursor: pointer;
-  }
-`;
 
 const Subheading = styled.h2`
   font-size: 30px;
@@ -131,15 +150,10 @@ const Subheading = styled.h2`
 
 const ProfileInfo = styled.p`
   font-size: 20px;
-  padding-left: 50px;
+  padding-left: 10%;
+  padding-bottom: 10px;
 `;
 
-const InputInfo = styled.input`
-  background-color: #DFDFDF;
-  border-radius: 8px;
-  padding: 5px;
-  margin-left: 10px;
-`;
 
 const Button = styled.button`
   font-size: 20px;
@@ -147,7 +161,10 @@ const Button = styled.button`
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 4px;
-  margin-left: 15px;
+  margin: 15px;
+
+  display: flex;
+  gap: 10px;
 
   color: white;
   background-color: #077678; 

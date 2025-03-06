@@ -1,13 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import Link from 'next/link'
 import NavigationBar from '@/components/Dashboard/Navbar'
 import { useStateContext } from '@/context/StateContext'
 import { useRouter } from 'next/router'
 import Footer from "@/components/LandingPage/Footer"
 import { fetchEmailData, fetchCatListData, deleteDesiredCat } from "@/backend/Database"
 
-
+// Asks the user to log in if not already.
+// Takes data from the database based on the current user logged in. Displays it with the cat's name. If the user removes it from their cart,
+// The cat is removed from their database. If you run out of cat, a page pops up stating to look for more cats.
 
 const CatCart = () => {
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import Link  from 'next/link';
-//import { IoMdHome } from 'react-icons/io'; // Importing a home icon from react-icons
-// <IoMdHome />
 import styled from 'styled-components';
+
+//Logo for the website
 
 const Logo = () => {
   return (

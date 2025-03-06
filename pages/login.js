@@ -9,6 +9,10 @@ import Footer from "@/components/LandingPage/Footer"
 import { getAuth, validatePassword, signInWithEmailAndPassword } from "firebase/auth";
 
 
+//The user will be asked to log in. Their information will be checked with the databse to makme sure it exists adn the password is right.
+// An alert will pop up if not. The user can then sign up if they do not have an account. 
+// The user useStateContext will be updated with the email. 
+
 
 const Login = () => {
 

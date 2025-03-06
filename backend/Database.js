@@ -2,6 +2,10 @@ import { doc, setDoc, getDoc, getDocs, collection, query, where, deleteDoc, addD
 import { database } from "./Firebase"
 import { getDatabase, ref, set, onValue } from "firebase/database"
 
+//Read and write infmoration to the databse based on if its a collection, docuemnt, or in a document. 
+// Use the user's email and other variables to grab the desired information.
+
+
 
 // I have it set up so the "document" is the user's email and the fields are the cat id & url
 

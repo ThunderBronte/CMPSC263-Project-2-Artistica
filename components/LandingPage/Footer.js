@@ -4,6 +4,8 @@ import { CiInstagram } from "react-icons/ci";
 import { FaFacebookF } from "react-icons/fa";
 
 
+//Basic information for the footer.
+
 const Footer = () => {
   return (
     <FooterSection>
@@ -14,11 +16,11 @@ const Footer = () => {
           Email: PurrfectPals@gmail.com
         </LeftContainer>
         <CenterContainer>
-          Center Container information <br></br>
+            Our legal infomration <br></br>
           <Link href="#">Privacy Policy</Link> | <Link href="#">Terms of Service</Link>
         </CenterContainer>
         <RightContainer>
-          Right Container Information
+          Find us in other places.
           <br></br>
           Follow us on social media!
           <br></br><br></br>

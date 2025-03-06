@@ -3,6 +3,8 @@ import { auth } from "./Firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, fetchSignInMethodsForEmail } from "firebase/auth";
 
 
+// Works with firebase to sign up, log in, and see if the email exists in the database and returns the promises 
+
 
 export const signUp = async (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
