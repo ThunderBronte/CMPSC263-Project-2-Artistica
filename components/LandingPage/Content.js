@@ -105,7 +105,7 @@ const Content = ({text}) => {
           <AllContainer>
             <LeftContainer>
               <Subheading>Basics of Taking Care of a Cat</Subheading>
-              <Img src="/catImages/takeCare.jpeg"></Img>
+              <Img src="takeCare.jpeg"></Img>
             </LeftContainer>
             <RightContainer>
               <Info><Bold>Provide Fresh Water:</Bold> Always have clean water available for your cat to drink.</Info>
