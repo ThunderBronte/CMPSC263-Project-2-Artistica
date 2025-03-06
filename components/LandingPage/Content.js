@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import styled from 'styled-components';
 import { useStateContext } from '@/context/StateContext'
 import { useRouter } from 'next/router';
@@ -11,6 +11,8 @@ const Content = ({text}) => {
   const { user, setUser } = useStateContext();
 
   const [ data, setData] = useState(null);
+
+  const focus = useRef('');
 
 
   const catSearch = () =>{
@@ -43,10 +45,20 @@ const Content = ({text}) => {
   }, []) 
 
 
+  function goToTop(){
+    if(focus.current){
+      focus.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+  }
+
+
 
   return (
     <ContentContainer>
-      <TitleScreen>
+      <TitleScreen ref={focus}>
           <BackImg src="ContentImg.png"></BackImg>
           <TitleWords>Adopt a cat today! <br></br>
             <Button onClick={() => catSearch()}>Find a cat! </Button>
@@ -63,8 +75,8 @@ const Content = ({text}) => {
               <SectionButton onClick={() => catSearch()}>Search Cats!</SectionButton>
             </TopContainer>
             <BottomContainer>
-            <SubContainer>
-              <InnerContainer>
+              <SubContainer>
+                <InnerContainer>
                   <Bold>Saves Animal Lives</Bold>
                   <Img src="catImages/saveLife.webp"></Img>
                 </InnerContainer>
@@ -86,14 +98,21 @@ const Content = ({text}) => {
             </Info>
           </SectionContainer>
         <SectionContainer>
-          
-          <Subheading>Basics of Taking Care of a Cat</Subheading>
-            <Info>Provide Fresh Water: Always have clean water available for your cat to drink.</Info>
-            <Info>Proper Food: Make sure the food is age-appropriate and healthy for your cat.</Info>
-            <Info>Litter Box: Keep a clean litter box and scoop it daily. </Info>
-            <Info>Routine Vet Checkups: Take your cat for their annual check-ups.</Info>
+          <AllContainer>
+            <LeftContainer>
+              <Subheading>Basics of Taking Care of a Cat</Subheading>
+              <Img src="/catImages/takeCare.jpeg"></Img>
+            </LeftContainer>
+            <RightContainer>
+              <Info><Bold>Provide Fresh Water:</Bold> Always have clean water available for your cat to drink.</Info>
+              <Info><Bold>Proper Food:</Bold> Make sure the food is age-appropriate and healthy for your cat.</Info>
+              <Info><Bold>Litter Box:</Bold> Keep a clean litter box and scoop it daily. </Info>
+              <Info><Bold>Routine Vet Checkups:</Bold> Take your cat for their annual check-ups.</Info>
+            </RightContainer>
+          </AllContainer>
          </SectionContainer>
         </TextContent>
+        <TopContainer><SectionButton onClick={() => goToTop()}>Go To Top</SectionButton></TopContainer>
     </ContentContainer> 
   ); 
 };
@@ -149,7 +168,6 @@ const SectionButton = styled.button`
   padding-left: 15px;
   padding-right: 15px;
   
-
   color: white;
   background-color: #077678; 
   border: 2px solid #077678;
@@ -169,7 +187,7 @@ const TextContent = styled.div`
 `;
 
 const SectionContainer = styled.div`
-  margin: 15%;  
+  margin: 12%;  
   margin-left: 10%;
   margin-right: 10%;
 `;
@@ -182,7 +200,6 @@ const Subheading =styled.h2`
 const Info = styled.p`
   font-size: 27px;
   padding: 30px;
-  text-align: center;
   padding-left: 15%;
   padding-right: 15%;
 `;
@@ -199,7 +216,6 @@ const Img = styled.img`
   border-radius: 20px;
   margin-top: 10px;
 `;
-
 
 const SubContainer = styled.div`
   display: grid;
@@ -220,7 +236,20 @@ const InnerContainer = styled.div`
   text-align: center;
 `;
 
+const AllContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 20px;
+`;
 
+const LeftContainer = styled.div`
+  text-align: center;
+`;
+
+const RightContainer = styled.div`
+  text-align: left;
+  padding-top: 60px;
+`;
 
 
 export default Content;
