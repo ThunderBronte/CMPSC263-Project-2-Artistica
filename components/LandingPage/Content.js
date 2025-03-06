@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import { useStateContext } from '@/context/StateContext'
 import { useRouter } from 'next/router';
+import { ListGroup } from 'react-bootstrap';
 
 const Content = ({text}) => {
 
@@ -57,18 +58,26 @@ const Content = ({text}) => {
             <Info>Our mission is simple: to find loving homes for cats in need and provide a platform where these amazing animals can find their forever families. We are a passionate community of animal lovers, rescue groups, and dedicated volunteers, all working together to ensure that every cat—whether a playful kitten or a wise senior—has the opportunity to live a happy, healthy life.</Info>
          </SectionContainer>
         <SectionContainer>
-          <TotalContainer>
-            <LeftContainer>
-              <Subheading>Adopt Don't Shop!</Subheading>
+            <TopContainer>
+              <Subheading>Why Adopt?</Subheading>
               <SectionButton onClick={() => catSearch()}>Search Cats!</SectionButton>
-            </LeftContainer>
-            <RightContainer>
-              <Info>Here are reasons why you should adopt rather than shop for cats:</Info>
-              <listItem>- Saving Lives: Shelters are overwhelmed and adopting can help save those cats. </listItem>
-              <listItem>- Cost Effective: It is cheaper to adopt a cat rather than buy.</listItem>
-              <listItem>- Support Shelter: Most shelters are non-profit so adotping from them helps their costs.</listItem>
-            </RightContainer>
-          </TotalContainer>
+            </TopContainer>
+            <BottomContainer>
+            <SubContainer>
+              <InnerContainer>
+                  <Bold>Saves Animal Lives</Bold>
+                  <Img src="catImages/saveLife.webp"></Img>
+                </InnerContainer>
+                <InnerContainer>
+                  <Bold>Cost Effective</Bold>
+                  <Img src="/catImages/support.webp"></Img>
+                </InnerContainer>
+                <InnerContainer> 
+                  <Bold>Support Shelters</Bold>
+                  <Img src="catImages/cost.webp"></Img>
+                </InnerContainer>
+              </SubContainer>
+            </BottomContainer>
         </SectionContainer>
         <SectionContainer>
           <Subheading>Fun Cat Facts</Subheading>
@@ -77,6 +86,7 @@ const Content = ({text}) => {
             </Info>
           </SectionContainer>
         <SectionContainer>
+          
           <Subheading>Basics of Taking Care of a Cat</Subheading>
             <Info>Provide Fresh Water: Always have clean water available for your cat to drink.</Info>
             <Info>Proper Food: Make sure the food is age-appropriate and healthy for your cat.</Info>
@@ -159,54 +169,55 @@ const TextContent = styled.div`
 `;
 
 const SectionContainer = styled.div`
-  margin: 50px;  
+  margin: 15%;  
   margin-left: 10%;
   margin-right: 10%;
-  
-  //background-color: red;
 `;
 
 const Subheading =styled.h2`
-  font-size: 50px;
+  font-size: 60px;
   padding: 20px;
-
 `;
 
 const Info = styled.p`
-  font-size: 25px;
-  padding-bottom: 30px;
-  margin-left: 200px;
-  margin-right: 200px;
-  
+  font-size: 27px;
+  padding: 30px;
+  text-align: center;
+  padding-left: 15%;
+  padding-right: 15%;
 `;
 
-const BoldWords = styled.span`
-  color: #077678;
+const Bold = styled.span`
+  color: #069ea1;
+  font-weight: bold;
+  font-size: 30px;
 `;
 
-const UnorderedList = styled.ul`
-  font-size: 25px;
-  padding-bottom: 10px;
-  margin-left: 200px;
-  margin-right: 200px;
+const Img = styled.img`
+  width: 90%;
+  height: 80%;
+  border-radius: 20px;
+  margin-top: 10px;
 `;
 
-const listItem = styled.li`
-  
-`;
 
-const TotalContainer = styled.div`
+const SubContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 50px;
 `;
 
-const LeftContainer = styled.div`
+const TopContainer = styled.div`
+  text-align: center;
+  padding: 20px;
+`;
+
+const BottomContainer = styled.div`
   text-align: center;
 `;
 
-const RightContainer = styled.div`
-  text-align: left;
+const InnerContainer = styled.div`
+  text-align: center;
 `;
 
 
