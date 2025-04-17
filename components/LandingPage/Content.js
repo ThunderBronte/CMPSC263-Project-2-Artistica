@@ -63,15 +63,14 @@ const Content = ({text}) => {
   return (
     <ContentContainer>
       <TitleScreen ref={focus}>
-
+        <Subheading>Scroll Art</Subheading>
+        <SearchBar></SearchBar>
       </TitleScreen>
       <TextContent>
         <SectionContainer>
             <TopContainer>
-              <Subheading>Why Adopt?</Subheading>
-              <SectionButton onClick={() => catSearch()}>Search Cats!</SectionButton>
             </TopContainer>
-            <BottomContainer>
+            {/* <BottomContainer>
               <SubContainer>
                 <InnerContainer>
                   <Bold>Saves Animal Lives</Bold>
@@ -86,10 +85,24 @@ const Content = ({text}) => {
                   <Img src="cost.webp"></Img>
                 </InnerContainer>
               </SubContainer>
-            </BottomContainer>
+            </BottomContainer> */}
         </SectionContainer>
         <SectionContainer>
-          <Subheading>Fun Cat Facts</Subheading>
+          <AllArtCont>
+            <OneLineArt>
+              <OneImage><Image src="Images/art1.webp"></Image></OneImage>
+              <OneImage><Image src="Images/art2.jpg"></Image></OneImage>
+              <OneImage><Image src="Images/art3.jpg"></Image></OneImage>
+            </OneLineArt>
+            {/* <OneLineArt>
+              <OneImage></OneImage>
+            </OneLineArt>
+            <OneLineArt>
+              <OneImage></OneImage>
+            </OneLineArt> */}
+          </AllArtCont>
+        </SectionContainer>
+          {/* <Subheading>Fun Cat Facts</Subheading>
             <Info>
                 {data ? data.fact : "<p>Loading Cat Facts...</p>"}
             </Info>
@@ -107,9 +120,9 @@ const Content = ({text}) => {
               <Info><Bold>Routine Vet Checkups:</Bold> Take your cat for their annual check-ups.</Info>
             </RightContainer>
           </AllContainer>
-         </SectionContainer>
+         </SectionContainer> */}
         </TextContent>
-        <TopContainer><SectionButton onClick={() => goToTop()}>Back To Top</SectionButton></TopContainer>
+        {/* <TopContainer><SectionButton onClick={() => goToTop()}>Back To Top</SectionButton></TopContainer> */}
     </ContentContainer> 
   ); 
 };
@@ -121,22 +134,58 @@ const ContentContainer = styled.div`
 `;
 
 const TitleScreen = styled.div`
-  position: relative;
-  text-align: center;
+ background-color: #29262C;
+  margin-left: 9%;
+  margin-right: 9%;
+
+  display: flex;
+`;
+
+const SearchBar = styled.input`
+  border: 2px solid white;
+  border-radius: 20px;
+  background-color: transparent;
   color: white;
+
+  // padding: 3px;
+  margin: 5px;
+
+  display: inline;
+  float: right;
+  
 `;
 
-const BackImg = styled.img`
-  width: 100%;
-  padding: 0px;
+const AllArtCont = styled.div`
+  // width: 95%;
+  // height: 100%;
+
+  // margin-left: -4px;
+  // margin-top: -4px;
+  // margin-bottom: -4px;
 `;
 
-const TitleWords = styled.h1`
-  font-size: 70px;
-  position: absolute;
-  top: 10%;
-  left: 5%;
+const OneLineArt = styled.div`
+  width: 90%;
+  contain-intrinsic-size: 90% 300px;
+  //content-visibility: visible;
 `;
+
+const OneImage = styled.div`
+  height: 100%
+  display: inline-block;
+  float: left;
+  position: relative;
+  margin: 4px;
+
+  &:hover {
+
+  }
+`;
+
+const Image = styled.img`
+  height:  275px;
+`;
+
 
 const Button = styled.button`
   font-size: 30px;
@@ -160,20 +209,20 @@ const Button = styled.button`
 
 const SectionButton = styled.button`
   font-size: 30px;
-  margin: 20px;
-  padding: 5px;
-  padding-left: 15px;
-  padding-right: 15px;
+  margin: 4%;
+  padding: 0.5%;
+  padding-left: 1%;
+  padding-right: 1%;
   
-  color: white;
-  background-color: #077678; 
-  border: 2px solid #077678;
-  border-radius: 50px;
+  color: black;
+  background-color: #FFD725; 
+  border: 2px solid #FFD725;
+  border-radius: 10px;
 
   &:hover{ 
-    color: #077678;
-    border-color: #077678;
-    background-color: transparent;
+    color: black;
+    border-color: #D8B61D;
+    background-color: #D8B61D;
     cursor: pointer;
   }
 `;
@@ -185,14 +234,18 @@ const TextContent = styled.div`
 
 const SectionContainer = styled.div`
   background-color: #120E14;
-  margin: 12%;  
-  margin-left: 10%;
-  margin-right: 10%;
+  padding-bottom: 5%;  
+  margin-left: 9%;
+  margin-right: 9%;
 `;
 
 const Subheading =styled.h2`
   font-size: 60px;
   padding: 20px;
+  // text-align: left;
+  float: left;
+  display: inline;
+  
 `;
 
 const Info = styled.p`
@@ -222,7 +275,7 @@ const SubContainer = styled.div`
 `;
 
 const TopContainer = styled.div`
-  text-align: center;
+  // background-color: #29262C;
   padding: 20px;
 `;
 

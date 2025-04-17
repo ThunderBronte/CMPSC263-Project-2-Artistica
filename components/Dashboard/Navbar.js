@@ -39,7 +39,6 @@ const NavigationBar = () => {
 // Need list in reverse order with the way I am displaying them. 
     return (
       <>
-      <All>
       <ContainerNavBar>
         <Navbar>
             <LogoItem><Logo></Logo></LogoItem>
@@ -48,18 +47,15 @@ const NavigationBar = () => {
             <ListItem><LinkRef href="/searchCat">Art Trade</LinkRef></ListItem>
         </Navbar>
       </ContainerNavBar>
-      </All>
       </>
     );
 };
 
-const All = styled.div`
-  background-color: #120E14;
-`;
+
 
 const ContainerNavBar = styled.div`
-  margin-left: 150px;
-  margin-right: 150px;
+  padding-left: 10%;
+  padding-right: 10%;
   background-color: #120E14;
   
   height: 75px;
@@ -73,7 +69,6 @@ const Navbar = styled.ul`
 `;
 
 
-
 const LogoItem = styled.li`
   margin-top: 3px;
   display: inline;
@@ -82,8 +77,7 @@ const LogoItem = styled.li`
 
 const ListItem = styled.li`
   font-size: 20px;
-  margin-top: 20px;
-  margin-left: 5px;
+  margin-top: 2%;
   display: inline;
   float: right;
 `;

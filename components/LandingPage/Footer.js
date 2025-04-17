@@ -37,10 +37,9 @@ const Footer = () => {
 };
 
 const FooterSection = styled.footer`
-  background-color: #292430;
+  background-color: #29262C;
   color: white;
   font-size: 16px;
-  margin: 100 px;
   padding: 30px;
 `;
 
