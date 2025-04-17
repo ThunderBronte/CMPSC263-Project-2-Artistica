@@ -8,9 +8,9 @@ const Logo = () => {
   return (
     <All>
       <LogoInfo href="/">
-        <LogoImage src="/PurrfectPals.png"></LogoImage>
+        <LogoImage src="/Images/Logo.png"></LogoImage>
         <Name>
-          Purrfect Pals
+          Artistica
         </Name>
       </LogoInfo>
     </All>
@@ -28,16 +28,14 @@ const LogoInfo = styled(Link)`
   text-decoration: none;
   display: inline; 
 
-  color: #077678;
+  color: #FFD725;
   &:hover{
-    color: #25283D;
   }
 `;
 
 const Name = styled.div`
-  color: #1fb896;
+  color: #FFD725;
   &:hover{
-    color: #25283D;
   }
 `;
 

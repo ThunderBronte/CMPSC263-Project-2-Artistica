@@ -39,23 +39,28 @@ const NavigationBar = () => {
 // Need list in reverse order with the way I am displaying them. 
     return (
       <>
+      <All>
       <ContainerNavBar>
         <Navbar>
             <LogoItem><Logo></Logo></LogoItem>
             <ListItem><LinkRef href="/profilePage">{name}</LinkRef></ListItem>
-            <ListItem><LinkRef href="/catCart">Cat Cart: Saved Cats</LinkRef></ListItem>
-            <ListItem><LinkRef href="/searchCat">Find Cats</LinkRef></ListItem>
+            <ListItem><LinkRef href="/catCart">Art Shop</LinkRef></ListItem>
+            <ListItem><LinkRef href="/searchCat">Art Trade</LinkRef></ListItem>
         </Navbar>
       </ContainerNavBar>
+      </All>
       </>
     );
 };
 
-
+const All = styled.div`
+  background-color: #120E14;
+`;
 
 const ContainerNavBar = styled.div`
   margin-left: 150px;
   margin-right: 150px;
+  background-color: #120E14;
   
   height: 75px;
 `;
@@ -91,13 +96,14 @@ const LinkRef = styled.a`
   padding-top: 5px;
   padding-bottom: 7px;
   text-decoration: none;
-  color: #077678;
-  border: 1px solid white;
+  color: #FFD725;
+  border: 1px solid #120E14;
+  border-radius: 20px;
 
   &:hover{
-    color: #25283D;
     list-style-position: inside;
-    border: 1px solid #25283D;
+    border: 1px solid #120E14;
+    background-color: #292430;
     border-radius: 20px;
   }
 `;

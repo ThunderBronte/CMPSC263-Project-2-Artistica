@@ -63,16 +63,9 @@ const Content = ({text}) => {
   return (
     <ContentContainer>
       <TitleScreen ref={focus}>
-          <BackImg src="ContentImg.png"></BackImg>
-          <TitleWords>Adopt a cat today! <br></br>
-            <Button onClick={() => catSearch()}>Find a cat! </Button>
-          </TitleWords>
+
       </TitleScreen>
       <TextContent>
-        <SectionContainer>
-          <Subheading> About Us </Subheading>
-            <Info>Our mission is simple: to find loving homes for cats in need and provide a platform where these amazing animals can find their forever families. We are a passionate community of animal lovers, rescue groups, and dedicated volunteers, all working together to ensure that every cat—whether a playful kitten or a wise senior—has the opportunity to live a happy, healthy life.</Info>
-         </SectionContainer>
         <SectionContainer>
             <TopContainer>
               <Subheading>Why Adopt?</Subheading>
@@ -123,8 +116,8 @@ const Content = ({text}) => {
 
 
 const ContentContainer = styled.div`
-  background-color: white;
-  color: #25283D;
+  background-color: #120E14;
+  color: white;
 `;
 
 const TitleScreen = styled.div`
@@ -191,6 +184,7 @@ const TextContent = styled.div`
 `;
 
 const SectionContainer = styled.div`
+  background-color: #120E14;
   margin: 12%;  
   margin-left: 10%;
   margin-right: 10%;

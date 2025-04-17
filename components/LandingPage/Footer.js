@@ -13,7 +13,7 @@ const Footer = () => {
         <LeftContainer>
           Contact Us! <br></br>
           Phone Number: 123-456-7890 <br></br>
-          Email: PurrfectPals@gmail.com
+          Email: Artistica@gmail.com
         </LeftContainer>
         <CenterContainer>
             Our legal infomration <br></br>
@@ -29,7 +29,7 @@ const Footer = () => {
         </RightContainer>
         <BottomContainer>
           Website icon 
-          @{new Date().getFullYear()} PurrfectPals.com
+          @{new Date().getFullYear()} Artistica.com
         </BottomContainer>
       </FooterContainer>
     </FooterSection>
@@ -37,7 +37,7 @@ const Footer = () => {
 };
 
 const FooterSection = styled.footer`
-  background-color: #062e3d;
+  background-color: #292430;
   color: white;
   font-size: 16px;
   margin: 100 px;
