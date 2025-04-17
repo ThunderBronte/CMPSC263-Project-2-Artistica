@@ -43,7 +43,8 @@ const NavigationBar = () => {
         <Navbar>
             <LogoItem><Logo></Logo></LogoItem>
             <ListItem><LinkRef href="/profilePage">{name}</LinkRef></ListItem>
-            <ListItem><LinkRef href="/artTrade">Art Trade</LinkRef></ListItem>
+            <ListItem><LinkRef href="/artTrade">Interactions</LinkRef></ListItem>
+            <ListItem><LinkRef href="/tradersDen">Trader's Den</LinkRef></ListItem>
             <ListItem><LinkRef href="/artShop">Art Shop</LinkRef></ListItem>
         </Navbar>
       </ContainerNavBar>
