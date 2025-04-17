@@ -62,65 +62,39 @@ const Content = ({text}) => {
 
   return (
     <ContentContainer>
+      <Space>.</Space>
       <TitleScreen ref={focus}>
-        <Subheading>Scroll Art</Subheading>
-        <SearchBar></SearchBar>
-      </TitleScreen>
+        <Title>Scroll Art</Title>
+        <Form><SearchBar placeholder = "Search..."></SearchBar></Form> 
+       </TitleScreen>
+
       <TextContent>
         <SectionContainer>
-            <TopContainer>
-            </TopContainer>
-            {/* <BottomContainer>
-              <SubContainer>
-                <InnerContainer>
-                  <Bold>Saves Animal Lives</Bold>
-                  <Img src="saveLife.webp"></Img>
-                </InnerContainer>
-                <InnerContainer>
-                  <Bold>Cost Effective</Bold>
-                  <Img src="support.webp"></Img>
-                </InnerContainer>
-                <InnerContainer> 
-                  <Bold>Support Shelters</Bold>
-                  <Img src="cost.webp"></Img>
-                </InnerContainer>
-              </SubContainer>
-            </BottomContainer> */}
-        </SectionContainer>
-        <SectionContainer>
           <AllArtCont>
-            <OneLineArt>
-              <OneImage><Image src="Images/art1.webp"></Image></OneImage>
-              <OneImage><Image src="Images/art2.jpg"></Image></OneImage>
-              <OneImage><Image src="Images/art3.jpg"></Image></OneImage>
-            </OneLineArt>
-            {/* <OneLineArt>
-              <OneImage></OneImage>
-            </OneLineArt>
-            <OneLineArt>
-              <OneImage></OneImage>
-            </OneLineArt> */}
+              <ImageContainer>
+                <Image src="Images/art1.webp"></Image>
+                <ArtText>Title: Art1 <br></br>Artist: Cover Name</ArtText>
+              </ImageContainer>
+              <ImageContainer>
+                <Image src="Images/art2.jpg"></Image>
+                <ArtText>Title: Art2 <br></br>Artist: Cover Name</ArtText>
+              </ImageContainer>
+              <ImageContainer>
+                <Image src="Images/art3.jpg"></Image>
+                <ArtText>Title: Art3 <br></br>Artist: Cover Name</ArtText>
+              </ImageContainer>
+              <ImageContainer>
+                <Image src="Images/art4.jpg"></Image>
+                <ArtText>Title: Art4 <br></br>Artist: Cover Name</ArtText>
+              </ImageContainer>
+              <ImageContainer>
+                <Image src="Images/art5.jpg"></Image>
+                <ArtText>Title: Art5 <br></br>Artist: Cover Name</ArtText>
+              </ImageContainer>
           </AllArtCont>
         </SectionContainer>
-          {/* <Subheading>Fun Cat Facts</Subheading>
-            <Info>
-                {data ? data.fact : "<p>Loading Cat Facts...</p>"}
-            </Info>
-          </SectionContainer>
-        <SectionContainer>
-          <AllContainer>
-            <LeftContainer>
-              <Subheading>Basics of Taking Care of a Cat</Subheading>
-              <Img src="takeCare.jpeg"></Img>
-            </LeftContainer>
-            <RightContainer>
-              <Info><Bold>Provide Fresh Water:</Bold> Always have clean water available for your cat to drink.</Info>
-              <Info><Bold>Proper Food:</Bold> Make sure the food is age-appropriate and healthy for your cat.</Info>
-              <Info><Bold>Litter Box:</Bold> Keep a clean litter box and scoop it daily. </Info>
-              <Info><Bold>Routine Vet Checkups:</Bold> Take your cat for their annual check-ups.</Info>
-            </RightContainer>
-          </AllContainer>
-         </SectionContainer> */}
+
+        
         </TextContent>
         {/* <TopContainer><SectionButton onClick={() => goToTop()}>Back To Top</SectionButton></TopContainer> */}
     </ContentContainer> 
@@ -133,58 +107,91 @@ const ContentContainer = styled.div`
   color: white;
 `;
 
+const Space = styled.div` color: #120E14; `;
+
 const TitleScreen = styled.div`
- background-color: #29262C;
+  background-color: #120E14;
   margin-left: 9%;
   margin-right: 9%;
 
-  display: flex;
+  overflow: hidden;
+`;
+
+const Title = styled.div`
+  margin = -10px;
+  font-size: 60px;
+  padding: 20px;
+  text-align: left;
+  float: left;
+  display: inline;
+`;
+
+const Form = styled.form`
+  //display: flex;
+  //  justify-content: center;
+  // align-items: center;
 `;
 
 const SearchBar = styled.input`
+  font-size: 17px;
   border: 2px solid white;
   border-radius: 20px;
   background-color: transparent;
   color: white;
 
-  // padding: 3px;
-  margin: 5px;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-right: 3%;
+  margin-top: 2.5%;
 
-  display: inline;
+  width: 30%;
   float: right;
-  
 `;
 
 const AllArtCont = styled.div`
-  // width: 95%;
-  // height: 100%;
+  display: grid;
+  justify-content: space-evenly;
+  padding-top: 50px;
 
-  // margin-left: -4px;
-  // margin-top: -4px;
-  // margin-bottom: -4px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-rows: auto; 
+  gap: 5px;
+
+  grid-auto-flow: row;
 `;
 
-const OneLineArt = styled.div`
-  width: 90%;
-  contain-intrinsic-size: 90% 300px;
-  //content-visibility: visible;
-`;
+const ImageContainer = styled.div`
+  text-align: center;
+  border-radius: 7px;
+  width: 320px;
+  height: 380px;
+  //border: 2px solid #29262C;
 
-const OneImage = styled.div`
-  height: 100%
-  display: inline-block;
-  float: left;
-  position: relative;
-  margin: 4px;
-
+  
   &:hover {
+    //cursor: pointer;
 
   }
 `;
 
 const Image = styled.img`
-  height:  275px;
+  height: 275px;
+  width: 275px;
+  border-radius: 5px;
+  object-fit: cover;
+  margin-top: 15px;
 `;
+
+const ArtText = styled.p`
+  font-size: 20px;
+`;
+
+
+
+
+
+
 
 
 const Button = styled.button`
@@ -239,13 +246,13 @@ const SectionContainer = styled.div`
   margin-right: 9%;
 `;
 
-const Subheading =styled.h2`
-  font-size: 60px;
-  padding: 20px;
-  // text-align: left;
-  float: left;
-  display: inline;
-  
+const Subheading = styled.div`
+  // margin = -10px;
+// font-size: 60px;
+  // // padding: 20px;
+  // //text-align: left;
+  // // float: left;
+  // // display: inline;
 `;
 
 const Info = styled.p`
@@ -304,3 +311,48 @@ const RightContainer = styled.div`
 
 
 export default Content;
+
+
+
+
+
+/*    <SectionContainer>
+            <TopContainer>
+            </TopContainer>
+            <BottomContainer>
+              <SubContainer>
+                <InnerContainer>
+                  <Bold>Saves Animal Lives</Bold>
+                  <Img src="saveLife.webp"></Img>
+                </InnerContainer>
+                <InnerContainer>
+                  <Bold>Cost Effective</Bold>
+                  <Img src="support.webp"></Img>
+                </InnerContainer>
+                <InnerContainer> 
+                  <Bold>Support Shelters</Bold>
+                  <Img src="cost.webp"></Img>
+                </InnerContainer>
+              </SubContainer>
+            </BottomContainer>
+        </SectionContainer> 
+           <Subheading>Fun Cat Facts</Subheading>
+            <Info>
+                {data ? data.fact : "<p>Loading Cat Facts...</p>"}
+            </Info>
+          </SectionContainer>
+        <SectionContainer>
+          <AllContainer>
+            <LeftContainer>
+              <Subheading>Basics of Taking Care of a Cat</Subheading>
+              <Img src="takeCare.jpeg"></Img>
+            </LeftContainer>
+            <RightContainer>
+              <Info><Bold>Provide Fresh Water:</Bold> Always have clean water available for your cat to drink.</Info>
+              <Info><Bold>Proper Food:</Bold> Make sure the food is age-appropriate and healthy for your cat.</Info>
+              <Info><Bold>Litter Box:</Bold> Keep a clean litter box and scoop it daily. </Info>
+              <Info><Bold>Routine Vet Checkups:</Bold> Take your cat for their annual check-ups.</Info>
+            </RightContainer>
+          </AllContainer>
+         </SectionContainer> 
+         */

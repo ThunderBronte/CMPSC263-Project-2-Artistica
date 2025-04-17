@@ -221,6 +221,7 @@ const Image = styled.img`
   border-style: 3px soild white;
   width: 300px;
   height: 300px;
+  object-fit: cover;
 `;
 
 const OneCatContainer = styled.div`

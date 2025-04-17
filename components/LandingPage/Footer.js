@@ -78,7 +78,7 @@ const BottomContainer = styled.div`
 `;
 
 const Link = styled.a`
-  color: #43DFBD;
+  color: #FFD725;
   &:hover {
     color:#8a8a8a;
   }
@@ -87,12 +87,12 @@ const Link = styled.a`
 
 // Will change this once I get icons instead 
 const SocialIcon = styled.a`
-  color: #fff;
+  color: #FFD725;
   text-decoration: none;
   font-size: 1.5rem;
   padding: 5px;
 
-  color: #43DFBD;
+  color: #FFD725
   &:hover {
     color: #8a8a8a;
   }
