@@ -1,7 +1,10 @@
-import React, {useState, useEffect, useRef} from 'react';
-import styled from 'styled-components';
-import { useStateContext } from '@/context/StateContext'
-import { useRouter } from 'next/router';
+import styled from 'styled-components'
+import NavigationBar from "@/components/Dashboard/Navbar"
+import Footer from "@/components/LandingPage/Footer"
+import {useStateContext } from '@/context/StateContext'
+import React, { useState, useEffect, useRef } from 'react'
+import { useRouter } from "next/router"
+import { createDoc } from "@/backend/Database"
 
 //Main content of the page
 // Displays basic information of the website, why the user should adopt (along with going to the page to search for cats), get a fun fact 
@@ -61,10 +64,12 @@ const Content = ({text}) => {
 
 
   return (
+    <>
+    <NavigationBar />
     <ContentContainer>
       <Space>.</Space>
       <TitleScreen ref={focus}>
-        <Title>Scroll Art</Title>
+        <Title>Interactions</Title>
         {/* <Form><SearchBar placeholder = "Search..."></SearchBar></Form>  */}
        </TitleScreen>
 
@@ -98,6 +103,8 @@ const Content = ({text}) => {
         </TextContent>
         {/* <TopContainer><SectionButton onClick={() => goToTop()}>Back To Top</SectionButton></TopContainer> */}
     </ContentContainer> 
+    <Footer />
+    </>
   ); 
 };
 

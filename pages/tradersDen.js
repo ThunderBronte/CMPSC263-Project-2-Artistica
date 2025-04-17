@@ -113,24 +113,24 @@ const ArtTrade = () => {
         <Form><SearchBar placeholder = "Search Artists..."></SearchBar></Form> 
       </TitleScreen>
       <PageInfo>
-          <PageText>Welcome to the Art Shop!</PageText>
-          <PageText>Here, you can see the available artsist that you can buy art from.</PageText>
+          <PageText>Welcome to the Trader's Den!</PageText>
+          <PageText>Here, you can trade with artists.</PageText>
       </PageInfo>
       <TextContent>
         <SectionContainer>
           <AllArtCont>
               <ImageContainer>
-                <Image src="Images/Profile1.jpg"></Image>
+                <Image src="Images/Profile4.png"></Image>
                 <ArtText>Artist: Name 1</ArtText>
                 <Button>Contact</Button>
               </ImageContainer>
               <ImageContainer>
-                <Image src="Images/Profile2.jpg"></Image>
+                <Image src="Images/Profile5.png"></Image>
                 <ArtText>Artist: Name 2</ArtText>
                 <Button>Contact</Button>
               </ImageContainer>
               <ImageContainer>
-                <Image src="Images/Profile3.jpg"></Image>
+                <Image src="Images/Profile6.jpg"></Image>
                 <ArtText>Artist: Name 3</ArtText>
                 <Button>Contact</Button>
               </ImageContainer>
