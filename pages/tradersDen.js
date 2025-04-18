@@ -22,85 +22,42 @@ const ArtTrade = () => {
 
   const { user, setUser } = useStateContext()
 
-  const [ button, setButton ] = useState(false);
-  const [ data, setData] = useState(null);
-  const [ nameData, setNameData ] = useState(null);
-  const [ alert, setAlert ] = useState(null);
+  // const [ button, setButton ] = useState(false);
+  // const [ data, setData] = useState(null);
+  // const [ nameData, setNameData ] = useState(null);
+  // const [ alert, setAlert ] = useState(null);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [hasMessage, setHasMessage] = useState(null);
+
+  const [artistName, setArtistName] = useState(null);
+  const [artistEmail, setArtistEmail] = useState(null);
 
   const focus = useRef('');
 
+  // For the form
+  const openPopup = (name, email) => {
+    setArtistName(name);
+    setArtistEmail(email);
+    setIsOpen(true);
+  };
 
-  // useEffect(() =>{
-  //   // API for cat images
-  //   const fetchCatImages = async () => {
-  //     try{
-  //       const res = await fetch('https://api.thecatapi.com/v1/images/search?limit=10');
-        
-  //       // Handle if the response is not okay
-  //       if(!res.ok){
-  //         throw new Error(`HTTP error! Status: ${res.status}`);
-  //       }
-
-  //       const imageData = await res.json();
-
-  //       setData(imageData);
-  //     } catch(error){ 
-  //       console.error('Error fetching cat facts:', error);
-  //     }
-  //   }
-  //
-  //   // API for names 
-  //   const fetchRandomName = async () => {
-  //     try{
-  //       const res = await fetch('https://names.ironarachne.com/race/dragonborn/family/10');
-        
-  //        // Handle if the response is not okay
-  //       if(!res.ok){
-  //         throw new Error(`HTTP error! Status: ${res.status}`);
-  //       }
-        
-  //       const namesData = await res.json();
-        
-  //       setNameData(namesData);
-  //     } catch(error){
-  //       console.error("Error getting names: ", error);
-  //       setNameData(null);
-  //     } 
-  //   }
-    
-  //   fetchCatImages();
-  //   fetchRandomName();
-  // },[button])
-
-  // // Change the button being pressed so the useEffect is triggered and gets more cats 
-  // function buttenWasPressed(){
-  //   setButton(!button);
-  // }
+  const closePopup = () => {
+    setIsOpen(false);
+  };
 
 
-  // function saveCat( catId, catUrl, catName){
-  //   if(!user){
-  //     router.push('/login');
-  //   } else {
-  //     const catData = {
-  //       id: catId,
-  //       url: catUrl,
-  //       name: catName
-  //     };
 
-  //     const reply = createDoc(user.email, catData)
+  // For the message 
+  const openMessage = () => {
+    setIsOpen(false);
+    setHasMessage(true);
+  };
 
-  //     console.log("reply: ", reply);
-
-  //     setAlert(catName + " was successfully added to your Cat Cart!");
-  //     if(focus.current){
-  //       focus.current.scrollIntoView({
-  //         behavior: "smooth",
-  //         block: "start"
-  //       });
-  //     }
-  //   }
-  // }
+  const closeMessage = () => {
+    setHasMessage(false);
+    setIsOpen(false);
+  };
 
   return (
 
@@ -117,22 +74,58 @@ const ArtTrade = () => {
           <PageText>Here, you can <Yellow>trade</Yellow> with artists.</PageText>
       </PageInfo>
       <TextContent>
+      {isOpen && (
+          <PopupOverlay>
+            <PopupContent>
+              <CloseButton onClick={() => closePopup()}>&times;</CloseButton>
+              <PopupTitle>Art Trading Form</PopupTitle>
+              <StyledForm>
+                <FormGroup>
+                  <Label>Desired Artist's Name:</Label>
+                  <Input value = {artistName}/>
+                </FormGroup>
+                <FormGroup>
+                  <Label>Desired Artist's Email:</Label>
+                  <Input value = {artistName}/>
+                </FormGroup>
+                <FormGroup>
+                  <Label>Message:</Label>
+                  <TextArea value="Hello, I was interested in art trading with you."/>
+                </FormGroup>
+                <SubmitButton type="button" onClick={() => openMessage()}>Submit</SubmitButton>
+              </StyledForm>
+            </PopupContent>
+          </PopupOverlay>
+        )}
+        {hasMessage && (
+           <PopupOverlay>
+           <PopupContent>
+             <CloseButton onClick={() => closePopup()}>&times;</CloseButton>
+             <PopupTitle>Success!</PopupTitle>
+                <Label>Your message has successfully sent. The artist will be in touch with you shortly. </Label>
+               <SubmitButton type="button" onClick={() => closeMessage()}>Close</SubmitButton>
+           </PopupContent>
+         </PopupOverlay>
+        )}
         <SectionContainer>
           <AllArtCont>
               <ImageContainer>
                 <Image src="Images/Profile4.png"></Image>
                 <ArtText>Artist: Name 1</ArtText>
-                <Button onClick={() => goToForm()}>Contact</Button>
+                <ArtText>Email: email 1</ArtText>
+                <Button onClick={() => openPopup("Name 1", "email 1")}>Contact</Button>
               </ImageContainer>
               <ImageContainer>
                 <Image src="Images/Profile5.png"></Image>
                 <ArtText>Artist: Name 2</ArtText>
-                <Button onClick={() => goToForm()}>Contact</Button>
+                <ArtText>Email: email 2</ArtText>
+                <Button onClick={() => openPopup("Name 2", "email 2")}>Contact</Button>
               </ImageContainer>
               <ImageContainer>
                 <Image src="Images/Profile6.jpg"></Image>
                 <ArtText>Artist: Name 3</ArtText>
-                <Button onClick={() => goToForm()}>Contact</Button>
+                <ArtText>Email: email 3</ArtText>
+                <Button onClick={() => openPopup("Name 3", "email 3")}>Contact</Button>
               </ImageContainer>
           </AllArtCont>
         </SectionContainer>
@@ -276,6 +269,97 @@ const Button = styled.button`
     border-color: #CEAD1B;
     background-color: #CEAD1B;
     cursor: pointer;
+  }
+`;
+
+
+
+
+// Form Popup
+
+const PopupOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const PopupContent = styled.div`
+  background-color: #29262C;
+  padding: 30px;
+  border-radius: 8px;
+  position: relative;
+  width: 400px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+`;
+
+const CloseButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #555;
+`;
+
+const PopupTitle = styled.h2`
+  color: #FFD725;
+  margin-bottom: 20px;
+  font-size: 24px;
+`;
+
+const StyledForm = styled.form``;
+
+const FormGroup = styled.div`
+  margin-bottom: 15px;
+`;
+
+const Label = styled.label`
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  float: left;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  background-color: transparent;
+  color: white;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+`;
+
+const TextArea = styled.textarea`
+  background-color: transparent;
+  color: white;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  resize: vertical;
+`;
+
+const SubmitButton = styled.button`
+  background-color: #FFD725;
+  color: black;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #CEAD1B;
   }
 `;
 export default ArtTrade;

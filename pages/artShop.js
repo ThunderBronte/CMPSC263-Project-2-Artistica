@@ -15,7 +15,7 @@ const ArtShop = () => {
   const { user, setUser } = useStateContext()
 
   const [isOpen, setIsOpen] = useState(false);
-  const [thanksMessage, setMessage] = useState(null);
+  const [hasMessage, setHasMessage] = useState(null);
 
   const [artistName, setArtistName] = useState(null);
   const [artistEmail, setArtistEmail] = useState(null);
@@ -44,17 +44,20 @@ const ArtShop = () => {
   };
   
 
+
   // For the message 
   const openMessage = () => {
-    setMessage(true);
+    setIsOpen(false);
+    setHasMessage(true);
   };
   
   const closeMessage = () => {
-    setMessage(false);
+    setHasMessage(false);
+    setIsOpen(false);
   };
 
 
-  
+
   // If the user is not logged in, send them to the login page.
   useEffect(() => {
     // wait for user information to load 
@@ -67,120 +70,6 @@ const ArtShop = () => {
     }
   }, [user]);
 
-  // // Get data from the database, chnage when button ('remove') was pressed
-  // useEffect(() => {
-  //   async function getData(){
-  //     if(user === undefined){ 
-  //       console.log("Getting Database useEffect. Waiting for user info...");
-  //     } else {
-  //       if(!user){
-  //         router.push('/login')
-  //       } else {
-  //         // Get information for a specific user (currently logged in)
-  //         const data = await fetchEmailData(user.email);
-
-  //         // If this email has any data
-  //         if(!data){
-  //           // No cats saved 
-  //           setAlert(`You do not have any saved cats.`);
-  //         } else {
-  //           setAlert("");
-  //           // Get all the cats saved for account
-  //           const info = await fetchCatListData(user.email);
-
-  //           if(info.length === 0){
-  //             console.log("No cats :(((");
-  //               setAlert(`You do not have any saved cats.`);
-  //               setIsVisible(false);
-  //           } else {
-  //             setIsVisible(true);
-  //             setAlert("");
-
-  //             console.log("indo: ", info);
-
-  //             if(info){
-  //               setData(info);
-  //             } else {
-  //               setAlert("No cats saved in second doc.");
-  //             }
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-
-  //   getData();
-  // }, [user]);
-
-
-  // useEffect(() =>{
-  //   async function getNewData(){
-  //     if(deleteInfo == true){
-  //       if(user === undefined){ 
-  //         console.log("2 Waiting for user info...");
-  //       } else {
-  //         const deleteRes = setDeleteInfo(await deleteDesiredCat(user.email, desiredCatId));
-  //         console.log("back from del: ", deleteRes);
-  //         setDeleteInfo(deleteRes);
-
-  //         if(deleteInfo === undefined){
-  //           console.log("Waiting for delete promise...");
-  //         } else {
-  //           // Reset the data
-  //             const info = await fetchCatListData(user.email);
-
-  //             console.log("Top ifno: ", info);
-
-  //             if(info.length === 0){
-  //               setAlert(`You do not have any saved cats.`);
-  //               setIsVisible(false);
-  //             } else {
-  //               setIsVisible(true);
-  //               setAlert("");
-
-  //               if(info == undefined) {
-  //                 console.log("Waiting for new info...");
-  //               } else {
-  //                 console.log("NEW indo: ", info);
-
-  //                 if(info){
-  //                   setData(info);
-  //                 } else {
-  //                   setAlert("No cats saved in second doc.");
-  //                 }
-  //               }
-  //             }
-  //           }
-                  
-  //           //if there are no more cats, change the page
-  //           if(data === null){
-  //             setIsVisible(false);
-  //           }
-  //         }
-  //       }
-  //     //}
-  //   }
-
-  //   getNewData();
-  // }, [deleteInfo])
-
-
-  // See if to show cat list or sad cats 
-  // true if there are cats saved
-  // useEffect (() =>{
-  //   if (alert === ""){
-  //     setIsVisible(true);
-  //   } else {
-  //     setIsVisible(false);
-  //   }
-  // }, [alert])
-
-
-  // function setToDeleteCat(catId){
-  //   setDeleteInfo(true);
-  //   setDesiredCatId(catId);
-  //   setButtonPressed(!buttonPressed);
-  // }
  
 
   return (
@@ -215,11 +104,22 @@ const ArtShop = () => {
                   <Label>Message:</Label>
                   <TextArea value="Hello, I was interested in buying an art piece from you."/>
                 </FormGroup>
-                <SubmitButton>Submit</SubmitButton>
+                <SubmitButton type="button" onClick={() => openMessage()}>Submit</SubmitButton>
               </StyledForm>
             </PopupContent>
           </PopupOverlay>
         )}
+        {hasMessage && (
+           <PopupOverlay>
+           <PopupContent>
+             <CloseButton onClick={() => closePopup()}>&times;</CloseButton>
+             <PopupTitle>Success!</PopupTitle>
+                <Label>Your message has successfully sent. The artist will be in touch with you shortly. </Label>
+               <SubmitButton type="button" onClick={() => closeMessage()}>Close</SubmitButton>
+           </PopupContent>
+         </PopupOverlay>
+        )}
+
 
         <SectionContainer>
           <AllArtCont>
