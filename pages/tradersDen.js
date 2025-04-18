@@ -30,10 +30,12 @@ const ArtTrade = () => {
   const focus = useRef('');
 
 
-  //Importing the data from the json file
+  // for the search results
+  const [query, setQuery] = useState(artData.users[0].artTrade);
+  const [displayQuery, setDisplayQuery] = useState(query);
 
 
-  
+
 
   // For the form
   const openPopup = (name, email) => {
@@ -74,6 +76,17 @@ const ArtTrade = () => {
   }, [openPopup]);
 
 
+  // Handle the search option
+  const handleSearch = (event) => {
+    setDisplayQuery(query);
+    const searchInput = event.target.value.toLowerCase();
+    const results = query.filter(art =>
+      art.name.toLowerCase().includes(searchInput)
+    );
+    setDisplayQuery(results);
+  };
+
+
   return (
 
     <>
@@ -82,7 +95,7 @@ const ArtTrade = () => {
       <Space>.</Space>
       <TitleScreen>
         <Title>Trader's Den</Title>
-        <Form><SearchBar placeholder = "Search Artists..."></SearchBar></Form> 
+        <Form><SearchBar placeholder = "Search Artists..." onChange={(e) => handleSearch(e)}></SearchBar></Form> 
       </TitleScreen>
       <PageInfo>
           <PageText>Welcome to the Trader's Den!</PageText>
@@ -122,7 +135,31 @@ const ArtTrade = () => {
            </PopupContent>
          </PopupOverlay>
         )}
-        <SectionContainer>
+
+
+
+<SectionContainer>
+          <AllArtCont>
+            {displayQuery && displayQuery != "" ? (
+              <>
+              {displayQuery.map((data) =>
+                <ImageContainer>
+                  <Image src={data.url}></Image>
+                  <ArtText>Artist: {data.name}</ArtText>
+                  <ArtText>Email: {data.email}</ArtText>
+                  <Button onClick={() => openPopup(data.name, data.email)}>Contact</Button>
+                </ImageContainer>
+              )}
+            </>
+            ) : (
+              <ImageContainer>
+              </ImageContainer>
+            )}
+          </AllArtCont>
+        </SectionContainer>
+
+
+        {/* <SectionContainer>
           <AllArtCont>
               <ImageContainer>
                 <Image src="Images/Profile4.png"></Image>
@@ -143,7 +180,7 @@ const ArtTrade = () => {
                 <Button onClick={() => openPopup("Name 3", "email 3")}>Contact</Button>
               </ImageContainer>
           </AllArtCont>
-        </SectionContainer>
+        </SectionContainer> */}
 
         
         </TextContent>

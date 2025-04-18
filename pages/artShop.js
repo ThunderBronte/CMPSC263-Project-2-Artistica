@@ -133,7 +133,6 @@ const ArtShop = () => {
 
         <SectionContainer>
           <AllArtCont>
-          
             {displayQuery && displayQuery != "" ? (
               <>
               {displayQuery.map((data) =>
