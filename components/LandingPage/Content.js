@@ -12,51 +12,19 @@ const Content = ({text}) => {
 
   const router = useRouter();
 
-  const { user, setUser } = useStateContext();
-
-  const [ data, setData] = useState(null);
-
   const focus = useRef('');
 
 
-  const catSearch = () =>{
-    router.push('/searchCat');
-  }  
- 
 
-  useEffect(()=> {
-    const fetchCatData = async () => {
-      try {
-        // Fetch data from the /facts endpoint
-        const res = await fetch('https://catfact.ninja/fact');
-
-         // Handle if the response is not okay
-        if(!res.ok){
-          throw new Error(`HTTP error! Status: ${res.status}`);
-        }
-
-        const factData = await res.json();
-
-        // Set the data
-        setData(factData);
-      } catch (error) {
-        console.error('Error fetching cat facts:', error);
-        setData(null);
-      } 
-    };
-  
-    fetchCatData();
-  }, []) 
-
-
-  function goToTop(){
-    if(focus.current){
-      focus.current.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    }
-  }
+// Bring to the top of the page
+  // function goToTop(){
+  //   if(focus.current){
+  //     focus.current.scrollIntoView({
+  //       behavior: "smooth",
+  //       block: "start"
+  //     });
+  //   }
+  // }
 
 
 
@@ -65,7 +33,6 @@ const Content = ({text}) => {
       <Space>.</Space>
       <TitleScreen ref={focus}>
         <Title>Scroll Art</Title>
-        {/* <Form><SearchBar placeholder = "Search..."></SearchBar></Form>  */}
        </TitleScreen>
 
       <TextContent>
@@ -171,7 +138,6 @@ const ImageContainer = styled.div`
   
   &:hover {
     //cursor: pointer;
-
   }
 `;
 

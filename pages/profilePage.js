@@ -19,49 +19,6 @@ export default function Home() {
   
   const [name, setName] = useState(null);
   const [email, setEmail] = useState(null);
-
-  // useEffect(() => {
-  //   console.log(user);
-  //   const listen = onAuthStateChanged(getAuth(), (currUser) => {
-  //     if(currUser){
-  //       setUser(currUser);
-  //     } else {
-  //       setUser(null);
-  //     }
-  //   });
-
-  //   return () => listen();
-  // }, [])
-  
-
-  // // If the user is not logged in, ask them to log in.
-  // useEffect(() => {
-  //   // wait for information to load 
-  //   if(user === undefined){ console.log("Waiting for user info...");}
-  //   else {
-  //     if(!user){
-  //       router.push('/login')
-  //     } else {
-  //       // Get name from email
-  //       let userName = '';
-  //       if(typeof user === 'object'){
-  //         userName = user.email.split('@');
-  //         setEmail(user.email);
-  //       } else if(typeof user === 'string') {
-  //         userName = user.split('@');
-  //         setEmail(user);
-  //       }
-        
-  //       setName(userName[0]);
-  //     }
-  //   }
-  // }, [user]);
-
-  // // sign user out
-  // function signOutUser(){
-  //   let promie = signOut(getAuth())
-  //   console.log("Promie: ", promie);
-  // }
   
   
   return (
@@ -72,7 +29,8 @@ export default function Home() {
           <TitleScreen>
             <Title>Hello!</Title>
             <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
-              <PageText><Yellow>I have not set up the forced log in, not entirely sure how to yet. This page will only become accessable if someone logsnin with their MetaMask</Yellow></PageText>
+              <PageText>I have not set up the forced log in, not entirely sure how to yet. 
+                This page will only become accessable if someone logs in with their MetaMask.</PageText>
           </TitleScreen>
           <TextContent>
             <SectionContainer>
@@ -80,7 +38,7 @@ export default function Home() {
                   <ProfileImage src="Images/PersonalProfilePicture.jpg"></ProfileImage>
                  <PageInfo>
                     <PageText>Welcome to your Profile Page!</PageText>
-                    <PageText>Here, you can view your art and see completed and uncompleted contracts. </PageText>
+                    <PageText>Here, you can <Yellow>view your art</Yellow> and see completed and uncompleted <Yellow>contracts.</Yellow> </PageText>
                   </PageInfo>
               </ProfileContainer>
                 <Subheading> <Yellow>Art you have posted: </Yellow> </Subheading>
@@ -223,7 +181,7 @@ const SectionContainer = styled.div`
 `;
 
 const PageInfo = styled.div`
-  float: right;
+  float: left;
   background-color: #120E14;
   padding-bottom: 2%; 
   padding-top: 8%;  

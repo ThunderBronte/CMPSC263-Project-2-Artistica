@@ -42,9 +42,9 @@ const Content = ({text}) => {
         <Title>Interactions</Title>
       </TitleScreen>
       <PageInfo>
-          <PageText>This page might be deleted depending on how everything else goes - as in, is this really important / how hard is to complete it.</PageText>
+          <PageText>This page might be deleted depending on how everything else goes - as in, is this really important / how hard it is to complete it.</PageText>
           <PageText>As of right now, this page is dedicated to showing people's interactions</PageText>
-          <PageText>I have a grid prepared, but it current has place holders in it.</PageText>
+          <PageText>I have a grid prepared, but it currently has place holders in it.</PageText>
       </PageInfo>
        
 

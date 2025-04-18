@@ -98,7 +98,7 @@ const ArtShop = () => {
                 </FormGroup>
                 <FormGroup>
                   <Label>Desired Artist's Email:</Label>
-                  <Input value = {artistName}/>
+                  <Input value = {artistEmail}/>
                 </FormGroup>
                 <FormGroup>
                   <Label>Message:</Label>
