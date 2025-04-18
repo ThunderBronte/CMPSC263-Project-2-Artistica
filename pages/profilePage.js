@@ -20,48 +20,48 @@ export default function Home() {
   const [name, setName] = useState(null);
   const [email, setEmail] = useState(null);
 
-  useEffect(() => {
-    console.log(user);
-    const listen = onAuthStateChanged(getAuth(), (currUser) => {
-      if(currUser){
-        setUser(currUser);
-      } else {
-        setUser(null);
-      }
-    });
+  // useEffect(() => {
+  //   console.log(user);
+  //   const listen = onAuthStateChanged(getAuth(), (currUser) => {
+  //     if(currUser){
+  //       setUser(currUser);
+  //     } else {
+  //       setUser(null);
+  //     }
+  //   });
 
-    return () => listen();
-  }, [])
+  //   return () => listen();
+  // }, [])
   
 
-  // If the user is not logged in, ask them to log in.
-  useEffect(() => {
-    // wait for information to load 
-    if(user === undefined){ console.log("Waiting for user info...");}
-    else {
-      if(!user){
-        router.push('/login')
-      } else {
-        // Get name from email
-        let userName = '';
-        if(typeof user === 'object'){
-          userName = user.email.split('@');
-          setEmail(user.email);
-        } else if(typeof user === 'string') {
-          userName = user.split('@');
-          setEmail(user);
-        }
+  // // If the user is not logged in, ask them to log in.
+  // useEffect(() => {
+  //   // wait for information to load 
+  //   if(user === undefined){ console.log("Waiting for user info...");}
+  //   else {
+  //     if(!user){
+  //       router.push('/login')
+  //     } else {
+  //       // Get name from email
+  //       let userName = '';
+  //       if(typeof user === 'object'){
+  //         userName = user.email.split('@');
+  //         setEmail(user.email);
+  //       } else if(typeof user === 'string') {
+  //         userName = user.split('@');
+  //         setEmail(user);
+  //       }
         
-        setName(userName[0]);
-      }
-    }
-  }, [user]);
+  //       setName(userName[0]);
+  //     }
+  //   }
+  // }, [user]);
 
-  // sign user out
-  function signOutUser(){
-    let promie = signOut(getAuth())
-    console.log("Promie: ", promie);
-  }
+  // // sign user out
+  // function signOutUser(){
+  //   let promie = signOut(getAuth())
+  //   console.log("Promie: ", promie);
+  // }
   
   
   return (
