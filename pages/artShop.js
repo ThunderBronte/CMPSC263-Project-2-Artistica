@@ -21,12 +21,15 @@ const ArtShop = () => {
 
 
   // for the search results
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState(artData.users.artShop);
+  const [query, setQuery] = useState(artData.users[0].artShop);
+  const [displayQuery, setDisplayQuery] = useState(query);
+  
 
 
   const router = useRouter()
   
+
+
   // For the form
   const openPopup = (name, email) => {
     setArtistName(name);
@@ -37,7 +40,6 @@ const ArtShop = () => {
   const closePopup = () => {
     setIsOpen(false);
   };
-  
 
 
   // For the message 
@@ -69,14 +71,14 @@ const ArtShop = () => {
 
 
   // Handle the search option
-  const handleSearch = () => {
-    const filteredItems = items.filter((item) =>
-      item.name.toLowerCase().includes(searchQuery.toLowerCase())
+  const handleSearch = (event) => {
+    setDisplayQuery(query);
+    const searchInput = event.target.value.toLowerCase();
+    const results = query.filter(art =>
+      art.name.toLowerCase().includes(searchInput)
     );
-    setSearchResults(filteredItems);
+    setDisplayQuery(results);
   };
-
-
 
  
 
@@ -87,7 +89,7 @@ const ArtShop = () => {
       <Space>.</Space>
       <TitleScreen>
         <Title>Art Shop</Title>
-        <Form><SearchBar placeholder = "Search Artists..." onChange={(e) => setSearchQuery(e.target.value)}></SearchBar></Form> 
+        <Form><SearchBar placeholder = "Search Artists..." onChange={(e) => handleSearch(e)}></SearchBar></Form> 
       </TitleScreen>
       <PageInfo>
           <PageText>Welcome to the Art Shop!</PageText>
@@ -129,26 +131,30 @@ const ArtShop = () => {
         )}
 
 
-        {/* Will update this once I figure out what database to use.  */}
-        {/* */}
-        <AllArtCont>
-          {searchResults && (
-            <>
-            {searchResults.map((data) =>
+        <SectionContainer>
+          <AllArtCont>
+          
+            {displayQuery && displayQuery != "" ? (
+              <>
+              {displayQuery.map((data) =>
+                <ImageContainer>
+                  <Image src={data.url}></Image>
+                  <ArtText>Artist: {data.name}</ArtText>
+                  <ArtText>Email: {data.email}</ArtText>
+                  <Button onClick={() => openPopup(data.name, data.email)}>Contact</Button>
+                </ImageContainer>
+              )}
+            </>
+            ) : (
               <ImageContainer>
-                <Image src={data.url}></Image>
-                <ArtText>Artist: {data.name}</ArtText>
-                <ArtText>Email: {data.email}</ArtText>
-                <Button onClick={() => openPopup(data.name, data.email)}>Contact</Button>
               </ImageContainer>
             )}
-          </>
-          )}
-        </AllArtCont>
+          </AllArtCont>
+        </SectionContainer>
 
 
 
-        <SectionContainer>
+        {/* <SectionContainer>
           <AllArtCont>
               <ImageContainer>
                 <Image src="Images/Profile1.jpg"></Image>
@@ -169,7 +175,7 @@ const ArtShop = () => {
                 <Button onClick={() => openPopup("Name 3", "email 3")}>Contact</Button>
               </ImageContainer>
           </AllArtCont>
-        </SectionContainer>
+        </SectionContainer> */}
 
         
         </TextContent>
