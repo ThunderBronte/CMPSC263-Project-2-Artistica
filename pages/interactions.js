@@ -6,10 +6,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useRouter } from "next/router"
 import { createDoc } from "@/backend/Database"
 
-//Main content of the page
-// Displays basic information of the website, why the user should adopt (along with going to the page to search for cats), get a fun fact 
-// (using an API) that changes everytime the page loads, and basic care of cats.
-// there is a button that takes the user to the top of the page. 
+
 
 const Content = ({text}) => {
 

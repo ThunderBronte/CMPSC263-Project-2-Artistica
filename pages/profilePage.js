@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { StateContext, useStateContext } from '@/context/StateContext'
 import React, { useState, useEffect } from 'react'
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth"
+//import { ConnectWallet, ThirdwebProvider, useWallet, useAddress } from '@thirdweb-dev/react'
 
 
 // Profile page of the user current signed in. If you are not signed in, you will be moved to the login page. 
@@ -16,9 +17,8 @@ export default function Home() {
   const { user, setUser } = useStateContext()
 
   const router = useRouter()
-  
-  const [name, setName] = useState(null);
-  const [email, setEmail] = useState(null);
+
+  const isConnected = Boolean(useAddress() != undefined);
   
   
   return (
@@ -259,3 +259,32 @@ const Subheading = styled.h2`
   font-size: 30px;
   margin-top: 100px;
 `;
+
+
+// To connect wallet maybe? - Will look at later
+
+// const StyledConnectWallet = styled(ConnectWallet)`
+// display: flex;
+// padding: ${SIZING.px12} 0;
+// font-size: ${SIZING.px16};
+// letter-spacing: -0.05rem;
+// font-family: "Uncut Sans Bold";
+// border-radius: ${SIZING.px96};
+// background-color: ${COLORS.Black100};
+// transition: 0.4s ease-in-out;
+
+// &:hover{
+// background-color: ${COLORS.StandardWhiteDefault};
+// }
+// `
+// const StyledConnectedWallet = styled(ConnectWallet)`
+// padding: ${SIZING.px8} ${SIZING.px24};
+// border-radius: ${SIZING.px96};
+// background-color: transparent;
+// border: 1px solid ${COLORS.Black850};
+// transition: 0.4s ease-in-out;
+
+// &:hover{
+// background-color: ${COLORS.Black875};
+// }
+// `

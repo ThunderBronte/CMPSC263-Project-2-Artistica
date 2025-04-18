@@ -14,6 +14,14 @@ import { getAuth, validatePassword, signInWithEmailAndPassword } from "firebase/
 // The user useStateContext will be updated with the email. 
 
 
+
+
+
+// THIS PAGE HAS NOT CHANGED!!!
+// I WILL PROPERLY INCLUDE THIS ONCE I FIGURE MORE THINGS OUT
+// Thanks :)
+
+
 const Login = () => {
 
   const { user, setUser } = useStateContext()

@@ -5,10 +5,9 @@ import { useStateContext } from '@/context/StateContext'
 import { useRouter } from 'next/router'
 import Footer from "@/components/LandingPage/Footer"
 import { fetchEmailData, fetchCatListData, deleteDesiredCat } from "@/backend/Database"
+import artData from './api/Art.json';
 
-// Asks the user to log in if not already.
-// Takes data from the database based on the current user logged in. Displays it with the cat's name. If the user removes it from their cart,
-// The cat is removed from their database. If you run out of cat, a page pops up stating to look for more cats.
+
 
 const ArtShop = () => {
 
@@ -21,13 +20,9 @@ const ArtShop = () => {
   const [artistEmail, setArtistEmail] = useState(null);
 
 
-  // const [ data, setData ] = useState(undefined);
-  // const [ alert, setAlert ] = useState("");
-  // const [ isVisible, setIsVisible ] = useState(false);
-
-  // const [ deleteInfo, setDeleteInfo ] = useState(false);
-  // const [ desiredCatId, setDesiredCatId ] = useState(null);
-  // const [ buttonPressed, setButtonPressed ] = useState(null);
+  // for the search results
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState(artData.users.artShop);
 
 
   const router = useRouter()
@@ -58,7 +53,8 @@ const ArtShop = () => {
 
 
 
-  // If the user is not logged in, send them to the login page.
+  // If the user is not logged in and they want to contact one of the artists, it will prompt them to sign in
+  // Will work when I include the ability to sign in lol
   useEffect(() => {
     // wait for user information to load 
     if(user === undefined){ 
@@ -68,7 +64,19 @@ const ArtShop = () => {
       //   router.push('/login')
       // }
     }
-  }, [user]);
+  }, [openPopup]);
+
+
+
+  // Handle the search option
+  const handleSearch = () => {
+    const filteredItems = items.filter((item) =>
+      item.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setSearchResults(filteredItems);
+  };
+
+
 
  
 
@@ -79,7 +87,7 @@ const ArtShop = () => {
       <Space>.</Space>
       <TitleScreen>
         <Title>Art Shop</Title>
-        <Form><SearchBar placeholder = "Search Artists..."></SearchBar></Form> 
+        <Form><SearchBar placeholder = "Search Artists..." onChange={(e) => setSearchQuery(e.target.value)}></SearchBar></Form> 
       </TitleScreen>
       <PageInfo>
           <PageText>Welcome to the Art Shop!</PageText>
@@ -119,6 +127,25 @@ const ArtShop = () => {
            </PopupContent>
          </PopupOverlay>
         )}
+
+
+        {/* Will update this once I figure out what database to use.  */}
+        {/* */}
+        <AllArtCont>
+          {searchResults && (
+            <>
+            {searchResults.map((data) =>
+              <ImageContainer>
+                <Image src={data.url}></Image>
+                <ArtText>Artist: {data.name}</ArtText>
+                <ArtText>Email: {data.email}</ArtText>
+                <Button onClick={() => openPopup(data.name, data.email)}>Contact</Button>
+              </ImageContainer>
+            )}
+          </>
+          )}
+        </AllArtCont>
+
 
 
         <SectionContainer>

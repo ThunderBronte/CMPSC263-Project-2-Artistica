@@ -5,11 +5,9 @@ import {useStateContext } from '@/context/StateContext'
 import React, { useState, useEffect, useRef } from 'react'
 import { useRouter } from "next/router"
 import { createDoc } from "@/backend/Database"
+import artData from './api/Art.json';
 
-//Search for cats. Cat image API and random name API was used.
-// Every time the page loads (or one of the two "search 10 more cats"), new images and names pop up.
-// When the user clicks on a "save cat" button, if the user is not logged in it will be asked to. If they are, the cat id, name, & url will be 
-// added to their databse under their email. 
+
 
 
 const ArtTrade = () => {
@@ -22,10 +20,6 @@ const ArtTrade = () => {
 
   const { user, setUser } = useStateContext()
 
-  // const [ button, setButton ] = useState(false);
-  // const [ data, setData] = useState(null);
-  // const [ nameData, setNameData ] = useState(null);
-  // const [ alert, setAlert ] = useState(null);
 
   const [isOpen, setIsOpen] = useState(false);
   const [hasMessage, setHasMessage] = useState(null);
@@ -34,6 +28,12 @@ const ArtTrade = () => {
   const [artistEmail, setArtistEmail] = useState(null);
 
   const focus = useRef('');
+
+
+  //Importing the data from the json file
+
+
+  
 
   // For the form
   const openPopup = (name, email) => {
@@ -58,6 +58,21 @@ const ArtTrade = () => {
     setHasMessage(false);
     setIsOpen(false);
   };
+
+
+  // If the user is not logged in and they want to contact one of the artists, it will prompt them to sign in
+  // Will work when I include the ability to sign in lol
+  useEffect(() => {
+    // wait for user information to load 
+    if(user === undefined){ 
+      console.log("Starting up! Waiting for user info...");
+    } else {
+      // if(!user){
+      //   router.push('/login')
+      // }
+    }
+  }, [openPopup]);
+
 
   return (
 

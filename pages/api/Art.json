@@ -1,0 +1,46 @@
+{
+    "users" : [
+        {
+            "artShop" : [
+                { 
+                    "id": 1,
+                    "name": "Artist 1", 
+                    "email": "email 1", 
+                    "url": "Images/Profile1.jpg"
+                },
+                { 
+                    "id": 2,
+                    "name": "Artist 2", 
+                    "email": "email 2", 
+                    "url": "Images/Profile2.jpg"
+                },
+                { 
+                    "id": 3,
+                    "name": "Artist 3", 
+                    "email": "email 3", 
+                    "url": "Images/Profile3.jpg"
+                }
+            ],
+            "artTrade" : [
+                { 
+                    "id": 4,
+                    "name": "Artist 4", 
+                    "email": "email 4", 
+                    "url": "Images/Profile4.png"
+                },
+                { 
+                    "id": 5,
+                    "name": "Artist 5", 
+                    "email": "email 5", 
+                    "url": "Images/Profile5.png"
+                },
+                { 
+                    "id": 6,
+                    "name": "Artist 6", 
+                    "email": "email 6", 
+                    "url": "Images/Profile6.jpg"
+                }
+            ]
+        }
+    ]
+  }
