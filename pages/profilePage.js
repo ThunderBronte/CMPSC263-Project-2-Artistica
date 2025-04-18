@@ -18,7 +18,7 @@ export default function Home() {
 
   const router = useRouter()
 
-  const isConnected = Boolean(useAddress() != undefined);
+  // const isConnected = Boolean(useAddress() != undefined);
   
   
   return (
