@@ -15,8 +15,8 @@ export default function App({ Component, pageProps }) {
   return (
     <>
         <Head>
-          <title>Purrfect Pals</title>
-          <link rel="icon" type="image/x-icon" href="/PurrfectPals.png"></link>
+          <title>Artistica</title>
+          <link rel="icon" type="image/x-icon" href="/favicon.png"></link>
           <meta name='description' content='Put a description here about your app'/>
           <meta name='robots' content='index, follow'/>
           <link rel="apple-touch-icon" sizes="180x180" href="/favicon_package/apple-touch-icon.png"/>

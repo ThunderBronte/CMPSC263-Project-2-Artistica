@@ -20,9 +20,6 @@ const Content = ({text}) => {
   const focus = useRef('');
 
 
-
-
-
     useEffect(() => {
         // wait for user information to load 
         if(user === undefined){ 
@@ -35,41 +32,6 @@ const Content = ({text}) => {
     }, [user]);
  
 
-//   useEffect(()=> {
-//     const fetchCatData = async () => {
-//       try {
-//         // Fetch data from the /facts endpoint
-//         const res = await fetch('https://catfact.ninja/fact');
-
-//          // Handle if the response is not okay
-//         if(!res.ok){
-//           throw new Error(`HTTP error! Status: ${res.status}`);
-//         }
-
-//         const factData = await res.json();
-
-//         // Set the data
-//         setData(factData);
-//       } catch (error) {
-//         console.error('Error fetching cat facts:', error);
-//         setData(null);
-//       } 
-//     };
-  
-//     fetchCatData();
-//   }, []) 
-
-
-//   function goToTop(){
-//     if(focus.current){
-//       focus.current.scrollIntoView({
-//         behavior: "smooth",
-//         block: "start"
-//       });
-//     }
-//   }
-
-
 
   return (
     <>
@@ -78,38 +40,25 @@ const Content = ({text}) => {
       <Space>.</Space>
       <TitleScreen ref={focus}>
         <Title>Interactions</Title>
-        {/* <Form><SearchBar placeholder = "Search..."></SearchBar></Form>  */}
        </TitleScreen>
 
       <TextContent>
         <SectionContainer>
-          <AllArtCont>
-              <ImageContainer>
+          <AllInteractions>
+              <Column>
                 <Image src="Images/art1.webp"></Image>
                 <ArtText>Title: Art1 <br></br>Artist: Cover Name</ArtText>
-              </ImageContainer>
-              <ImageContainer>
-                <Image src="Images/art2.jpg"></Image>
-                <ArtText>Title: Art2 <br></br>Artist: Cover Name</ArtText>
-              </ImageContainer>
-              <ImageContainer>
-                <Image src="Images/art3.jpg"></Image>
-                <ArtText>Title: Art3 <br></br>Artist: Cover Name</ArtText>
-              </ImageContainer>
-              <ImageContainer>
-                <Image src="Images/art4.jpg"></Image>
-                <ArtText>Title: Art4 <br></br>Artist: Cover Name</ArtText>
-              </ImageContainer>
-              <ImageContainer>
-                <Image src="Images/art5.jpg"></Image>
-                <ArtText>Title: Art5 <br></br>Artist: Cover Name</ArtText>
-              </ImageContainer>
-          </AllArtCont>
+              </Column>
+              <Column>
+              </Column>
+              <Column>
+              </Column>
+              
+          </AllInteractions>
         </SectionContainer>
 
         
         </TextContent>
-        {/* <TopContainer><SectionButton onClick={() => goToTop()}>Back To Top</SectionButton></TopContainer> */}
     </ContentContainer> 
     <Footer />
     </>
@@ -141,30 +90,9 @@ const Title = styled.div`
   display: inline;
 `;
 
-const Form = styled.form`
-  //display: flex;
-  //  justify-content: center;
-  // align-items: center;
-`;
 
-const SearchBar = styled.input`
-  font-size: 17px;
-  border: 2px solid white;
-  border-radius: 20px;
-  background-color: transparent;
-  color: white;
 
-  padding: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-right: 3%;
-  margin-top: 2.5%;
-
-  width: 30%;
-  float: right;
-`;
-
-const AllArtCont = styled.div`
+const AllInteractions = styled.div`
   display: grid;
   justify-content: space-evenly;
   padding-top: 50px;
@@ -176,7 +104,7 @@ const AllArtCont = styled.div`
   grid-auto-flow: row;
 `;
 
-const ImageContainer = styled.div`
+const Column = styled.div`
   text-align: center;
   border-radius: 7px;
   width: 320px;
