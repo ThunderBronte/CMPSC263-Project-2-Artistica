@@ -13,53 +13,61 @@ import { createDoc } from "@/backend/Database"
 
 const Content = ({text}) => {
 
-  const router = useRouter();
+//   const router = useRouter();
 
   const { user, setUser } = useStateContext();
-
-  const [ data, setData] = useState(null);
 
   const focus = useRef('');
 
 
-  const catSearch = () =>{
-    router.push('/searchCat');
-  }  
+
+
+
+    useEffect(() => {
+        // wait for user information to load 
+        if(user === undefined){ 
+        console.log("Starting up! Waiting for user info...");
+        } else {
+        // if(!user){
+        //   router.push('/login')
+        // }
+        }
+    }, [user]);
  
 
-  useEffect(()=> {
-    const fetchCatData = async () => {
-      try {
-        // Fetch data from the /facts endpoint
-        const res = await fetch('https://catfact.ninja/fact');
+//   useEffect(()=> {
+//     const fetchCatData = async () => {
+//       try {
+//         // Fetch data from the /facts endpoint
+//         const res = await fetch('https://catfact.ninja/fact');
 
-         // Handle if the response is not okay
-        if(!res.ok){
-          throw new Error(`HTTP error! Status: ${res.status}`);
-        }
+//          // Handle if the response is not okay
+//         if(!res.ok){
+//           throw new Error(`HTTP error! Status: ${res.status}`);
+//         }
 
-        const factData = await res.json();
+//         const factData = await res.json();
 
-        // Set the data
-        setData(factData);
-      } catch (error) {
-        console.error('Error fetching cat facts:', error);
-        setData(null);
-      } 
-    };
+//         // Set the data
+//         setData(factData);
+//       } catch (error) {
+//         console.error('Error fetching cat facts:', error);
+//         setData(null);
+//       } 
+//     };
   
-    fetchCatData();
-  }, []) 
+//     fetchCatData();
+//   }, []) 
 
 
-  function goToTop(){
-    if(focus.current){
-      focus.current.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    }
-  }
+//   function goToTop(){
+//     if(focus.current){
+//       focus.current.scrollIntoView({
+//         behavior: "smooth",
+//         block: "start"
+//       });
+//     }
+//   }
 
 
 

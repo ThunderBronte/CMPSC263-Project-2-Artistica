@@ -45,4 +45,5 @@ const LogoImage = styled.img`
 `;
 
 
+
 export default Logo;

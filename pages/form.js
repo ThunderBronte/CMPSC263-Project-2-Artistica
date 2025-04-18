@@ -16,9 +16,9 @@ const ArtTrade = () => {
 
   const router = useRouter();
 
-  const homePage = () => {
-    router.push('/');
-  }
+  // const homePage = () => {
+  //   router.push('/');
+  // }
 
   const { user, setUser } = useStateContext()
 
@@ -109,12 +109,12 @@ const ArtTrade = () => {
     <ContentContainer>
       <Space>.</Space>
       <TitleScreen>
-        <Title>Trader's Den</Title>
+        <Title>Form</Title>
         <Form><SearchBar placeholder = "Search Artists..."></SearchBar></Form> 
       </TitleScreen>
       <PageInfo>
           <PageText>Welcome to the Trader's Den!</PageText>
-          <PageText>Here, you can <Yellow>trade</Yellow> with artists.</PageText>
+          <PageText>Here, you can trade with artists.</PageText>
       </PageInfo>
       <TextContent>
         <SectionContainer>
@@ -122,17 +122,17 @@ const ArtTrade = () => {
               <ImageContainer>
                 <Image src="Images/Profile4.png"></Image>
                 <ArtText>Artist: Name 1</ArtText>
-                <Button onClick={() => goToForm()}>Contact</Button>
+                <Button>Contact</Button>
               </ImageContainer>
               <ImageContainer>
                 <Image src="Images/Profile5.png"></Image>
                 <ArtText>Artist: Name 2</ArtText>
-                <Button onClick={() => goToForm()}>Contact</Button>
+                <Button>Contact</Button>
               </ImageContainer>
               <ImageContainer>
                 <Image src="Images/Profile6.jpg"></Image>
                 <ArtText>Artist: Name 3</ArtText>
-                <Button onClick={() => goToForm()}>Contact</Button>
+                <Button>Contact</Button>
               </ImageContainer>
           </AllArtCont>
         </SectionContainer>
@@ -230,7 +230,6 @@ const ArtText = styled.p`
   font-size: 20px;
 `;
 
-const Yellow = styled.span`  color: #FFD725;`;
 
 const TextContent = styled.div`
   text-align: center;

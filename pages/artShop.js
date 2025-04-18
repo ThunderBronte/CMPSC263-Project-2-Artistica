@@ -14,30 +14,58 @@ const ArtShop = () => {
 
   const { user, setUser } = useStateContext()
 
-  const [ data, setData ] = useState(undefined);
-  const [ alert, setAlert ] = useState("");
-  const [ isVisible, setIsVisible ] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [thanksMessage, setMessage] = useState(null);
 
-  const [ deleteInfo, setDeleteInfo ] = useState(false);
-  const [ desiredCatId, setDesiredCatId ] = useState(null);
-  const [ buttonPressed, setButtonPressed ] = useState(null);
+  const [artistName, setArtistName] = useState(null);
+  const [artistEmail, setArtistEmail] = useState(null);
+
+
+  // const [ data, setData ] = useState(undefined);
+  // const [ alert, setAlert ] = useState("");
+  // const [ isVisible, setIsVisible ] = useState(false);
+
+  // const [ deleteInfo, setDeleteInfo ] = useState(false);
+  // const [ desiredCatId, setDesiredCatId ] = useState(null);
+  // const [ buttonPressed, setButtonPressed ] = useState(null);
 
 
   const router = useRouter()
+  
+  // For the form
+  const openPopup = (name, email) => {
+    setArtistName(name);
+    setArtistEmail(email);
+    setIsOpen(true);
+  };
+  
+  const closePopup = () => {
+    setIsOpen(false);
+  };
+  
+
+  // For the message 
+  const openMessage = () => {
+    setMessage(true);
+  };
+  
+  const closeMessage = () => {
+    setMessage(false);
+  };
 
 
+  
   // If the user is not logged in, send them to the login page.
   useEffect(() => {
     // wait for user information to load 
     if(user === undefined){ 
       console.log("Starting up! Waiting for user info...");
     } else {
-      if(!user){
-        router.push('/login')
-      }
+      // if(!user){
+      //   router.push('/login')
+      // }
     }
   }, [user]);
-
 
   // // Get data from the database, chnage when button ('remove') was pressed
   // useEffect(() => {
@@ -139,13 +167,13 @@ const ArtShop = () => {
 
   // See if to show cat list or sad cats 
   // true if there are cats saved
-  useEffect (() =>{
-    if (alert === ""){
-      setIsVisible(true);
-    } else {
-      setIsVisible(false);
-    }
-  }, [alert])
+  // useEffect (() =>{
+  //   if (alert === ""){
+  //     setIsVisible(true);
+  //   } else {
+  //     setIsVisible(false);
+  //   }
+  // }, [alert])
 
 
   // function setToDeleteCat(catId){
@@ -154,8 +182,8 @@ const ArtShop = () => {
   //   setButtonPressed(!buttonPressed);
   // }
  
-  return (
 
+  return (
     <>
     <NavigationBar />
     <ContentContainer>
@@ -166,25 +194,52 @@ const ArtShop = () => {
       </TitleScreen>
       <PageInfo>
           <PageText>Welcome to the Art Shop!</PageText>
-          <PageText>Here, you can see the available artsist that you can buy art from.</PageText>
+          <PageText>Here, you can see the available artsist that you can <Yellow>buy</Yellow> art from.</PageText>
       </PageInfo>
       <TextContent>
+        {isOpen && (
+          <PopupOverlay>
+            <PopupContent>
+              <CloseButton onClick={() => closePopup()}>&times;</CloseButton>
+              <PopupTitle>Shopping Form</PopupTitle>
+              <StyledForm>
+                <FormGroup>
+                  <Label>Desired Artist's Name:</Label>
+                  <Input value = {artistName}/>
+                </FormGroup>
+                <FormGroup>
+                  <Label>Desired Artist's Email:</Label>
+                  <Input value = {artistName}/>
+                </FormGroup>
+                <FormGroup>
+                  <Label>Message:</Label>
+                  <TextArea value="Hello, I was interested in buying an art piece from you."/>
+                </FormGroup>
+                <SubmitButton>Submit</SubmitButton>
+              </StyledForm>
+            </PopupContent>
+          </PopupOverlay>
+        )}
+
         <SectionContainer>
           <AllArtCont>
               <ImageContainer>
                 <Image src="Images/Profile1.jpg"></Image>
                 <ArtText>Artist: Name 1</ArtText>
-                <Button>Contact</Button>
+                <ArtText>Email: email 1</ArtText>
+                <Button onClick={() => openPopup("Name 1", "email 1")}>Contact</Button>
               </ImageContainer>
               <ImageContainer>
                 <Image src="Images/Profile2.jpg"></Image>
                 <ArtText>Artist: Name 2</ArtText>
-                <Button>Contact</Button>
+                <ArtText>Email: email 2</ArtText>
+                <Button onClick={() => openPopup("Name 2", "email 2")}>Contact</Button>
               </ImageContainer>
               <ImageContainer>
                 <Image src="Images/Profile3.jpg"></Image>
                 <ArtText>Artist: Name 3</ArtText>
-                <Button>Contact</Button>
+                <ArtText>Email: email 3</ArtText>
+                <Button onClick={() => openPopup("Name 3", "email 3")}>Contact</Button>
               </ImageContainer>
           </AllArtCont>
         </SectionContainer>
@@ -282,6 +337,7 @@ const ArtText = styled.p`
   font-size: 20px;
 `;
 
+const Yellow = styled.span`  color: #FFD725;`;
 
 const TextContent = styled.div`
   text-align: center;
@@ -334,192 +390,93 @@ const Button = styled.button`
 
 
 
+// Form Popup
 
-//   return (
-//     <>
-//       <NavigationBar />
-//           <ContentContainer>
-//             <Title>
-//               Here is a list of your favorite cats!
-//             </Title>
-//             {!isVisible ?
-//               <NoCat>
-//                 <NoCatContainer>
-//                   <Alert>{alert}</Alert>
-//                   <ButtonTop onClick={() => router.push("/searchCat")}>Explore Cats!</ButtonTop>
-//                 </NoCatContainer>
-//                 <NoCatContainer>
-//                   <Text>The cats at the shelter because you are not interested in any of them:</Text>
-//                   <NoCatImags>
-//                     <Image src="sadCat1.webp"></Image>
-//                     <Image src="sadCat2.jpg"></Image>
-//                     <Image src="sadCat3.webp"></Image>
-//                   </NoCatImags>
-//                 </NoCatContainer> 
-//               </NoCat> 
-//               : 
-//               <CatContainer>
-//                 {data ? (
-//                 <>
-//                   {data.map((cat) => (
-//                     <OneCatContainer id="oneCatContainer" key={cat.id}>
-//                       <ImageCats src={cat.url}></ImageCats>
-//                       <CatText>
-//                         <CatInfo>{cat.name}</CatInfo> 
-//                         <Button onClick={() => setToDeleteCat(cat.id)}>Remove Cat</Button>
-//                       </CatText>
-//                     </OneCatContainer>
-//                   ))} 
-//                   </> ) : <p>Loading Cat Cart...</p>}
-//               </CatContainer> 
-//             }
-//           </ContentContainer>
-//       <Footer />
-//     </>
-//   )
-// };
+const PopupOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
+const PopupContent = styled.div`
+  background-color: #29262C;
+  padding: 30px;
+  border-radius: 8px;
+  position: relative;
+  width: 400px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+`;
 
-// const ContentContainer = styled.div`
-//   background-color: white;
-//   padding: 3%;
-//   color: #25283D;
-// `;
+const CloseButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #555;
+`;
 
-// const Title = styled.h1`
-//   text-align: center;
-//   font-size: 75px;
-//   padding-bottom: 50px;
-// `;
+const PopupTitle = styled.h2`
+  color: #FFD725;
+  margin-bottom: 20px;
+  font-size: 24px;
+`;
 
-// const ButtonTop = styled.button`
-//   font-size: 30px;
-//   padding: 10px;
-//   padding-left: 15px;
-//   padding-right: 15px;
-//   border-radius: 4px;
-//   margin: 10px;
-//   margin-top: 40px;
+const StyledForm = styled.form``;
 
-//   display: inline-block;
+const FormGroup = styled.div`
+  margin-bottom: 15px;
+`;
 
-//   float: center;
+const Label = styled.label`
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  float: left;
+`;
 
-//   color: white;
-//   background-color: #077678; 
-//   border: 2px solid #077678;
-//   border-radius: 50px;
+const Input = styled.input`
+  width: 100%;
+  background-color: transparent;
+  color: white;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+`;
 
-//   &:hover{ 
-//     color: #077678;
-//     border-color: #077678;
-//     background-color: transparent;
-//     cursor: pointer;
-//   }
-// `;
+const TextArea = styled.textarea`
+  background-color: transparent;
+  color: white;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  resize: vertical;
+`;
 
-// const Alert = styled.h1`
-//   font-size: 40px;
-//   text-align: center;
-//   color: #077678;
-// `;
+const SubmitButton = styled.button`
+  background-color: #FFD725;
+  color: black;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
 
-
-// const Text = styled.p`
-//   font-size: 25px; 
-//   text-align: center;
-// `;
-
-// const NoCat = styled.div`
-//   text-align: center;
-//   margin-left: 10%;
-//   margin-right: 10%;
-// `;
-
-// const NoCatContainer = styled.div`
-//   margin-top: 70px;
-//   margin-bottom: 70px;
-// `;
-
-// const NoCatImags = styled.div`
-//   margin-top: 40px;
-//   display: flex;
-//   justify-content: space-around;
-// `;
-
-// const Image = styled.img`
-//   width: 25%;
-// `;
-
-
-
-// // Info for creacting a grid with all the cats
-// const CatContainer = styled.div`
-//   margin-left: 10%;
-//   margin-right: 10%;  
-//   display: grid;
-//   justify-content: space-evenly;
-//   padding-top: 50px;
-
-//   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-//   grid-template-rows: auto; 
-//   gap: 20px 20px;
-
-//   grid-auto-flow: row;
-// `;
-
-// const Button = styled.button`
-//   font-size: 18px;
-//   padding: 5px;
-//   padding-left: 10px;
-//   padding-right: 10px;
-//   border-radius: 4px;
-//   margin: 10px;
-
-//   display: inline-block;
-
-//   float: center;
-
-//   color: white;
-//   background-color: #077678; 
-//   border: 2px solid #077678;
-//   border-radius: 50px;
-
-//   &:hover{ 
-//     color: #077678;
-//     border-color: #077678;
-//     background-color: transparent;
-//     cursor: pointer;
-//   }
-// `;
-
-// const OneCatContainer = styled.div`
-//   text-align: center;
-//   border-radius: 20px;
-//   width: 320px;
-
-//   padding: 10px;
-// `;
-
-// const ImageCats = styled.img`
-//   border-radius: 20px;
-//   display: flex;
-//   justify-content: center;
-//   width: 300px;
-//   height: 300px;
-// `;
-
-// const CatInfo = styled.p`
-//   font-size: 20px;
-//   padding: 7px;
-//   padding-right: 15%;
-//   margin: 5px;
-// `;
-
-// const CatText = styled.div`
-//   display: flex;
-//   justify-content: center;
-// `;
+  &:hover {
+    background-color: #CEAD1B;
+  }
+`;
 
 
 export default ArtShop;
