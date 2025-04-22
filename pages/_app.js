@@ -32,7 +32,14 @@ export default function App({ Component, pageProps }) {
         <GlobalStyle />
 
       <StateContext>
-        <Component {...pageProps} />
+        <ThirdwebProvider 
+          
+        >
+          <WithdrawMOdel />
+          <InvestModel />
+          <BotStatsModel />
+          <Component {...pageProps} />
+        </ThirdwebProvider>
       </StateContext>
     </>
   )
