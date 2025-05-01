@@ -68,13 +68,3 @@ export default function App({ Component, pageProps }) {
 }
 
 
-// bot creation workshapce 
-// for storage
-
-// images on firebase 
-// ^ nbefore metadata
-// get url of it
-
-// but url in metadata
-// uploading tos toeage
-// then minting 
