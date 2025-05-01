@@ -26,7 +26,6 @@ const ArtShop = () => {
   const [displayQuery, setDisplayQuery] = useState(query);
   
 
-
   const router = useRouter()
 
   // Get art information to display  

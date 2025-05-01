@@ -52,10 +52,7 @@ const NavigationBar = () => {
       <>
       <ContainerNavBar>
         <Navbar>
-            <LogoItem><Logo></Logo></LogoItem>
-            {/* <ListItem><LinkRef><ConnectWallet theme="light"/></LinkRef></ListItem> */}
-            {/* <ListItem><LinkRef href="/profilePage">{name}</LinkRef></ListItem> */}
-           
+            <LogoItem><Logo></Logo></LogoItem>           
               {address ? <>
                 <ListItem><LinkRef onClick={logOut}> Log out </LinkRef></ListItem>
                 <ListItem><LinkRef href="/profilePage"> Profile Page</LinkRef></ListItem>
