@@ -4,7 +4,7 @@ import Footer from "@/components/LandingPage/Footer"
 import {useStateContext } from '@/context/StateContext'
 import React, { useState, useEffect, useRef } from 'react'
 import { useRouter } from "next/router"
-import { createDoc } from "@/backend/Database"
+import { fetchArtTrade } from "@/backend/Database"
 import artData from './api/Art.json';
 
 
@@ -31,10 +31,27 @@ const ArtTrade = () => {
 
 
   // for the search results
-  const [query, setQuery] = useState(artData.users[0].artTrade);
+  const [query, setQuery] = useState("");
   const [displayQuery, setDisplayQuery] = useState(query);
 
 
+  // Get art information to display  
+  useEffect(() =>{
+    const fetchArtImages = async () => {
+      const data = await fetchArtTrade();
+      console.log("Data: " + data);
+
+      if(!data || data == ""){
+        console.log("There is no art shop information. Somethign went wrong fetching the info. Data: " , data);
+      } else {
+        console.log("Success getting the art info! Data: " , data);
+        setQuery(data);
+        setDisplayQuery(data);
+      } 
+    }
+    
+    fetchArtImages();
+  },[])
 
 
   // For the form

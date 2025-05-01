@@ -4,7 +4,7 @@ import NavigationBar from '@/components/Dashboard/Navbar'
 import { useStateContext } from '@/context/StateContext'
 import { useRouter } from 'next/router'
 import Footer from "@/components/LandingPage/Footer"
-import { fetchEmailData, fetchCatListData, deleteDesiredCat } from "@/backend/Database"
+import { fetchArtShop } from "@/backend/Database"
 import artData from './api/Art.json';
 
 
@@ -21,13 +21,31 @@ const ArtShop = () => {
 
 
   // for the search results
-  const [query, setQuery] = useState(artData.users[0].artShop);
+  //artData.users[0].artShop
+  const [query, setQuery] = useState("");
   const [displayQuery, setDisplayQuery] = useState(query);
   
 
 
   const router = useRouter()
-  
+
+  // Get art information to display  
+  useEffect(() =>{
+    const fetchArtImages = async () => {
+      const data = await fetchArtShop();
+      console.log("Data: " + data);
+
+      if(!data || data == ""){
+        console.log("There is no art shop information. Somethign went wrong fetching the info. Data: " , data);
+      } else {
+        console.log("Success getting the art info! Data: " , data);
+        setQuery(data);
+        setDisplayQuery(data);
+      } 
+    }
+    
+    fetchArtImages();
+  },[])
 
 
   // For the form

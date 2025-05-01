@@ -11,15 +11,13 @@ import { getAuth } from "firebase/auth";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "AIzaSyBXrqIrp4HG_u-74JksJGzXYB6vTks8CKY",
-    authDomain: "purrfectpals-5f34e.firebaseapp.com",
-    databaseURL: "https://purrfectpals-5f34e-default-rtdb.firebaseio.com",
-    projectId: "purrfectpals-5f34e",
-    storageBucket: "purrfectpals-5f34e.firebasestorage.app",
-    messagingSenderId: "570003181835",
-    appId: "1:570003181835:web:089a4797516167ea90120e",
-    measurementId: "G-C5545Y96GR"
-  };
+  apiKey: "AIzaSyCU0dbFwWp-iZ9N_b6xpG2UmltOUincC44",
+  authDomain: "artistica-b2267.firebaseapp.com",
+  projectId: "artistica-b2267",
+  storageBucket: "artistica-b2267.firebasestorage.app",
+  messagingSenderId: "780749368566",
+  appId: "1:780749368566:web:cfa9358983eddbf06bd0d7"
+};
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
