@@ -1,40 +1,51 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components';
 import Link from 'next/link'
-import { logOut } from '@/backend/Auth';
 import { useStateContext } from '@/context/StateContext';
 import Logo from '@/components/Dashboard/Logo'
-import { CgProfile } from "react-icons/cg";
+import { ConnectWallet, ThirdwebProvider, useWallet, useAddress, useDisconnect } from '@thirdweb-dev/react'
+import { useRouter } from 'next/router';
 
 
-// Has the different links to the different pages and a logo with the name of the website. Has the user's info if logged in, or else it says to "log in"
+// Has the different links to the different pages and a logo with the name of the website. Has the user's info if logged in, 
+// or else it says to "log in"
 
 
 
 const NavigationBar = () => {
-  
+   
   const { user } = useStateContext()
 
   const [name, setName] = useState(null);
 
+  const address = useAddress();
+  const disconnect = useDisconnect();
+
+
+  const router = useRouter();
+
   
   // See what name to display in the top right corner
-  useEffect(() => {
-    if(!user){
-      setName("Log in");
-    }else{
-      // Get name from email
-      let userName = '';
-      if(typeof user === 'object'){
-        userName = user.email.split('@');
-      } else if(typeof user === 'string') {
-        userName = user.split('@');
-      }
+  // useEffect(() => {
+  //   if(!user){
+  //     setName("Log in");
+  //   }else{
+  //     // Get name from email
+  //     let userName = '';
+  //     if(typeof user === 'object'){
+  //       userName = user.email.split('@');
+  //     } else if(typeof user === 'string') {
+  //       userName = user.split('@');
+  //     }
       
-      setName(userName[0]+ "'s Profile");
-    }
-  }, [user]) 
+  //     setName(userName[0]+ "'s Profile");
+  //   }
+  // }, [user]) 
 
+  const logOut = () =>{
+    disconnect();
+    router.push('/');
+  }
   
 // Need list in reverse order with the way I am displaying them. 
     return (
@@ -42,7 +53,15 @@ const NavigationBar = () => {
       <ContainerNavBar>
         <Navbar>
             <LogoItem><Logo></Logo></LogoItem>
-            <ListItem><LinkRef href="/profilePage">{name}</LinkRef></ListItem>
+            {/* <ListItem><LinkRef><ConnectWallet theme="light"/></LinkRef></ListItem> */}
+            {/* <ListItem><LinkRef href="/profilePage">{name}</LinkRef></ListItem> */}
+           
+              {address ? <>
+                <ListItem><LinkRef onClick={logOut}> Log out </LinkRef></ListItem>
+                <ListItem><LinkRef href="/profilePage"> Profile Page</LinkRef></ListItem>
+              </>
+              : <><ListItem><ButtonStyle btnTitle = "Log in"/></ListItem></>}
+            
             <ListItem><LinkRef href="/interactions">Interactions</LinkRef></ListItem>
             <ListItem><LinkRef href="/tradersDen">Trader's Den</LinkRef></ListItem>
             <ListItem><LinkRef href="/artShop">Art Shop</LinkRef></ListItem>
@@ -100,30 +119,26 @@ const LinkRef = styled.a`
     border: 1px solid #120E14;
     background-color: #292430;
     border-radius: 20px;
+    cursor: pointer;
   }
 `;
 
-
-
-// Deletes if not used!!
-const Profile = styled(Link)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;   // Adjust the size as needed
-  height: 50px;   // Adjust the size as needed
-  background-color: #007bff;    // Adjust the background color as needed
-  color: white;
-  border-radius: 4px;     // Adjust for square or rounded corners
-  text-decoration: none;
+const ButtonStyle = styled(ConnectWallet)`
+  padding: 30px;
+  padding-top: 5px;
+  padding-bottom: 7px;
+  font-size: 20px;
+  color: #FFD725;
+  background-color: transparent;
+  cursor: pointer;
+  border: 1px solid #120E14;
+  border-radius: 20px;
   
-  svg {
-    width: 24px;    // Adjust icon size as needed
-    height: 24px;     // Adjust icon size as needed
-  }
-
   &:hover {
-    background-color: #0056b3;  // Adjust hover effect as needed
+    list-style-position: inside;
+    border: 1px solid #120E14;
+    background-color: #292430;
+    border-radius: 20px;
   }
 `;
 

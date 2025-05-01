@@ -1,9 +1,15 @@
 import Head from 'next/head'    //use instead of head
 import { StateContext } from "@/context/StateContext"
 import { createGlobalStyle } from 'styled-components'
+import { ThirdwebProvider, metamaskWallet, 
+  coinbaseWallet, walletConnect, localWallet, 
+  embeddedWallet} from "@thirdweb-dev/react";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient();
 
 export const GlobalStyle = createGlobalStyle`
-  * 
+  *
   {
     box-sizing: border-box;
     margin: 0;
@@ -31,16 +37,44 @@ export default function App({ Component, pageProps }) {
 
         <GlobalStyle />
 
-      <StateContext>
-        <ThirdwebProvider 
-          
-        >
-          <WithdrawMOdel />
+        {/* <StateContext>
+          <ThirdwebProvider  
+            
+          >
+          {/* <WithdrawModel />
           <InvestModel />
-          <BotStatsModel />
+          <BotStatsModel /> 
           <Component {...pageProps} />
         </ThirdwebProvider>
-      </StateContext>
+      </StateContext> */}
+
+      {/* <QueryClientProvider client={queryClient}> */}
+        <StateContext>
+          <ThirdwebProvider                                                               // Might need to change!!! - clientId
+            activeChain="ethereum" //clientId="cc42b11c37e27d6f284c1fd4203573d1" 
+            supportedWallets={[ metamaskWallet({ recommended: true }), coinbaseWallet(),walletConnect(),
+              localWallet(), embeddedWallet({ auth: { options: ["email","google","apple","facebook",],},}),
+            ]}
+          >
+          {/* <WithdrawModal />
+          <InvestModal />
+          <BotStatsModel /> */}
+            <Component {...pageProps} /> 
+          </ThirdwebProvider>
+        </StateContext>
+      {/* </QueryClientProvider> */}
     </>
   )
 }
+
+
+// bot creation workshapce 
+// for storage
+
+// images on firebase 
+// ^ nbefore metadata
+// get url of it
+
+// but url in metadata
+// uploading tos toeage
+// then minting 

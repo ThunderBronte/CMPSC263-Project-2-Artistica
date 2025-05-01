@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@thirdweb-dev/react": "^4.9.4",
+    "@thirdweb-dev/sdk": "^4.0.99",
     "axios": "^1.6.7",
     "babel-plugin-styled-components": "^2.1.4",
     "bootstrap": "^5.3.3",
     "crypto": "^1.0.1",
-    "ethers": "^6.13.5",
+    "ethers": "^5.7.2",
     "firebase": "^10.14.1",
     "mvp-starter": "file:",
     "next": "13.5.4",
@@ -22,6 +24,6 @@
     "react-dom": "^18",
     "react-icons": "^5.0.1",
     "styled-components": "^6.0.8",
-    "thirdweb": "^5.95.2"
+    "thirdweb": "^5.96.5"
   }
 }
