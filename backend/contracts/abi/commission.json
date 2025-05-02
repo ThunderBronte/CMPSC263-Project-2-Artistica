@@ -230,19 +230,6 @@
 		"type": "event"
 	},
 	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "enum DigitalArtNFT.ProjectState",
-				"name": "newState",
-				"type": "uint8"
-			}
-		],
-		"name": "UpdateProgress",
-		"type": "event"
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "address",
@@ -300,7 +287,7 @@
 				"type": "address"
 			}
 		],
-		"name": "balanceOfAddress",
+		"name": "balanceOfMoney",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -340,7 +327,7 @@
 				"type": "bool"
 			}
 		],
-		"stateMutability": "nonpayable",
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
@@ -367,16 +354,6 @@
 				"internalType": "uint256",
 				"name": "_totalCost",
 				"type": "uint256"
-			},
-			{
-				"internalType": "address payable",
-				"name": "_artist",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_promisedArt",
-				"type": "uint256"
 			}
 		],
 		"name": "createCommission",
@@ -389,9 +366,9 @@
 		"name": "currentState",
 		"outputs": [
 			{
-				"internalType": "enum DigitalArtNFT.ProjectState",
+				"internalType": "uint256",
 				"name": "",
-				"type": "uint8"
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -431,12 +408,25 @@
 	},
 	{
 		"inputs": [],
+		"name": "getContractName",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "getCurrentState",
 		"outputs": [
 			{
-				"internalType": "enum DigitalArtNFT.ProjectState",
+				"internalType": "string",
 				"name": "",
-				"type": "uint8"
+				"type": "string"
 			}
 		],
 		"stateMutability": "view",
@@ -479,6 +469,25 @@
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_value",
+				"type": "uint256"
+			}
+		],
+		"name": "integerToString",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "pure",
 		"type": "function"
 	},
 	{
@@ -551,26 +560,26 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
+		"inputs": [],
 		"name": "payArtist",
 		"outputs": [],
 		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "promisedArt",
-		"outputs": [
+		"inputs": [
 			{
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"name": "projectState",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
 			}
 		],
 		"stateMutability": "view",
@@ -602,11 +611,6 @@
 				"internalType": "address",
 				"name": "to",
 				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
 			}
 		],
 		"name": "safeMint",
@@ -784,13 +788,7 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "enum DigitalArtNFT.ProjectState",
-				"name": "newState",
-				"type": "uint8"
-			}
-		],
+		"inputs": [],
 		"name": "updateProgress",
 		"outputs": [],
 		"stateMutability": "nonpayable",

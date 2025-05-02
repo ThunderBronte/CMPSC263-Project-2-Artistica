@@ -25,22 +25,6 @@ const NavigationBar = () => {
   const router = useRouter();
 
   
-  // See what name to display in the top right corner
-  // useEffect(() => {
-  //   if(!user){
-  //     setName("Log in");
-  //   }else{
-  //     // Get name from email
-  //     let userName = '';
-  //     if(typeof user === 'object'){
-  //       userName = user.email.split('@');
-  //     } else if(typeof user === 'string') {
-  //       userName = user.split('@');
-  //     }
-      
-  //     setName(userName[0]+ "'s Profile");
-  //   }
-  // }, [user]) 
 
   const logOut = () =>{
     disconnect();

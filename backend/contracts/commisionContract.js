@@ -1,47 +1,61 @@
-import React, { useState, useRef, useEffect } from 'react';
-import styled, {keyframes} from 'styled-components'
-import { COLORS } from '@/library/theme'
-import { SIZING } from '@/library/sizing'
-import { BotCreationWorkspaceInputLabel, BotCreationWorkspaceTagItem, 
-BotCreationWorkspaceScriptConfigurationLabel, BotCreationWorkspaceUnderlinedSpan,
-BotCreationWorkspaceDragAndDropYourScriptSpan, BotCreationWorkspaceOrSpan,
-BotCreationWorkspaceAffirmationSpan, BotCreationWorkspaceFileNameSpan,
-BotCreationWorkspaceSuccessSpan } from '@/library/typography'
-import { MdClose } from "react-icons/md";
-import { MdCloudUpload } from "react-icons/md";
+// import { COLORS } from '@/library/theme'
+// import { SIZING } from '@/library/sizing'
+// import { BotCreationWorkspaceInputLabel, BotCreationWorkspaceTagItem, 
+// BotCreationWorkspaceScriptConfigurationLabel, BotCreationWorkspaceUnderlinedSpan,
+// BotCreationWorkspaceDragAndDropYourScriptSpan, BotCreationWorkspaceOrSpan,
+// BotCreationWorkspaceAffirmationSpan, BotCreationWorkspaceFileNameSpan,
+// BotCreationWorkspaceSuccessSpan } from '@/library/typography'
+// import { MdClose } from "react-icons/md";
+// import { MdCloudUpload } from "react-icons/md";
+//import Commission from './commission.js'
+// import { MdCheck } from "react-icons/md";
+// import Confetti from 'react-confetti'
+
 import { useStorage, useAddress, useSigner } from '@thirdweb-dev/react';
 import { ethers } from 'ethers';
-import CreatingBotLoader from './CreatingBotLoader.js'
-import TradioABI from "@/contracts/abi/TraderoidABI.json"
-import { Traderiod_NFT_CONTRACT_ADDRESS } from '@/CENTERAL_VALUES';
-import { MdCheck } from "react-icons/md";
-import Confetti from 'react-confetti'
+import React, { useState, useRef, useEffect } from 'react';
+import styled, {keyframes} from 'styled-components';
+import CommissionABI from "@/contracts/abi/commission.json";
+import { DIGITAL_ART_NFT_ADDRESS } from '@/CENTERAL_VALUES';
+
 
 
 const crypto = require('crypto');
 
-const [isMinting, setIsMinting] = useState(false);
-const [mintMessege, setMintMessege] = useState('');
 
-const storage = useStorage();
-const userAddress = useAddress();
+const CommissionContract = () => { 
+    const [contractName, setContractName] = useState('');
+    const [totalCost, setTotalCost] = useState('');
+    const [progressState, setProgressState] = useState('');
+    const [tokenId, setTokenId] = useState('');
+    const [statusMessage, setStatusMessage] = useState('');
 
+    // const contractName = useRef();
+    // const totalCost = useRef();
 
-const commissionContract = () => { 
+    // const [isMinting, setIsMinting] = useState(false);
+    // const [mintMessege, setMintMessege] = useState('');
+
+    const storage = useStorage();
+    const userAddress = useAddress();
+    const signer = useSigner();
 
     async function handleNFTmint(){
         setIsMinting(true)
         try{
-            // bot creation workshapce 
+
+            // bot creation workspace 
             // for storage
 
             // images on firebase 
-            // ^ nbefore metadata
+            // ^ before metadata
             // get url of it
 
             // but url in metadata
-            // uploading tos toeage
+            // uploading to storage
             // then minting 
+
+
             const metadata = {
                 name: botName,
                 manager: userAddress,
@@ -52,11 +66,12 @@ const commissionContract = () => {
                 PerformanceFee: parseInt(PerformanceFee.current.value),
                 script: fileText
             };
+
             const data = JSON.stringify(metadata) + new Date().toISOString();
             const hash = crypto.createHash('sha256').update(data).digest('hex');
             metadata.id = hash;
             console.log(metadata)
-            const contract = new ethers.Contract(Traderiod_NFT_CONTRACT_ADDRESS, TradioABI, signer);
+            const contract = new ethers.Contract(DIGITAL_ART_NFT_ADDRESS, TradioABI, signer);
             const url = await storage.upload(metadata);
             const tx = await contract.safeMint(url, metadata.ManagementFee, metadata.script);
             await tx.wait();
@@ -74,4 +89,4 @@ const commissionContract = () => {
 
 }
 
-export default commissionContract
+export default CommissionContract
