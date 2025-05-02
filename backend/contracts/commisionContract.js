@@ -24,19 +24,15 @@ import { DIGITAL_ART_NFT_ADDRESS } from '@/backend/contracts/constants';
 // const crypto = require('crypto');
 
 
-const CommissionContract = () => {
-    const router = useRouter();
+const CommissionContract = ({artistInfo}) => {
     const [artistAddress, setArtistAddress] = useState(null);
     const [artistName, setArtistName] = useState(null);
 
-    // get the artist name and address from artShop page. 
-    useEffect(() => {
-        console.log("artist " + artistAddress)
-        console.log("router: " + router.isReady)
-        if (router.isReady) {
-          const { artistAddress, artistName } = router.query;
-          setArtistAddress(artistAddress);
-          setArtistName(artistName);
+      useEffect(() => {
+        console.log("artist infoooo: " + artistInfo)
+        if (artistInfo) {
+          setArtistName(artistInfo.name);
+          setArtistAddress(artistInfo.address);
         }
       }, []);
 
@@ -57,11 +53,7 @@ const CommissionContract = () => {
     const [errorMessageComplete, setErrorMessageComplete] = useState("");
     
 
-    // const contractName = useRef();
-    // const totalCost = useRef();
-
     const [isMinting, setIsMinting] = useState(false);
-    // const [mintMessege, setMintMessege] = useState('');
 
     const storage = useStorage();
     const userAddress = useAddress();
@@ -212,35 +204,35 @@ const CommissionContract = () => {
         <ContentContainer>
         <Space>.</Space>
         <FormContainer>
-            <FormTitle>Commission Artist {artistAddress}</FormTitle>
+            <FormTitle>Commission Artist: {artistName} at {artistAddress}</FormTitle>
 
             <ErrorText> {errorMessage}</ErrorText>
             <StyledLabel>Contract Name</StyledLabel>
             <StyledInput
-            value={contractName}
+            // value={contractName}
             onChange={e => setContractName(e.target.value)}
             />
 
             <StyledLabel>Artist Address</StyledLabel>
             <StyledInput
-                value={artistAddress}
+                // value={artistAddress}
                 onChange={e => setArtistAddress(e.target.value)}
             />
 
             <StyledLabel>Total Cost (ETH)</StyledLabel>
             <StyledInput
-            value={totalCost}
+            // value={totalCost}
             onChange={e => setTotalCost(e.target.value)}
             />
 
             <StyledLabel>Pay half of contract price (ETH)</StyledLabel>
             <StyledInput
-            value={sendingAmount}
+            // value={sendingAmount}
             onChange={e => setSendingAmount(e.target.value)}
             />
 
             <StyledButton onClick={createCommission}>Create Commission</StyledButton>
-            <StatusText>{statusMessage}</StatusText>
+            <StatusText>{statusMessageFillOut}</StatusText>
         </FormContainer>
 
 
@@ -250,7 +242,7 @@ const CommissionContract = () => {
             <ErrorText> {errorMessageFillOut}</ErrorText>
             <StyledLabel>Enter Artist's Address</StyledLabel>
             <StyledInput
-                value={artistAddress}
+                // value={artistAddress}
                 onChange={e => setArtistAddress(e.target.value)}
             />
             <StyledButton onClick={mintNFT}>Mint NFT For Artist</StyledButton>
@@ -258,7 +250,7 @@ const CommissionContract = () => {
 
             <StyledLabel>Pay Artist (ETH)</StyledLabel>
             <StyledInput
-                value={sendingAmount}
+                // value={sendingAmount}
                 onChange={e => setSendingAmount(e.target.value)}
             />
             <StyledButton onClick={() => payArtist(sendingAmount)}>Pay Artist</StyledButton>
@@ -275,11 +267,12 @@ const CommissionContract = () => {
             <ErrorText> {errorMessageComplete}</ErrorText>
             <StyledLabel>Artists's Art piece (NFT Token ID)</StyledLabel>
             <StyledInput
-                value={tokenId}
+                // value={tokenId}
                 onChange={e => setTokenId(e.target.value)}
             />
             <StyledButton onClick={completeCommission}>Complete Contract & Transfer NFT</StyledButton>
 
+            <StatusText>{statusMessageComplete}</StatusText>
             
         </FormContainer>
         <Space>.</Space>

@@ -87,22 +87,21 @@ const ArtShop = () => {
 
   
   const openContractPage = (name, artistAddress) => {
-    console.log("if statement ????" + !address);
+   // console.log("if statement ????" + !address);
     if (!address) {
       setHasMessage(true); // show message only if user not logged in
       return;
     } else {
       setHasMessage(false);
-      router.push('/commission');
+      router.push(
+      {
+        pathname: '/commission',
+        query: {
+          artistName: name,
+          artistAddress: artistAddress
+        }
+      })
     }
-  
-    //   {
-    //   pathname: '/commission',
-    //   query: {
-    //     artistName: name,
-    //     artistAddress: artistAddress
-    //   }
-    // });
   };
 
 
