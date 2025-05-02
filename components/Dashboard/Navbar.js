@@ -21,6 +21,8 @@ const NavigationBar = () => {
   const address = useAddress();
   const disconnect = useDisconnect();
 
+  user
+
 
   const router = useRouter();
 

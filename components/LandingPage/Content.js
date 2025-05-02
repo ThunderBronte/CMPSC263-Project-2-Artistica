@@ -15,19 +15,6 @@ const Content = () => {
 
 
 
-
-// Bring to the top of the page
-  // function goToTop(){
-  //   if(focus.current){
-  //     focus.current.scrollIntoView({
-  //       behavior: "smooth",
-  //       block: "start"
-  //     });
-  //   }
-  // }
-
-
-
   return (
     <ContentContainer>
       <Space>.</Space>
@@ -63,7 +50,6 @@ const Content = () => {
 
         
         </TextContent>
-        {/* <TopContainer><SectionButton onClick={() => goToTop()}>Back To Top</SectionButton></TopContainer> */}
     </ContentContainer> 
   ); 
 };

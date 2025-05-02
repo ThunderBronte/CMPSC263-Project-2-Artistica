@@ -19,6 +19,8 @@ const ArtShop = () => {
   const [artistName, setArtistName] = useState(null);
   const [artistEmail, setArtistEmail] = useState(null);
 
+  const [ btnPressed, setBtnPressed ] = useState(false);
+
 
   // for the search results
   //artData.users[0].artShop
@@ -68,20 +70,21 @@ const ArtShop = () => {
   const closeMessage = () => {
     setHasMessage(false);
     setIsOpen(false);
+    //setBtnPressed(false);
   };
+
 
   // Send the user to the contract page. 
   const openContractPage = (name, address) =>{
-    router.push({
-      pathname: '/backend/contracts/commisionContract',
-      query:{
-        artistName: name,
-        artistAddress: address
-      }
-    });
+    console.log("Opn contract page here");
+    router.push('/commission');
+    //   pathname: '/commision',
+    //   query:{
+    //     artistName: name,
+    //     artistAddress: address
+    //   }
+    // });
   }
-
-
 
   // If the user is not logged in and they want to contact one of the artists, it will prompt them to sign in
   // Will work when I include the ability to sign in lol
@@ -90,11 +93,13 @@ const ArtShop = () => {
     if(user === undefined){ 
       console.log("Starting up! Waiting for user info...");
     } else {
-      // if(!user){
-      //   router.push('/login')
-      // }
+      if(!user){
+        openMessage();
+      } else {
+        openContractPage(data.name, data.email)
+      }
     }
-  }, [openContractPage]);
+  }, [btnPressed]);
 
 
 
@@ -151,8 +156,8 @@ const ArtShop = () => {
            <PopupOverlay>
            <PopupContent>
              <CloseButton onClick={() => closePopup()}>&times;</CloseButton>
-             <PopupTitle>Success!</PopupTitle>
-                <Label>Your message has successfully sent. The artist will be in touch with you shortly. </Label>
+             <PopupTitle>Not logged In!</PopupTitle>
+                <Label>You are unable to contact an artist untless you are logged in. Please exit out and click on the "Log in" button at the top right. </Label>
                <SubmitButton type="button" onClick={() => closeMessage()}>Close</SubmitButton>
            </PopupContent>
          </PopupOverlay>
@@ -168,7 +173,7 @@ const ArtShop = () => {
                   <Image src={data.url}></Image>
                   <ArtText>Artist: {data.name}</ArtText>
                   <ArtText>Email: {data.email}</ArtText>
-                  <Button onClick={() => openContractPage(data.name, data.email)}>Contact</Button>
+                  <Button onClick={() => setBtnPressed(!btnPressed)}>Contact</Button>
                 </ImageContainer>
               )}
             </>

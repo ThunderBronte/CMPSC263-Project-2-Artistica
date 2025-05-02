@@ -16,8 +16,8 @@ import { ethers } from 'ethers';
 import React, { useState, useRef, useEffect } from 'react';
 import styled, {keyframes} from 'styled-components';
 import { useRouter } from 'next/router';
-import CommissionABI from "@/contracts/abi/commission.json";
-import { DIGITAL_ART_NFT_ADDRESS } from '@/CENTERAL_VALUES';
+import CommissionABI from "@/backend/contracts/abi/commission.json";
+import { DIGITAL_ART_NFT_ADDRESS } from '@/backend/contracts/constants';
 
 
 
@@ -56,13 +56,18 @@ const CommissionContract = () => {
     const userAddress = useAddress();
     const signer = useSigner();
 
-    const contractOutline = new ethers.Contract(DIGITAL_ART_NFT_ADDRESS, CommissionABI, signer);
+    if (!signer) {
+        console.log("Wallet not connected or signer not available.");
+        return;
+    }
+
+    const contract = new ethers.Contract(DIGITAL_ART_NFT_ADDRESS, CommissionABI, signer);
     //deployContract()
 
-    async function deployContract() {
-        // Deploy the contract
-        const contract = await contractOutline.deploy(artistAddress);
-      }
+    // async function deployContract() {
+    //     // Deploy the contract
+    //     const contract = await contractOutline.deploy(artistAddress);
+    //   }
     
     async function mintNFT(){
         if (!artistAddress) {
@@ -100,7 +105,7 @@ const CommissionContract = () => {
 
             // console.log(metadata)
 
-            //const url = await storage.upload(metadata);
+            // const url = await storage.upload(metadata);
 
             const tx = await contract.safeMint(artistAddress);
             await tx.wait();
