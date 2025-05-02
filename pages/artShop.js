@@ -48,11 +48,11 @@ const ArtShop = () => {
 
 
   // For the form
-  const openPopup = (name, email) => {
-    setArtistName(name);
-    setArtistEmail(email);
-    setIsOpen(true);
-  };
+  // const openPopup = (name, email) => {
+  //   setArtistName(name);
+  //   setArtistEmail(email);
+  //   setIsOpen(true);
+  // };
   
   const closePopup = () => {
     setIsOpen(false);
@@ -70,6 +70,17 @@ const ArtShop = () => {
     setIsOpen(false);
   };
 
+  // Send the user to the contract page. 
+  const openContractPage = (name, address) =>{
+    router.push({
+      pathname: '/backend/contracts/commisionContract',
+      query:{
+        artistName: name,
+        artistAddress: address
+      }
+    });
+  }
+
 
 
   // If the user is not logged in and they want to contact one of the artists, it will prompt them to sign in
@@ -83,7 +94,7 @@ const ArtShop = () => {
       //   router.push('/login')
       // }
     }
-  }, [openPopup]);
+  }, [openContractPage]);
 
 
 
@@ -157,7 +168,7 @@ const ArtShop = () => {
                   <Image src={data.url}></Image>
                   <ArtText>Artist: {data.name}</ArtText>
                   <ArtText>Email: {data.email}</ArtText>
-                  <Button onClick={() => openPopup(data.name, data.email)}>Contact</Button>
+                  <Button onClick={() => openContractPage(data.name, data.email)}>Contact</Button>
                 </ImageContainer>
               )}
             </>
