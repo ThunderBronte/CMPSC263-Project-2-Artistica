@@ -6,12 +6,15 @@ import { useRouter } from 'next/router'
 import Footer from "@/components/LandingPage/Footer"
 import { fetchArtShop } from "@/backend/Database"
 import artData from './api/Art.json';
+import { useAddress } from '@thirdweb-dev/react'
 
 
 
 const ArtShop = () => {
 
   const { user, setUser } = useStateContext()
+
+  const address = useAddress();
 
   const [isOpen, setIsOpen] = useState(false);
   const [hasMessage, setHasMessage] = useState(null);
@@ -70,35 +73,35 @@ const ArtShop = () => {
   const closeMessage = () => {
     setHasMessage(false);
     setIsOpen(false);
-    //setBtnPressed(false);
   };
 
 
   // Send the user to the contract page. 
   const openContractPage = (name, address) =>{
     console.log("Opn contract page here");
-    router.push('/commission');
-    //   pathname: '/commision',
-    //   query:{
-    //     artistName: name,
-    //     artistAddress: address
-    //   }
-    // });
+    router.push({
+      pathname: '/commision',
+      query:{
+        artistName: artistName,
+        artistAddress: artistEmail
+      }
+    });
   }
 
   // If the user is not logged in and they want to contact one of the artists, it will prompt them to sign in
   // Will work when I include the ability to sign in lol
   useEffect(() => {
     // wait for user information to load 
-    if(user === undefined){ 
-      console.log("Starting up! Waiting for user info...");
-    } else {
-      if(!user){
+    console.log(address);
+    // if(address === undefined){ 
+    //   console.log("Starting up! Waiting for user info...");
+    // } else {
+      if(!address){
         openMessage();
       } else {
-        openContractPage(data.name, data.email)
+        openContractPage()
       }
-    }
+    //}
   }, [btnPressed]);
 
 
@@ -173,7 +176,10 @@ const ArtShop = () => {
                   <Image src={data.url}></Image>
                   <ArtText>Artist: {data.name}</ArtText>
                   <ArtText>Email: {data.email}</ArtText>
-                  <Button onClick={() => setBtnPressed(!btnPressed)}>Contact</Button>
+                  <Button onClick={() => {
+                    setBtnPressed(!btnPressed);
+                    setArtistName(data.name);
+                    setArtistEmail(data.email);}}>Contact</Button>
                 </ImageContainer>
               )}
             </>

@@ -1,12 +1,6 @@
 [
 	{
-		"inputs": [
-			{
-				"internalType": "address payable",
-				"name": "_artist",
-				"type": "address"
-			}
-		],
+		"inputs": [],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
 	},
@@ -349,6 +343,11 @@
 				"internalType": "string",
 				"name": "_contractName",
 				"type": "string"
+			},
+			{
+				"internalType": "address payable",
+				"name": "_artist",
+				"type": "address"
 			},
 			{
 				"internalType": "uint256",

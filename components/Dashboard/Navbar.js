@@ -21,11 +21,17 @@ const NavigationBar = () => {
   const address = useAddress();
   const disconnect = useDisconnect();
 
-  user
-
 
   const router = useRouter();
 
+  // useEffect(() => {
+  //   if(!user){
+  //     setName("Log in");
+  //   }else{
+  //     setName("YA IN");
+      
+  //   }
+  // }, [user])
   
 
   const logOut = () =>{
