@@ -131,7 +131,7 @@ const CommissionContract = ({artistInfo}) => {
     async function createCommission(){
         try{
             console.log(artistAddress);
-            if (!artistAddress || !ethers.utils.isAddress(artistAddress)) {
+            if (!artistAddress) {
                 setErrorMessage("Error: Invalid or missing artist address.");
                 return;
             }
@@ -154,9 +154,9 @@ const CommissionContract = ({artistInfo}) => {
     }
 
 
-    const payArtist = async (amount) => {
+    const payArtist = async () => {
         try{
-            const value = ethers.utils.parseEther((Number(amount) / 2).toString()); 
+            const value = ethers.utils.parseEther(sendingAmount.toString()); 
             const tx = await contract.payArtist({ value });
             await tx.wait();
             setStatusMessageFillout('Status: Paid ' + amount + 'ethers to the artist.');
@@ -253,7 +253,7 @@ const CommissionContract = ({artistInfo}) => {
                 // value={sendingAmount}
                 onChange={e => setSendingAmount(e.target.value)}
             />
-            <StyledButton onClick={() => payArtist(sendingAmount)}>Pay Artist</StyledButton>
+            <StyledButton onClick={() => payArtist()}>Pay Artist</StyledButton>
             <br></br>
 
             <StyledLabel>Artists, Update Art Progress</StyledLabel>
@@ -292,7 +292,7 @@ const CommissionContract = ({artistInfo}) => {
     const FormContainer = styled.div`
     background-color: #292430;
     color: white;
-    max-width: 500px;
+    max-width: 50%;
     margin: 40px auto;
     padding: 30px;
     border-radius: 10px;

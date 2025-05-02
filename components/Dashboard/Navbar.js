@@ -52,7 +52,7 @@ const NavigationBar = () => {
               : <><ListItem><ButtonStyle btnTitle = "Log in"/></ListItem></>}
             
             <ListItem><LinkRef href="/interactions">Interactions</LinkRef></ListItem>
-            <ListItem><LinkRef href="/tradersDen">Trader's Den</LinkRef></ListItem>
+            {/* <ListItem><LinkRef href="/tradersDen">Trader's Den</LinkRef></ListItem> */}
             <ListItem><LinkRef href="/artShop">Art Shop</LinkRef></ListItem>
         </Navbar>
       </ContainerNavBar>
