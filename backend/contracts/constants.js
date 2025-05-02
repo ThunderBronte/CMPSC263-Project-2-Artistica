@@ -1,3 +1,3 @@
 
 // address of the contract                      --- CHANGE NUMBER ---
-export const DIGITAL_ART_NFT_ADDRESS = "0xf8e81D47203A594245E36C48e151709F0C19fBe8";
+export const DIGITAL_ART_NFT_ADDRESS = "0x6A9412d1D428bf0F6290958892Ae8ee7B1445E30";
