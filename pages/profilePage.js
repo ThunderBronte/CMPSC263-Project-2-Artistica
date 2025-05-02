@@ -28,9 +28,6 @@ export default function Home() {
           <Space>.</Space>
           <TitleScreen>
             <Title>Hello!</Title>
-            <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
-              <PageText>I have not set up the forced log in, not entirely sure how to yet. 
-                This page will only become accessable if someone logs in with their MetaMask.</PageText>
           </TitleScreen>
           <TextContent>
             <SectionContainer>
@@ -38,7 +35,7 @@ export default function Home() {
                   <ProfileImage src="Images/PersonalProfilePicture.jpg"></ProfileImage>
                  <PageInfo>
                     <PageText>Welcome to your Profile Page!</PageText>
-                    <PageText>Here, you can <Yellow>view your art</Yellow> and see completed and uncompleted <Yellow>contracts.</Yellow> </PageText>
+                    <PageText>Here, you can <Yellow>view your art</Yellow> and see <Yellow>contracts.</Yellow> </PageText>
                   </PageInfo>
               </ProfileContainer>
                 <Subheading> <Yellow>Art you have posted: </Yellow> </Subheading>
@@ -54,30 +51,15 @@ export default function Home() {
                       </ImageContainer>
                   </AllArtCont>
                 </SectionContainer>
-                <Subheading> <Yellow>Current Contracts</Yellow> </Subheading>
+                <Subheading> <Yellow>Contracts</Yellow> </Subheading>
                   <AllArtCont>
                     <ImageContainer>
-                      <ArtText>Art Trade</ArtText>
+                      <ArtText></ArtText>
                       <ArtText>Currently With: Artist 6</ArtText>
                     </ImageContainer>
                     <ImageContainer>
                       <ArtText>Commision</ArtText>
                       <ArtText>Currently With: Artist 8</ArtText>
-                    </ImageContainer>
-                  </AllArtCont>
-                <Subheading> <Yellow>Completed Contracts</Yellow> </Subheading>
-                  <AllArtCont>
-                    <ImageContainer>
-                      <ArtText>Art Trade</ArtText>
-                      <ArtText>Done with: Artist 1</ArtText>
-                    </ImageContainer>
-                    <ImageContainer>
-                      <ArtText>Art Trade</ArtText>
-                      <ArtText>Done with: Artist 2</ArtText>
-                    </ImageContainer>
-                    <ImageContainer>
-                      <ArtText>Commision</ArtText>
-                      <ArtText>Done with: Artist 3</ArtText>
                     </ImageContainer>
                   </AllArtCont>
               </SectionContainer>

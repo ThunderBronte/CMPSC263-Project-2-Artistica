@@ -1,16 +1,3 @@
-// import { COLORS } from '@/library/theme'
-// import { SIZING } from '@/library/sizing'
-// import { BotCreationWorkspaceInputLabel, BotCreationWorkspaceTagItem, 
-// BotCreationWorkspaceScriptConfigurationLabel, BotCreationWorkspaceUnderlinedSpan,
-// BotCreationWorkspaceDragAndDropYourScriptSpan, BotCreationWorkspaceOrSpan,
-// BotCreationWorkspaceAffirmationSpan, BotCreationWorkspaceFileNameSpan,
-// BotCreationWorkspaceSuccessSpan } from '@/library/typography'
-// import { MdClose } from "react-icons/md";
-// import { MdCloudUpload } from "react-icons/md";
-//import Commission from './commission.js'
-// import { MdCheck } from "react-icons/md";
-// import Confetti from 'react-confetti'
-
 import { useStorage, useAddress, useSigner } from '@thirdweb-dev/react';
 import { ethers } from 'ethers';
 import React, { useState, useRef, useEffect } from 'react';
@@ -19,9 +6,6 @@ import { useRouter } from 'next/router';
 import CommissionABI from "@/backend/contracts/abi/commission.json";
 import { DIGITAL_ART_NFT_ADDRESS } from '@/backend/contracts/constants';
 
-
-
-// const crypto = require('crypto');
 
 
 const CommissionContract = ({artistInfo}) => {
@@ -40,6 +24,7 @@ const CommissionContract = ({artistInfo}) => {
     const [contractName, setContractName] = useState('');
     //const [imgUrl, setImgUrl] = useState('');
     const [totalCost, setTotalCost] = useState('');
+    const [remainingCost, setRemainingTotal] = useState('');
     const [progressState, setProgressState] = useState('');
     const [tokenId, setTokenId] = useState('');
     const [sendingAmount, setSendingAmount] = useState('');
@@ -65,12 +50,6 @@ const CommissionContract = ({artistInfo}) => {
     }
 
     const contract = new ethers.Contract(DIGITAL_ART_NFT_ADDRESS, CommissionABI, signer);
-    //deployContract()
-
-    // async function deployContract() {
-    //     // Deploy the contract
-    //     const contract = await contractOutline.deploy(artistAddress);
-    //   }
     
     async function mintNFT(){
         if (!artistAddress) {
@@ -154,6 +133,7 @@ const CommissionContract = ({artistInfo}) => {
     }
 
 
+    // pay the artist
     const payArtist = async () => {
         try{
             const value = ethers.utils.parseEther(sendingAmount.toString()); 
@@ -199,6 +179,72 @@ const CommissionContract = ({artistInfo}) => {
         }
     };
 
+    // Get the total cost of the coontract
+    const getRemaining = async() =>{
+        try{
+            const remaining = await contract.getRemainingCost();
+            setRemainingTotal(remaining);
+            console.log(remaining);
+
+            return ethers.utils.formatEther(remaining);
+        } catch(err){
+            setErrorMessageFillOut(`Error: ${err.message}`);
+            setStatusMessageFillout('');
+        }
+    }
+
+     // get the contract name
+     const getTotalCost = async() =>{
+        try {
+            const total = await contract.getTotal();
+            console.log(total);
+
+            return ethers.utils.formatEther(total);
+          } catch (err) {
+            setErrorMessageFillOut(`Error: ${err.message}`);
+            setStatusMessageFillout('');
+          }
+    }
+
+    // get the buyer of the contract
+    const getBuyer = async() =>{
+        try{
+            const buyer = await contract.buyer();
+            console.log(buyer);
+
+            return ethers.utils.formatEther(buyer);
+        } catch(err){
+            setErrorMessageFillOut(`Error: ${err.message}`);
+            setStatusMessageFillout('');
+        }
+    }
+
+    // get the artist of the contract
+    const getArtist = async() =>{
+        try{
+            const artist = await contract.artist();
+            console.log(artist);
+
+            return ethers.utils.formatEther(artist);
+        } catch(err){
+            setErrorMessageFillOut(`Error: ${err.message}`);
+            setStatusMessageFillout('');
+        }
+    }
+
+
+    // get the contract name
+    const getContractName = async() =>{
+        try {
+            const name = await contract.getContractName();
+            console.log("Contract name:", name);
+            return name;
+          } catch (err) {
+            console.error("Error getting contract name:", err);
+          }
+    }
+
+
 
       return (
         <ContentContainer>
@@ -232,7 +278,7 @@ const CommissionContract = ({artistInfo}) => {
             />
 
             <StyledButton onClick={createCommission}>Create Commission</StyledButton>
-            <StatusText>{statusMessageFillOut}</StatusText>
+            <StatusText>{statusMessage}</StatusText>
         </FormContainer>
 
 
@@ -258,7 +304,15 @@ const CommissionContract = ({artistInfo}) => {
 
             <StyledLabel>Artists, Update Art Progress</StyledLabel>
             <StyledButton onClick={updateProgress}>Update Progress</StyledButton>
+            <br></br>
+
+            <StyledLabel>Get Remaining Cost</StyledLabel>
+            <StyledButton onClick={getRemaining}>Get Remaining Cost</StyledButton>
+            <StatusText>{remainingCost}</StatusText>
+
+
             <StatusText>{progressState}</StatusText>
+            <StatusText>{statusMessageFillOut}</StatusText>
 
         </FormContainer>
         <FormContainer>

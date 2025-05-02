@@ -4,29 +4,37 @@ import Footer from "@/components/LandingPage/Footer"
 import {useStateContext } from '@/context/StateContext'
 import React, { useState, useEffect, useRef } from 'react'
 import { useRouter } from "next/router"
-import { createDoc } from "@/backend/Database"
+
+import {  getTotalCost, getBuyer, getArtist, } from "@/backend/contracts/contracts/commissionContractUtils";
 
 
 
 const Content = ({text}) => {
 
-//   const router = useRouter();
-
   const { user, setUser } = useStateContext();
 
   const focus = useRef('');
 
+  //info to display
+  const [cost, setCost] = useState("");
+  const [buyer, setBuyer] = useState("");
+  const [artist, setArtist] = useState("");
 
-    useEffect(() => {
-        // wait for user information to load 
-        if(user === undefined){ 
-        console.log("Starting up! Waiting for user info...");
-        } else {
-        // if(!user){
-        //   router.push('/login')
-        // }
-        }
-    }, [user]);
+
+  useEffect(() => {
+    const loadContractInfo = async () => {
+      console.log("contract get into: " , getTotalCost());
+      // const _cost = await getTotalCost();
+      // const _buyer = await getBuyer();
+      // const _artist = await getArtist();
+
+      // setCost(_cost);
+      // setBuyer(_buyer);
+      // setArtist(_artist);
+    };
+
+    loadContractInfo();
+  }, []);
  
 
 
@@ -39,16 +47,41 @@ const Content = ({text}) => {
         <Title>Interactions</Title>
       </TitleScreen>
       <PageInfo>
-          <PageText>This page might be deleted depending on how everything else goes - as in, is this really important / how hard it is to complete it.</PageText>
-          <PageText>As of right now, this page is dedicated to showing people's interactions</PageText>
-          <PageText>I have a grid prepared, but it currently has place holders in it.</PageText>
+          
       </PageInfo>
        
 
       <TextContent>
         <SectionContainer>
           <AllInteractions>
-              <Column>
+            {cost && buyer && artist ?
+              <>
+                <Column>
+                  <Image src="Images/MightDelete/send.jpg"></Image>
+                  <ArtText>{buyer}</ArtText>
+                </Column>
+                <Column>
+                  <Image src="Images/MightDelete/money.webp"></Image>
+                  <ArtText>{totalCost}</ArtText>
+                </Column>
+                <Column>
+                  <Image src="Images/MightDelete/getInfo.png"></Image>
+                  <ArtText>{artist}</ArtText>
+                </Column>
+              </>
+              : 
+              <>
+                <Column>
+                </Column>
+                <Column>
+                  <Image src="Images/sad.png"></Image>
+                  <ArtText>There have been no contracts completed.</ArtText>
+                  <ArtText>Create a commision contract with an artist!</ArtText>
+                </Column>
+              </>
+             
+            }
+              {/* <Column>
                 <Image src="Images/MightDelete/send.jpg"></Image>
                 <ArtText>User Sending Information 1</ArtText>
               </Column>
@@ -71,7 +104,7 @@ const Content = ({text}) => {
               <Column>
                 <Image src="Images/MightDelete/money.webp"></Image>
                 <ArtText>The amount 2</ArtText>
-              </Column>
+              </Column> */}
               
           </AllInteractions>
         </SectionContainer>
@@ -156,7 +189,7 @@ const Column = styled.div`
 const Image = styled.img`
   height: 275px;
   width: 275px;
-  border-radius: 5px;
+  border-radius: 50%;
   object-fit: cover;
   margin-top: 15px;
 `;
