@@ -19,10 +19,7 @@ const ArtShop = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [hasMessage, setHasMessage] = useState(null);
 
-  const [artistName, setArtistName] = useState(null);
-  const [artistEmail, setArtistEmail] = useState(null);
-
-  const [ btnPressed, setBtnPressed ] = useState(false);
+  //const [ btnPressed, setBtnPressed ] = useState(false);
 
 
   // for the search results
@@ -77,32 +74,54 @@ const ArtShop = () => {
 
 
   // Send the user to the contract page. 
-  const openContractPage = (name, address) =>{
-    console.log("Opn contract page here");
-    router.push({
-      pathname: '/commision',
-      query:{
-        artistName: artistName,
-        artistAddress: artistEmail
-      }
-    });
-  }
+  // const openContractPage = (name, address) =>{
+  //   console.log("On contract page here");
+  //   router.push('/commission');
+  //     // pathname: '/commission',
+  //     // query:{
+  //     //   artistName: artistName,
+  //     //   artistAddress: artistEmail
+  //     // }
+  //  // });
+  // }
+
+  
+  const openContractPage = (name, artistAddress) => {
+    console.log("if statement ????" + !address);
+    if (!address) {
+      setHasMessage(true); // show message only if user not logged in
+      return;
+    } else {
+      setHasMessage(false);
+      router.push('/commission');
+    }
+  
+    //   {
+    //   pathname: '/commission',
+    //   query: {
+    //     artistName: name,
+    //     artistAddress: artistAddress
+    //   }
+    // });
+  };
+
+
 
   // If the user is not logged in and they want to contact one of the artists, it will prompt them to sign in
   // Will work when I include the ability to sign in lol
-  useEffect(() => {
-    // wait for user information to load 
-    console.log(address);
-    // if(address === undefined){ 
-    //   console.log("Starting up! Waiting for user info...");
-    // } else {
-      if(!address){
-        openMessage();
-      } else {
-        openContractPage()
-      }
-    //}
-  }, [btnPressed]);
+  // useEffect(() => {
+  //   // wait for user information to load 
+  //   console.log(address);
+  //   // if(address === undefined){ 
+  //   //   console.log("Starting up! Waiting for user info...");
+  //   // } else {
+  //     if(!address){
+  //       openMessage();
+  //     } else {
+  //       openContractPage()
+  //     }
+  //   //}
+  // }, []);
 
 
 
@@ -132,7 +151,7 @@ const ArtShop = () => {
           <PageText>Here, you can see the available artsist that you can <Yellow>buy</Yellow> art from.</PageText>
       </PageInfo>
       <TextContent>
-        {isOpen && (
+        {/* {isOpen && (
           <PopupOverlay>
             <PopupContent>
               <CloseButton onClick={() => closePopup()}>&times;</CloseButton>
@@ -154,7 +173,7 @@ const ArtShop = () => {
               </StyledForm>
             </PopupContent>
           </PopupOverlay>
-        )}
+        )} */}
         {hasMessage && (
            <PopupOverlay>
            <PopupContent>
@@ -177,9 +196,7 @@ const ArtShop = () => {
                   <ArtText>Artist: {data.name}</ArtText>
                   <ArtText>Email: {data.email}</ArtText>
                   <Button onClick={() => {
-                    setBtnPressed(!btnPressed);
-                    setArtistName(data.name);
-                    setArtistEmail(data.email);}}>Contact</Button>
+                    openContractPage(data.name, data.email)}}>Contact</Button>
                 </ImageContainer>
               )}
             </>

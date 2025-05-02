@@ -36,7 +36,7 @@ const NavigationBar = () => {
 
   const logOut = () =>{
     disconnect();
-    router.push('/');
+    //router.push('/');
   }
   
 // Need list in reverse order with the way I am displaying them. 

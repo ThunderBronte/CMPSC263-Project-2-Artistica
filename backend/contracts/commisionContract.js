@@ -42,12 +42,20 @@ const CommissionContract = () => {
 
 
     const [contractName, setContractName] = useState('');
-    const [imgUrl, setImgUrl] = useState('');
+    //const [imgUrl, setImgUrl] = useState('');
     const [totalCost, setTotalCost] = useState('');
     const [progressState, setProgressState] = useState('');
     const [tokenId, setTokenId] = useState('');
-    const [statusMessage, setStatusMessage] = useState('');
     const [sendingAmount, setSendingAmount] = useState('');
+
+    // set messages 
+    const [statusMessage, setStatusMessage] = useState("");
+    const [statusMessageFillOut, setStatusMessageFillout] = useState("");
+    const [statusMessageComplete, setStatusMessageComplete] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [errorMessageFillOut, setErrorMessageFillOut] = useState("");
+    const [errorMessageComplete, setErrorMessageComplete] = useState("");
+    
 
     // const contractName = useRef();
     // const totalCost = useRef();
@@ -75,6 +83,7 @@ const CommissionContract = () => {
     async function mintNFT(){
         if (!artistAddress) {
             console.log("No artist address found.");
+            setErrorMessageFillOut("Error: No artist address found.");
             return;
         }
 
@@ -114,11 +123,13 @@ const CommissionContract = () => {
             await tx.wait();
 
             console.log("NFT Minted to Artist!");
-            setStatusMessage("NFT Minted to Artist!");
+            setStatusMessageFillout("Status: NFT Minted to Artist!");
+            setErrorMessageFillOut(``);
 
         } catch(err) {
             console.log(err)
-            setStatusMessage(`Error: ${err.toString()}`)
+            setErrorMessageFillOut(`Error: ${err.toString()}`)
+            setStatusMessageFillout("");
             // setIsMinting(false)
         }
     }
@@ -129,7 +140,7 @@ const CommissionContract = () => {
         try{
             console.log(artistAddress);
             if (!artistAddress || !ethers.utils.isAddress(artistAddress)) {
-                setStatusMessage("Invalid or missing artist address.");
+                setErrorMessage("Error: Invalid or missing artist address.");
                 return;
             }
             const value = ethers.utils.parseEther(sendingAmount);
@@ -141,10 +152,12 @@ const CommissionContract = () => {
             );
 
             tx.wait();
-            setStatusMessage('Commission Created Successfully');
+            setStatusMessage('Status: Commission Contract Created Successfully');
+            setErrorMessage(``);
 
        } catch(err) {
-        setStatusMessage(`Error: ${err.message}`);
+        setErrorMessage(`Error: ${err.message}`);
+        setStatusMessage(``);
        }
     }
 
@@ -154,9 +167,11 @@ const CommissionContract = () => {
             const value = ethers.utils.parseEther((Number(amount) / 2).toString()); 
             const tx = await contract.payArtist({ value });
             await tx.wait();
-            setStatusMessage('Paid ' + amount + 'ethers to the artist.');
+            setStatusMessageFillout('Status: Paid ' + amount + 'ethers to the artist.');
+            setErrorMessageFillOut(``);
         } catch(err) {
-            setStatusMessage(`Error: ${err.message}`);
+            setErrorMessageFillOut(`Error: ${err.message}`);
+            setStatusMessageFillout(``);
         }
     }
 
@@ -168,10 +183,12 @@ const CommissionContract = () => {
             await tx.wait();
 
             const state = await contract.getCurrentState();
-            setProgressState(state);
-            setStatusMessage(`Updated progress to: ${state}`);
+            setProgressState("Progress: " + state);
+            setStatusMessageFillout(`Status: Updated progress to: ${state}`);
+            setErrorMessageFillOut(``);
         } catch(err) {
-            setStatusMessage(`Error: ${err.message}`);
+            setErrorMessageFillOut(`Error: ${err.message}`);
+            setStatusMessageFillout(``);
         }
     }
 
@@ -182,122 +199,109 @@ const CommissionContract = () => {
             const tx = await contract.completeCommission(tokenId);
 
             await tx.wait();
-            setStatusMessage('Commission complete, NFT transferred to buyer and money sent to the artist.');
+            setStatusMessageComplete('Status: Commission complete, NFT transferred to buyer and money sent to the artist.');
+            setErrorMessageComplete(``);
         } catch(err) {
-            setStatusMessage(`Error: ${err.message}`);
+            setErrorMessageComplete(`Error: ${err.message}`);
+            setStatusMessageComplete('');
         }
     };
 
-    // return (
-    //     <>
-    //       <h2>Commission Your Art</h2>
-    //       <input placeholder="Contract Name" value={contractName} onChange={e => setContractName(e.target.value)} />
-    //       <input placeholder="Total Cost (ETH)" value={totalCost} onChange={e => setTotalCost(e.target.value)} />
-    //       <input placeholder="Amount to send (ETH)" value={sendingAmount} onChange={e => setSendingAmount(e.target.value)} />
-    
-    //       <button onClick={createCommission}>Create Commission</button>
-    //       <button onClick={mintNFT}>Mint NFT</button>
-    //       <button onClick={payArtist}>Pay Artist</button>
-    //       <button onClick={updateProgress}>Update Progress</button>
-    //       <input placeholder="Token ID" value={tokenId} onChange={e => setTokenId(e.target.value)} />
-    //       <button onClick={completeCommission}>Complete & Transfer NFT</button>
-    
-    //       <p><strong>Progress:</strong> {progressState}</p>
-    //       <p><strong>Status:</strong> {statusMessage}</p>
-    //     </>
-    //   );
 
       return (
+        <ContentContainer>
+        <Space>.</Space>
         <FormContainer>
-          <FormTitle>🎨 Commission Your Art</FormTitle>
-    
-          <StyledLabel>Contract Name</StyledLabel>
-          <StyledInput
-            placeholder="e.g., Ocean Landscape"
+            <FormTitle>Commission Artist {artistAddress}</FormTitle>
+
+            <ErrorText> {errorMessage}</ErrorText>
+            <StyledLabel>Contract Name</StyledLabel>
+            <StyledInput
             value={contractName}
             onChange={e => setContractName(e.target.value)}
-          />
-    
-          <StyledLabel>Total Cost (ETH)</StyledLabel>
-          <StyledInput
-            placeholder="e.g., 1.5"
+            />
+
+            <StyledLabel>Artist Address</StyledLabel>
+            <StyledInput
+                value={artistAddress}
+                onChange={e => setArtistAddress(e.target.value)}
+            />
+
+            <StyledLabel>Total Cost (ETH)</StyledLabel>
+            <StyledInput
             value={totalCost}
             onChange={e => setTotalCost(e.target.value)}
-          />
-    
-          <StyledLabel>Amount to Send (ETH)</StyledLabel>
-          <StyledInput
-            placeholder="e.g., 0.75"
+            />
+
+            <StyledLabel>Pay half of contract price (ETH)</StyledLabel>
+            <StyledInput
             value={sendingAmount}
             onChange={e => setSendingAmount(e.target.value)}
-          />
-    
-          <StyledButton onClick={createCommission}>Create Commission</StyledButton>
-          <StyledButton onClick={mintNFT}>Mint NFT</StyledButton>
-          <StyledButton onClick={() => payArtist(sendingAmount)}>Pay Artist</StyledButton>
-          <StyledButton onClick={updateProgress}>Update Progress</StyledButton>
-    
-          <StyledLabel>Token ID</StyledLabel>
-          <StyledInput
-            placeholder="e.g., 0"
-            value={tokenId}
-            onChange={e => setTokenId(e.target.value)}
-          />
-          <StyledButton onClick={completeCommission}>Complete & Transfer NFT</StyledButton>
-    
-          <StatusText><strong>Progress:</strong> {progressState}</StatusText>
-          <StatusText><strong>Status:</strong> {statusMessage}</StatusText>
+            />
+
+            <StyledButton onClick={createCommission}>Create Commission</StyledButton>
+            <StatusText>{statusMessage}</StatusText>
         </FormContainer>
+
+
+        <FormContainer>
+            <FormTitle>Fill out Contract</FormTitle>
+            
+            <ErrorText> {errorMessageFillOut}</ErrorText>
+            <StyledLabel>Enter Artist's Address</StyledLabel>
+            <StyledInput
+                value={artistAddress}
+                onChange={e => setArtistAddress(e.target.value)}
+            />
+            <StyledButton onClick={mintNFT}>Mint NFT For Artist</StyledButton>
+            <br></br>
+
+            <StyledLabel>Pay Artist (ETH)</StyledLabel>
+            <StyledInput
+                value={sendingAmount}
+                onChange={e => setSendingAmount(e.target.value)}
+            />
+            <StyledButton onClick={() => payArtist(sendingAmount)}>Pay Artist</StyledButton>
+            <br></br>
+
+            <StyledLabel>Artists, Update Art Progress</StyledLabel>
+            <StyledButton onClick={updateProgress}>Update Progress</StyledButton>
+            <StatusText>{progressState}</StatusText>
+
+        </FormContainer>
+        <FormContainer>
+            <FormTitle>Complete Contract</FormTitle>
+
+            <ErrorText> {errorMessageComplete}</ErrorText>
+            <StyledLabel>Artists's Art piece (NFT Token ID)</StyledLabel>
+            <StyledInput
+                value={tokenId}
+                onChange={e => setTokenId(e.target.value)}
+            />
+            <StyledButton onClick={completeCommission}>Complete Contract & Transfer NFT</StyledButton>
+
+            
+        </FormContainer>
+        <Space>.</Space>
+        </ContentContainer>
       );
     };
     
-
-
-
-    // return (  
-    //  <> 
-    //         <TextContent>
-    //         {isOpen && (
-    //         <PopupOverlay>
-    //             <PopupContent>
-    //             <CloseButton onClick={() => closePopup()}>&times;</CloseButton>
-    //             <PopupTitle>Shopping Form</PopupTitle>
-    //             <StyledForm>
-    //                 <FormGroup>
-    //                 <Label>Desired Artist's Name:</Label>
-    //                 <Input value = {artistName}/>
-    //                 </FormGroup>
-    //                 <FormGroup>
-    //                 <Label>Desired Artist's Email:</Label>
-    //                 <Input value = {artistEmail}/>
-    //                 </FormGroup>
-    //                 <FormGroup>
-    //                 <Label>Message:</Label>
-    //                 <TextArea value="Hello, I was interested in buying an art piece from you."/>
-    //                 </FormGroup>
-    //                 <SubmitButton type="button" onClick={() => openMessage()}>Submit</SubmitButton>
-    //             </StyledForm>
-    //             </PopupContent>
-    //         </PopupOverlay>
-    //         )}
-    //         {hasMessage && (
-    //         <PopupOverlay>
-    //         <PopupContent>
-    //             <CloseButton onClick={() => closePopup()}>&times;</CloseButton>
-    //             <PopupTitle>Success!</PopupTitle>
-    //                 <Label>Your message has successfully sent. The artist will be in touch with you shortly. </Label>
-    //             <SubmitButton type="button" onClick={() => closeMessage()}>Close</SubmitButton>
-    //         </PopupContent>
-    //         </PopupOverlay>
-    //         )};
-    //     </>
-    //     )
        
+
+    const ContentContainer = styled.div`
+      background-color: #120E14;
+      color: white;
+    `;
+
+    const Space = styled.div` color: #120E14; `;
+
     const FormContainer = styled.div`
+    background-color: #292430;
+    color: white;
     max-width: 500px;
     margin: 40px auto;
     padding: 30px;
-    background: #fdfdfd;
     border-radius: 10px;
     box-shadow: 0 4px 14px rgba(0,0,0,0.1);
     display: flex;
@@ -308,27 +312,27 @@ const CommissionContract = () => {
   const FormTitle = styled.h2`
     text-align: center;
     margin-bottom: 20px;
-    color: #333;
   `;
   
   const StyledLabel = styled.label`
     font-weight: 600;
     margin-top: 10px;
-    color: #444;
   `;
   
   const StyledInput = styled.input`
     padding: 10px;
+    color: white;
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 6px;
     width: 100%;
     box-sizing: border-box;
+    background: transparent;
   `;
   
   const StyledButton = styled.button`
-    background-color: #4f46e5;
-    color: white;
+    background-color: #FFD725;
+    color: black;
     padding: 10px;
     margin-top: 10px;
     font-size: 1rem;
@@ -338,18 +342,28 @@ const CommissionContract = () => {
     transition: background 0.3s;
   
     &:hover {
-      background-color: #4338ca;
+      background-color: #CEAD1B;
     }
   `;
   
   const StatusText = styled.p`
+    text-align: center;
     margin-top: 10px;
-    color: #333;
     font-size: 0.95rem;
-    background: #f1f1f1;
+    background: transparent;
     padding: 10px;
     border-radius: 6px;
+    color: white;
   `;
+
+  const ErrorText = styled.p`
+  margin-top: 5px;
+  font-size: 0.95rem;
+  background: transparent;
+  padding: 10px;
+  border-radius: 6px;
+  color: red;
+`;
   
 
 export default CommissionContract;
