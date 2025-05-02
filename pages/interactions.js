@@ -3,6 +3,7 @@ import NavigationBar from "@/components/Dashboard/Navbar"
 import Footer from "@/components/LandingPage/Footer"
 import {useStateContext } from '@/context/StateContext'
 import React, { useState, useEffect, useRef } from 'react'
+import useLocalStorage from '@/backend/contracts/useLocalStorage';
 import { useRouter } from "next/router"
 
 import {  getTotalCost, getBuyer, getArtist, } from "@/backend/contracts/contracts/commissionContractUtils";
@@ -15,6 +16,8 @@ const Content = ({text}) => {
 
   const focus = useRef('');
 
+  //const localStorage = useLocalStorage();
+
   //info to display
   const [cost, setCost] = useState("");
   const [buyer, setBuyer] = useState("");
@@ -23,7 +26,13 @@ const Content = ({text}) => {
 
   useEffect(() => {
     const loadContractInfo = async () => {
-      console.log("contract get into: " , getTotalCost());
+      console.log("local storage: " , localStorage);
+      console.log("local storage: " , localStorage.getItem('totalCost'));
+      
+      setCost(localStorage.getItem('totalCost'));
+      setBuyer(localStorage.getItem('buyer'));
+      setArtist(localStorage.getItem('artist'));
+
       // const _cost = await getTotalCost();
       // const _buyer = await getBuyer();
       // const _artist = await getArtist();

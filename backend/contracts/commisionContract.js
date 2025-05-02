@@ -5,6 +5,7 @@ import styled, {keyframes} from 'styled-components';
 import { useRouter } from 'next/router';
 import CommissionABI from "@/backend/contracts/abi/commission.json";
 import { DIGITAL_ART_NFT_ADDRESS } from '@/backend/contracts/constants';
+//import useLocalStorage from '@/backend/contracts/useLocalStorage';
 
 
 
@@ -19,6 +20,7 @@ const CommissionContract = ({artistInfo}) => {
           setArtistAddress(artistInfo.address);
         }
       }, []);
+
 
 
     const [contractName, setContractName] = useState('');
@@ -43,6 +45,8 @@ const CommissionContract = ({artistInfo}) => {
     const storage = useStorage();
     const userAddress = useAddress();
     const signer = useSigner();
+
+    //const localStorage = useLocalStorage();
 
     if (!signer) {
         console.log("Wallet not connected or signer not available.");
@@ -126,6 +130,12 @@ const CommissionContract = ({artistInfo}) => {
             setStatusMessage('Status: Commission Contract Created Successfully');
             setErrorMessage(``);
 
+            // Call functions to get information to local storage
+            getTotalCost()
+            getArtist()
+            getBuyer()
+            getContractName()
+
        } catch(err) {
         setErrorMessage(`Error: ${err.message}`);
         setStatusMessage(``);
@@ -193,11 +203,18 @@ const CommissionContract = ({artistInfo}) => {
         }
     }
 
+
+
      // get the contract name
      const getTotalCost = async() =>{
         try {
             const total = await contract.getTotal();
             console.log(total);
+
+            useEffect(() => {
+                localStorage.steItem("totalCost", total);
+            }, [total]);
+            
 
             return ethers.utils.formatEther(total);
           } catch (err) {
@@ -212,6 +229,8 @@ const CommissionContract = ({artistInfo}) => {
             const buyer = await contract.buyer();
             console.log(buyer);
 
+            localStorage.steItem("buyer", buyer);
+
             return ethers.utils.formatEther(buyer);
         } catch(err){
             setErrorMessageFillOut(`Error: ${err.message}`);
@@ -224,6 +243,8 @@ const CommissionContract = ({artistInfo}) => {
         try{
             const artist = await contract.artist();
             console.log(artist);
+
+            localStorage.steItem("artist", artist);
 
             return ethers.utils.formatEther(artist);
         } catch(err){
@@ -238,6 +259,9 @@ const CommissionContract = ({artistInfo}) => {
         try {
             const name = await contract.getContractName();
             console.log("Contract name:", name);
+
+            localStorage.steItem("contractName", name);
+
             return name;
           } catch (err) {
             console.error("Error getting contract name:", err);

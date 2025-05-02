@@ -18,7 +18,22 @@ export default function Home() {
 
   const router = useRouter()
 
-  // const isConnected = Boolean(useAddress() != undefined);
+
+  //info to display
+    const [contractName, setContractName] = useState("");
+  
+  
+    useEffect(() => {
+      const loadContractInfo = async () => {
+        console.log("local storage: " , localStorage);
+        console.log("local storage: " , localStorage.getItem('totalCost'));
+        
+        setContractName(localStorage.getItem('contractName'));
+       
+      };
+  
+      loadContractInfo();
+    }, []);
   
   
   return (
@@ -38,6 +53,21 @@ export default function Home() {
                     <PageText>Here, you can <Yellow>view your art</Yellow> and see <Yellow>contracts.</Yellow> </PageText>
                   </PageInfo>
               </ProfileContainer>
+              <Subheading> <Yellow>Contracts</Yellow> </Subheading>
+                  <AllArtCont>
+                    <ImageContainer>
+                      <ArtText>Commision</ArtText>
+                      <ArtText>Currently With: Artist 6</ArtText>
+                    </ImageContainer>
+                    <ImageContainer>
+                      <ArtText>Commision</ArtText>
+                      <ArtText>Currently With: Artist 8</ArtText>
+                    </ImageContainer>
+                    <ImageContainer>
+                      <ArtText>Commision</ArtText>
+                      <ArtText>{contractName}</ArtText>
+                    </ImageContainer>
+                  </AllArtCont>
                 <Subheading> <Yellow>Art you have posted: </Yellow> </Subheading>
                 <SectionContainer>
                   <AllArtCont>
@@ -51,17 +81,7 @@ export default function Home() {
                       </ImageContainer>
                   </AllArtCont>
                 </SectionContainer>
-                <Subheading> <Yellow>Contracts</Yellow> </Subheading>
-                  <AllArtCont>
-                    <ImageContainer>
-                      <ArtText></ArtText>
-                      <ArtText>Currently With: Artist 6</ArtText>
-                    </ImageContainer>
-                    <ImageContainer>
-                      <ArtText>Commision</ArtText>
-                      <ArtText>Currently With: Artist 8</ArtText>
-                    </ImageContainer>
-                  </AllArtCont>
+                
               </SectionContainer>
             </TextContent>
         </ContentContainer>

@@ -24,19 +24,10 @@ const NavigationBar = () => {
 
   const router = useRouter();
 
-  // useEffect(() => {
-  //   if(!user){
-  //     setName("Log in");
-  //   }else{
-  //     setName("YA IN");
-      
-  //   }
-  // }, [user])
-  
 
   const logOut = () =>{
     disconnect();
-    //router.push('/');
+    router.push('/');
   }
   
 // Need list in reverse order with the way I am displaying them. 
